@@ -1,27 +1,26 @@
 import { useEffect } from 'react'
 import { Link, Outlet, useNavigate } from 'react-router-dom'
-import { checkPermission } from '../../api/auth'
+import { useAuth } from '../../context/AuthContext'
+import { Toast } from '../../utils/toast-helper'
 
 const Admin = () => {
 	const navigate = useNavigate()
+	const { isAuthenticated, currentUser, logout } = useAuth()
 	useEffect(() => {
-		const checkTokenIsValid = async () => {
-			const token = localStorage.getItem('authToken')
-			if (!token) {
-				return navigate('/login')
-			}
-			const result = await checkPermission(token)
-			if (!result) {
-				return navigate('/login')
-			}
+		if (!isAuthenticated) {
+			navigate('/login')
 		}
-		checkTokenIsValid()
-	}, [navigate])
+	}, [navigate, isAuthenticated])
+
+	const handleLogout = () => {
+		logout()
+		Toast.fire({ icon: 'success', title: '登出成功' })
+	}
 	return (
 		<>
 			<nav className="navbar navbar-expand-lg bg-dark">
 				<div className="container-fluid">
-					<p className="mb-0 text-white">後台管理系統</p>
+					<p className="mb-0 text-white navbar-brand">後台管理系統</p>
 					<button
 						className="navbar-toggler"
 						type="button"
@@ -37,14 +36,15 @@ const Admin = () => {
 						className="collapse navbar-collapse justify-content-end"
 						id="navbarNav"
 					>
+						<p className="mb-0 me-3 text-white navbar-text">
+							登入帳號：{currentUser?.email}
+						</p>
 						<ul className="navbar-nav">
 							<li className="nav-item">
 								<button
 									type="button"
 									className="btn btn-sm btn-outline-light"
-									onClick={() => {
-										localStorage.removeItem('authToken')
-									}}
+									onClick={handleLogout}
 								>
 									登出
 								</button>

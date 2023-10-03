@@ -1,18 +1,21 @@
 import { Routes, Route } from 'react-router-dom'
+import './styles/style.scss'
 import Login from './pages/Login'
 import Admin from './pages/admin/Admin'
-import './styles/style.scss'
-import AdminProducts from './pages/admin/AdminProducts';
+import AdminProducts from './pages/admin/AdminProducts'
+import { AuthProvider } from './context/AuthContext'
 
 function App() {
 	return (
 		<div className="App">
-			<Routes>
-				<Route path="/login" element={<Login />}></Route>
-				<Route path="/admin" element={<Admin />}>
-					<Route path='products' element={<AdminProducts/>}></Route>
-				</Route>
-			</Routes>
+			<AuthProvider>
+				<Routes>
+					<Route path="/login" element={<Login />}></Route>
+					<Route path="/admin" element={<Admin />}>
+						<Route path="products" element={<AdminProducts />}></Route>
+					</Route>
+				</Routes>
+			</AuthProvider>
 		</div>
 	)
 }

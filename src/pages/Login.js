@@ -1,12 +1,13 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { login } from '../api/auth'
 import { Toast } from '../utils/toast-helper'
+import { useAuth } from '../context/AuthContext'
 
 const Login = () => {
 	const [username, setUsername] = useState('')
 	const [password, setPassword] = useState('')
 	const navigate = useNavigate()
+	const { login, isAuthenticated } = useAuth()
 
 	const handleSubmit = async () => {
 		if (username.length === 0 || password.length === 0) {
@@ -15,12 +16,18 @@ const Login = () => {
 		const success = await login({ username, password })
 		if (success) {
 			Toast.fire({ icon: 'success', title: '登入成功' })
-			return navigate('/admin/products')
+			return
 		} else {
 			Toast.fire({ icon: 'error', title: '登入失敗' })
 			return
 		}
 	}
+	useEffect(()=> {
+		if (isAuthenticated) {
+			navigate('/admin/products')
+		}
+	},[navigate, isAuthenticated])
+	
 	return (
 		<div className="container">
 			<div className="row justify-content-center align-items-center vh-100">
