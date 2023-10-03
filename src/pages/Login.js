@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { login } from '../api/auth'
+import { Toast } from '../utils/toast-helper'
 
 const Login = () => {
 	const [username, setUsername] = useState('')
@@ -10,8 +11,14 @@ const Login = () => {
 		if (username.length === 0 || password.length === 0) {
 			return
 		}
-		const { success } = await login({ username, password })
-		console.log(success)
+		const success = await login({ username, password })
+		if (success) {
+			Toast.fire({ icon: 'success', title: '登入成功' })
+			return
+		} else {
+			Toast.fire({ icon: 'error', title: '登入失敗' })
+			return
+		}
 	}
 	return (
 		<div className="container">
