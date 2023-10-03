@@ -1,12 +1,29 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
+
+const URL = 'https://ec-course-api.hexschool.io'
 
 const Login = () => {
 	const [username, setUsername] = useState('')
 	const [password, setPassword] = useState('')
 
-	const handleSubmit = () => {
-		console.log({username, password})
+	const handleSubmit = async () => {
+		try {
+			const { data } = await axios.post(`${URL}/v2/admin/signin`, {
+				username,
+				password,
+			})
+			const { token } = data
+			if (token) {
+				localStorage.setItem('authToken', token)
+				return { success: true, ...data }
+			} else {
+				return data
+			}
+		} catch (err) {
+			console.error('[Login Failed]: ', err)
+		}
 	}
 	return (
 		<div className="container">
@@ -23,7 +40,9 @@ const Login = () => {
 								type="email"
 								placeholder="Email Address"
 								value={username}
-								onChange={(e) => {setUsername(e.target.value)}}
+								onChange={(e) => {
+									setUsername(e.target.value)
+								}}
 							/>
 						</label>
 					</div>
@@ -37,14 +56,22 @@ const Login = () => {
 								id="password"
 								placeholder="password"
 								value={password}
-								onChange={(e)=> {setPassword(e.target.value)}}
+								onChange={(e) => {
+									setPassword(e.target.value)
+								}}
 							/>
 						</label>
 					</div>
-					<button type="button" className="btn btn-secondary w-100 mb-2" onClick={handleSubmit}>
+					<button
+						type="button"
+						className="btn btn-secondary w-100 mb-2"
+						onClick={handleSubmit}
+					>
 						登入
 					</button>
-					<p className='mb-0 text-center'><Link to="/">回到前台</Link></p>
+					<p className="mb-0 text-center">
+						<Link to="/">回到前台</Link>
+					</p>
 				</div>
 			</div>
 		</div>
