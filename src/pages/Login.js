@@ -1,29 +1,17 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import axios from 'axios'
-
-const URL = 'https://ec-course-api.hexschool.io'
+import { login } from '../api/auth'
 
 const Login = () => {
 	const [username, setUsername] = useState('')
 	const [password, setPassword] = useState('')
 
 	const handleSubmit = async () => {
-		try {
-			const { data } = await axios.post(`${URL}/v2/admin/signin`, {
-				username,
-				password,
-			})
-			const { token } = data
-			if (token) {
-				localStorage.setItem('authToken', token)
-				return { success: true, ...data }
-			} else {
-				return data
-			}
-		} catch (err) {
-			console.error('[Login Failed]: ', err)
+		if (username.length === 0 || password.length === 0) {
+			return
 		}
+		const { success } = await login({ username, password })
+		console.log(success)
 	}
 	return (
 		<div className="container">
