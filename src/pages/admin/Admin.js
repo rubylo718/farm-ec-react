@@ -1,6 +1,22 @@
-import { Link, Outlet } from 'react-router-dom'
+import { useEffect } from 'react'
+import { Link, Outlet, useNavigate } from 'react-router-dom'
+import { checkPermission } from '../../api/auth'
 
 const Admin = () => {
+	const navigate = useNavigate()
+	useEffect(() => {
+		const checkTokenIsValid = async () => {
+			const token = localStorage.getItem('authToken')
+			if (!token) {
+				return navigate('/login')
+			}
+			const result = await checkPermission(token)
+			if (!result) {
+				return navigate('/login')
+			}
+		}
+		checkTokenIsValid()
+	}, [navigate])
 	return (
 		<>
 			<nav className="navbar navbar-expand-lg bg-dark">
@@ -23,7 +39,13 @@ const Admin = () => {
 					>
 						<ul className="navbar-nav">
 							<li className="nav-item">
-								<button type="button" className="btn btn-sm btn-outline-light">
+								<button
+									type="button"
+									className="btn btn-sm btn-outline-light"
+									onClick={() => {
+										localStorage.removeItem('authToken')
+									}}
+								>
 									登出
 								</button>
 							</li>

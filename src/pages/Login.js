@@ -1,11 +1,12 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { login } from '../api/auth'
 import { Toast } from '../utils/toast-helper'
 
 const Login = () => {
 	const [username, setUsername] = useState('')
 	const [password, setPassword] = useState('')
+	const navigate = useNavigate()
 
 	const handleSubmit = async () => {
 		if (username.length === 0 || password.length === 0) {
@@ -14,7 +15,7 @@ const Login = () => {
 		const success = await login({ username, password })
 		if (success) {
 			Toast.fire({ icon: 'success', title: '登入成功' })
-			return
+			return navigate('/admin/products')
 		} else {
 			Toast.fire({ icon: 'error', title: '登入失敗' })
 			return

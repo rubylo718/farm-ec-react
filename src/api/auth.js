@@ -4,7 +4,7 @@ const baseURL = 'https://ec-course-api.hexschool.io'
 
 const axiosInstance = axios.create({ baseURL })
 
-export const login = async ({ username, password }) => {
+const login = async ({ username, password }) => {
 	try {
 		const { data } = await axiosInstance.post(`/v2/admin/signin`, {
 			username,
@@ -21,3 +21,15 @@ export const login = async ({ username, password }) => {
 		console.error('[Login Failed]: ', err)
 	}
 }
+
+const checkPermission = async (token) => {
+	try {
+		axiosInstance.defaults.headers.common['Authorization'] = token
+		const res = await axiosInstance.post('/v2/api/user/check')
+		return res.data
+	} catch (err) {
+		console.error('[Check Permission Failed]: ', err)
+	}
+}
+
+export { login, checkPermission }
