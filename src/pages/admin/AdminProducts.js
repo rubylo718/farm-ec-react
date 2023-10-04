@@ -1,4 +1,17 @@
+import { useEffect, useState } from 'react'
+import { getProducts } from '../../api/admin'
+
 const AdminProducts = () => {
+	const [products, setProducts] = useState([])
+
+	useEffect(() => {
+		const getProductList = async () => {
+			const data = await getProducts()
+			setProducts(data.products)
+		}
+		getProductList()
+	}, [])
+
 	return (
 		<div className="p-3">
 			<h1 className="h3">產品列表</h1>
@@ -20,23 +33,27 @@ const AdminProducts = () => {
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td>分類</td>
-						<td>名稱</td>
-						<td>價格</td>
-						<td>啟用</td>
-						<td>
-							<button type="button" className="btn btn-primary btn-sm">
-								編輯
-							</button>
-							<button
-								type="button"
-								className="btn btn-outline-danger btn-sm ms-2"
-							>
-								刪除
-							</button>
-						</td>
-					</tr>
+					{products.map((product) => {
+						return (
+							<tr key={product.id}>
+								<td>{product.category}</td>
+								<td>{product.title}</td>
+								<td>{product.price}</td>
+								<td>{product.is_enabled ? '啟用' : '未啟用'}</td>
+								<td>
+									<button type="button" className="btn btn-primary btn-sm">
+										編輯
+									</button>
+									<button
+										type="button"
+										className="btn btn-outline-danger btn-sm ms-2"
+									>
+										刪除
+									</button>
+								</td>
+							</tr>
+						)
+					})}
 				</tbody>
 			</table>
 
@@ -47,9 +64,21 @@ const AdminProducts = () => {
 							<span aria-hidden="true">&laquo;</span>
 						</a>
 					</li>
-					<li className="page-item active" aria-current="page"><a className="page-link" href="/">1</a></li>
-					<li className="page-item"><a className="page-link" href="/">2</a></li>
-					<li className="page-item"><a className="page-link" href="/">3</a></li>
+					<li className="page-item active" aria-current="page">
+						<a className="page-link" href="/">
+							1
+						</a>
+					</li>
+					<li className="page-item">
+						<a className="page-link" href="/">
+							2
+						</a>
+					</li>
+					<li className="page-item">
+						<a className="page-link" href="/">
+							3
+						</a>
+					</li>
 					<li className="page-item">
 						<a className="page-link" href="/" aria-label="Next">
 							<span aria-hidden="true">&raquo;</span>
