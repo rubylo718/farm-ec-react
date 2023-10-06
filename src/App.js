@@ -3,6 +3,7 @@ import './styles/style.scss'
 import Login from './pages/Login'
 import Admin from './pages/admin/Admin'
 import AdminProducts from './pages/admin/AdminProducts'
+import AdminCoupons from './pages/admin/AdminCoupons'
 import { AuthProvider } from './context/AuthContext'
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
 					<Route path="/login" element={<Login />}></Route>
 					<Route path="/admin" element={<Admin />}>
 						<Route path="products" element={<AdminProducts />}></Route>
+						<Route path="coupons" element={<AdminCoupons />}></Route>
 					</Route>
 				</Routes>
 			</AuthProvider>
