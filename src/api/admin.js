@@ -48,4 +48,13 @@ const editProduct = async (inputData, id) => {
 		console.error('[Admin-editProduct Error]: ', err)
 	}
 }
-export { getProducts, postProduct, editProduct }
+
+const deleteProduct = async (id) => {
+	try { 
+		const res = await axiosInstance.delete(`/v2/api/${apiPath}/admin/product/${id}`)
+		return res.data
+	} catch(err) {
+		console.error('[Admin-deleteProduct Error]: ', err)
+	}
+}
+export { getProducts, postProduct, editProduct, deleteProduct }

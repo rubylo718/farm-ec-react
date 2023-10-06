@@ -1,7 +1,8 @@
 import { useEffect, useState, useRef } from 'react'
 import { Modal } from 'bootstrap'
-import { getProducts } from '../../api/admin'
+import { getProducts, deleteProduct } from '../../api/admin'
 import ProductModal from '../../components/admin/ProductModal'
+import { DeleteConfirmation, Confirmation } from '../../utils/toast-helper'
 
 const AdminProducts = () => {
 	const [products, setProducts] = useState([])
@@ -20,6 +21,17 @@ const AdminProducts = () => {
 	}
 	const handleHideProductModal = () => {
 		productModal.current.hide()
+	}
+
+	const handleDeleteProduct = async (id) => {
+		const { isConfirmed } = await DeleteConfirmation.fire()
+		if (isConfirmed) {
+			const result = await deleteProduct(id)
+			if (result?.success) {
+				Confirmation.fire({ title: '資料已刪除' })
+				getProductList()
+			}
+		}
 	}
 
 	useEffect(() => {
@@ -78,6 +90,7 @@ const AdminProducts = () => {
 									<button
 										type="button"
 										className="btn btn-outline-danger btn-sm ms-2"
+										onClick={() => handleDeleteProduct(product.id)}
 									>
 										刪除
 									</button>
