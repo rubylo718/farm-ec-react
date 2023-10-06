@@ -4,6 +4,7 @@ import { getCoupons, deleteCoupon } from '../../api/admin'
 import CouponModal from '../../components/admin/CouponModal'
 import Pagination from '../../components/Pagination'
 import { DeleteConfirmation, Confirmation } from '../../utils/toast-helper'
+import { unixToDateString } from '../../utils/dayjs-helper'
 
 const AdminCoupons = () => {
 	const [coupons, setCoupons] = useState([])
@@ -16,7 +17,6 @@ const AdminCoupons = () => {
 		const data = await getCoupons(page)
 		setCoupons(data.coupons)
 		setPagination(data.pagination)
-		console.log(data)
 	}
 	const handleShowModal = (modalAction, modalData) => {
 		setModalAction(modalAction)
@@ -81,7 +81,7 @@ const AdminCoupons = () => {
 							<tr key={coupon.id}>
 								<td>{coupon.title}</td>
 								<td>{coupon.percent}</td>
-								<td>{coupon.due_date}</td>
+								<td>{unixToDateString(coupon.due_date)}</td>
 								<td>{coupon.is_enabled ? '啟用' : '未啟用'}</td>
 								<td>
 									<button

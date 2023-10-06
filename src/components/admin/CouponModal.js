@@ -1,6 +1,11 @@
 import { useEffect, useState } from 'react'
 import { postCoupon, editCoupon } from '../../api/admin'
 import { Toast } from '../../utils/toast-helper'
+import {
+	dateStringToUnix,
+	unixToDateString,
+	todayUnix,
+} from '../../utils/dayjs-helper'
 
 const CouponModal = ({
 	handleHideModal,
@@ -12,7 +17,7 @@ const CouponModal = ({
 		title: '',
 		percent: 100,
 		code: '',
-		due_date: 1318781876,
+		due_date: todayUnix(),
 		is_enabled: 0,
 	})
 
@@ -22,6 +27,8 @@ const CouponModal = ({
 			setInputData({ ...inputData, [name]: Number(value) })
 		} else if (name === 'is_enabled') {
 			setInputData({ ...inputData, [name]: +e.target.checked })
+		} else if (name === 'due_date_string') {
+			setInputData({ ...inputData, due_date: dateStringToUnix(value) })
 		} else {
 			setInputData({ ...inputData, [name]: value })
 		}
@@ -49,7 +56,7 @@ const CouponModal = ({
 				title: '',
 				percent: 100,
 				code: '',
-				due_date: 1318781876,
+				due_date: todayUnix(),
 				is_enabled: 0,
 			})
 		} else if (modalAction === 'edit') {
@@ -125,17 +132,17 @@ const CouponModal = ({
 								/>
 							</div>
 							<div className="col-md-6 mb-2">
-								<label className="w-100" htmlFor="due_date">
+								<label className="w-100" htmlFor="due_date_string">
 									到期日
 								</label>
 								<input
 									type="date"
-									id="due_date"
-									name="due_date"
+									id="due_date_string"
+									name="due_date_string"
 									placeholder="請輸入到期日"
 									className="form-control mt-1"
 									onChange={handleChange}
-									value={inputData.due_date}
+									value={unixToDateString(inputData.due_date)}
 								/>
 							</div>
 						</div>
