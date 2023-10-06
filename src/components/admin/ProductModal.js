@@ -1,9 +1,14 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import productData from '../../utils/selectOptions.json'
-import { postProduct } from '../../api/admin'
+import { postProduct, editProduct } from '../../api/admin'
 import { Toast } from '../../utils/toast-helper'
 
-const ProductModal = ({ handleHideProductModal, getProductList }) => {
+const ProductModal = ({
+	handleHideProductModal,
+	getProductList,
+	modalAction,
+	modalData,
+}) => {
 	const [inputData, setInputData] = useState({
 		title: '',
 		category: '',
@@ -27,8 +32,13 @@ const ProductModal = ({ handleHideProductModal, getProductList }) => {
 		}
 	}
 
-	const handleSubmit = async () => {
-		const result = await postProduct(inputData)
+	const handleSubmit = async (modalAction, id) => {
+		let result
+		if (modalAction === 'create') {
+			result = await postProduct(inputData)
+		} else if (modalAction === 'edit') {
+			result = await editProduct(inputData, id)
+		}
 		if (result.success) {
 			Toast.fire({ icon: 'success', title: `${result.message}` })
 		} else {
@@ -37,6 +47,24 @@ const ProductModal = ({ handleHideProductModal, getProductList }) => {
 		getProductList()
 		handleHideProductModal()
 	}
+
+	useEffect(() => {
+		if (modalAction === 'create') {
+			setInputData({
+				title: '',
+				category: '',
+				origin_price: 0,
+				price: 0,
+				unit: '',
+				description: '',
+				content: '',
+				is_enabled: 0,
+				imageUrl: '',
+			})
+		} else if (modalAction === 'edit') {
+			setInputData(modalData)
+		}
+	}, [modalAction, modalData])
 
 	return (
 		<div
@@ -49,7 +77,8 @@ const ProductModal = ({ handleHideProductModal, getProductList }) => {
 			<div className="modal-dialog modal-lg">
 				<div className="modal-content">
 					<div className="modal-header">
-						<h1 className="modal-title fs-5">建立新商品</h1>
+						<h1 className="modal-title fs-5">
+							{ modalAction === 'create' ? '建立新商品' : '編輯商品' }</h1>
 						<button
 							type="button"
 							className="btn-close"
@@ -226,7 +255,7 @@ const ProductModal = ({ handleHideProductModal, getProductList }) => {
 											name="is_enabled"
 											placeholder="請輸入產品說明內容"
 											className="form-check-input"
-											value={inputData.is_enabled}
+											checked={Boolean(inputData.is_enabled)}
 											onChange={handleChange}
 										/>
 									</div>
@@ -245,7 +274,7 @@ const ProductModal = ({ handleHideProductModal, getProductList }) => {
 						<button
 							type="button"
 							className="btn btn-primary"
-							onClick={handleSubmit}
+							onClick={() => handleSubmit(modalAction, modalData.id)}
 						>
 							儲存
 						</button>

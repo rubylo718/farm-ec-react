@@ -5,13 +5,17 @@ import ProductModal from '../../components/admin/ProductModal'
 
 const AdminProducts = () => {
 	const [products, setProducts] = useState([])
+	const [modalAction, setModalAction] = useState('create') // or 'edit'
+	const [modalData, setModalData] = useState({})
 	const productModal = useRef(null)
 
 	const getProductList = async () => {
 		const data = await getProducts()
 		setProducts(data.products)
 	}
-	const handleShowProductModal = () => {
+	const handleShowProductModal = (modalAction, modalData) => {
+		setModalAction(modalAction)
+		setModalData(modalData)
 		productModal.current.show()
 	}
 	const handleHideProductModal = () => {
@@ -28,14 +32,19 @@ const AdminProducts = () => {
 
 	return (
 		<div className="p-3">
-			<ProductModal handleHideProductModal={handleHideProductModal} getProductList={getProductList} />
+			<ProductModal
+				handleHideProductModal={handleHideProductModal}
+				getProductList={getProductList}
+				modalAction={modalAction}
+				modalData={modalData}
+			/>
 			<h1 className="h3">產品列表</h1>
 			<hr />
 			<div className="text-end">
 				<button
 					type="button"
 					className="btn btn-primary btn-sm"
-					onClick={handleShowProductModal}
+					onClick={() => handleShowProductModal('create', {})}
 				>
 					建立新商品
 				</button>
@@ -59,7 +68,11 @@ const AdminProducts = () => {
 								<td>{product.price}</td>
 								<td>{product.is_enabled ? '啟用' : '未啟用'}</td>
 								<td>
-									<button type="button" className="btn btn-primary btn-sm">
+									<button
+										type="button"
+										className="btn btn-primary btn-sm"
+										onClick={() => handleShowProductModal('edit', product)}
+									>
 										編輯
 									</button>
 									<button

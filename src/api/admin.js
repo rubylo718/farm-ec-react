@@ -37,4 +37,15 @@ const postProduct = async (inputData) => {
 		console.error('[Admin-postProduct Error]: ', err)
 	}
 }
-export { getProducts, postProduct }
+
+const editProduct = async (inputData, id) => {
+	try {
+		const res = await axiosInstance.put(`/v2/api/${apiPath}/admin/product/${id}`, {
+			data: inputData
+		})
+		return res.data
+	} catch (err) {
+		console.error('[Admin-editProduct Error]: ', err)
+	}
+}
+export { getProducts, postProduct, editProduct }
