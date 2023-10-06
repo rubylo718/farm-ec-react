@@ -7,18 +7,10 @@ const AdminProducts = () => {
 	const [products, setProducts] = useState([])
 	const productModal = useRef(null)
 
-	useEffect(() => {
-		productModal.current = new Modal('#productModal', {
-			backdrop: 'static',
-			keyboard: false,
-		})
-
-		const getProductList = async () => {
-			const data = await getProducts()
-			setProducts(data.products)
-		}
-		getProductList()
-	}, [])
+	const getProductList = async () => {
+		const data = await getProducts()
+		setProducts(data.products)
+	}
 	const handleShowProductModal = () => {
 		productModal.current.show()
 	}
@@ -26,9 +18,17 @@ const AdminProducts = () => {
 		productModal.current.hide()
 	}
 
+	useEffect(() => {
+		productModal.current = new Modal('#productModal', {
+			backdrop: 'static',
+			keyboard: false,
+		})
+		getProductList()
+	}, [])
+
 	return (
 		<div className="p-3">
-			<ProductModal handleHideProductModal={handleHideProductModal} />
+			<ProductModal handleHideProductModal={handleHideProductModal} getProductList={getProductList} />
 			<h1 className="h3">產品列表</h1>
 			<hr />
 			<div className="text-end">

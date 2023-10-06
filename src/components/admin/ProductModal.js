@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import productData from '../../utils/selectOptions.json'
+import { postProduct } from '../../api/admin'
+import { Toast } from '../../utils/toast-helper'
 
-const ProductModal = ({ handleHideProductModal }) => {
+const ProductModal = ({ handleHideProductModal, getProductList }) => {
 	const [inputData, setInputData] = useState({
 		title: '',
 		category: '',
@@ -23,6 +25,17 @@ const ProductModal = ({ handleHideProductModal }) => {
 		} else {
 			setInputData({ ...inputData, [name]: value })
 		}
+	}
+
+	const handleSubmit = async () => {
+		const result = await postProduct(inputData)
+		if (result.success) {
+			Toast.fire({ icon: 'success', title: `${result.message}` })
+		} else {
+			Toast.fire({ icon: 'error', title: `${result.message}` })
+		}
+		getProductList()
+		handleHideProductModal()
 	}
 
 	return (
@@ -58,6 +71,7 @@ const ProductModal = ({ handleHideProductModal }) => {
 										placeholder="請輸入圖片網址"
 										className="form-control"
 										value={inputData.imageUrl}
+										onChange={handleChange}
 									/>
 								</div>
 								<div className="form-group mb-2">
@@ -228,7 +242,11 @@ const ProductModal = ({ handleHideProductModal }) => {
 						>
 							關閉
 						</button>
-						<button type="button" className="btn btn-primary">
+						<button
+							type="button"
+							className="btn btn-primary"
+							onClick={handleSubmit}
+						>
 							儲存
 						</button>
 					</div>
