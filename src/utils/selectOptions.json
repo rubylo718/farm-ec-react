@@ -1,0 +1,12 @@
+{
+	"productCategories": [
+		{ "id": 1, "title": "新鮮蔬菜" },
+		{ "id": 2, "title": "當季水果" },
+		{ "id": 3, "title": "乾貨" }
+	],
+	"productUnit": [
+		{ "id": 1, "title": "個" },
+		{ "id": 2, "title": "包" },
+		{ "id": 3, "title": "盒" }
+	]
+}

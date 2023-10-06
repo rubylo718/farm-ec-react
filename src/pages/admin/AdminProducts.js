@@ -1,24 +1,42 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
+import { Modal } from 'bootstrap'
 import { getProducts } from '../../api/admin'
+import ProductModal from '../../components/admin/ProductModal'
 
 const AdminProducts = () => {
 	const [products, setProducts] = useState([])
+	const productModal = useRef(null)
 
 	useEffect(() => {
+		productModal.current = new Modal('#productModal', {
+			backdrop: 'static',
+			keyboard: false,
+		})
+
 		const getProductList = async () => {
 			const data = await getProducts()
 			setProducts(data.products)
 		}
 		getProductList()
 	}, [])
+	const handleShowProductModal = () => {
+		productModal.current.show()
+	}
+	const handleHideProductModal = () => {
+		productModal.current.hide()
+	}
 
 	return (
 		<div className="p-3">
+			<ProductModal handleHideProductModal={handleHideProductModal} />
 			<h1 className="h3">產品列表</h1>
-
 			<hr />
 			<div className="text-end">
-				<button type="button" className="btn btn-primary btn-sm">
+				<button
+					type="button"
+					className="btn btn-primary btn-sm"
+					onClick={handleShowProductModal}
+				>
 					建立新商品
 				</button>
 			</div>
