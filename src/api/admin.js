@@ -18,9 +18,9 @@ axiosInstance.interceptors.request.use(
 	}
 )
 
-const getProducts = async () => {
+const getProducts = async (page) => {
 	try {
-		const res = await axiosInstance.get(`/v2/api/${apiPath}/admin/products`)
+		const res = await axiosInstance.get(`/v2/api/${apiPath}/admin/products?page=${page}`)
 		return res.data
 	} catch (err) {
 		console.error('[Admin-getProducts Error]: ', err)
