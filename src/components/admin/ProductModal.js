@@ -42,7 +42,7 @@ const ProductModal = ({
 		if (result.success) {
 			Toast.fire({ icon: 'success', title: `${result.message}` })
 		} else {
-			Toast.fire({ icon: 'error', title: `${result.message}` })
+			Toast.fire({ icon: 'error', title: `${result.message || `錯誤，請重新操作`}` })
 		}
 		getProductList()
 		handleHideProductModal()
