@@ -4,6 +4,7 @@ import Login from './pages/Login'
 import Admin from './pages/admin/Admin'
 import AdminProducts from './pages/admin/AdminProducts'
 import AdminCoupons from './pages/admin/AdminCoupons'
+import AdminOrders from './pages/admin/AdminOrders'
 import { AuthProvider } from './context/AuthContext'
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
 					<Route path="/admin" element={<Admin />}>
 						<Route path="products" element={<AdminProducts />}></Route>
 						<Route path="coupons" element={<AdminCoupons />}></Route>
+						<Route path="orders" element={<AdminOrders />}></Route>
 					</Route>
 				</Routes>
 			</AuthProvider>

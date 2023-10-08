@@ -101,6 +101,27 @@ const deleteCoupon = async (id) => {
 	}
 }
 
+// order
+const getOrders = async (page) => {
+	try {
+		const res = await axiosInstance.get(`/orders?page=${page}`)
+		return res.data
+	} catch (err) {
+		console.error('[Admin-getOrders Error]: ', err)
+		return err.response.data
+	}
+}
+
+const editOrder = async (data, id) => {
+	try {
+		const res = await axiosInstance.put(`/order/${id}`, { data })
+		return res.data
+	} catch (err) {
+		console.error('[Admin-editOrder Error]: ', err)
+		return err.response.data
+	}
+}
+
 export {
 	getProducts,
 	postProduct,
@@ -110,4 +131,6 @@ export {
 	postCoupon,
 	editCoupon,
 	deleteCoupon,
+	getOrders,
+	editOrder
 }
