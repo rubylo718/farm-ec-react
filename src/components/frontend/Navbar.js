@@ -1,0 +1,79 @@
+import { Link } from 'react-router-dom'
+import { faSeedling, faBasketShopping } from '@fortawesome/free-solid-svg-icons'
+import { faHeart } from '@fortawesome/free-regular-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
+const Navbar = () => {
+	return (
+		<div
+			className="bg-white sticky-top"
+			style={{
+				borderBottom: '1px solid rgba(211,211,211,.74)',
+				boxShadow: '1px 0 5px rgba(0,0,0,.15)',
+			}}
+		>
+			<div className="container">
+				<nav className="navbar px-0 navbar-expand-lg navbar-light bg-white">
+					<a
+						className="navbar-brand position-absolute fs-4"
+						href="./index.html"
+						style={{
+							left: '50%',
+							transform: 'translate(-50%, -50%)',
+							top: '50%',
+						}}
+					>
+						<FontAwesomeIcon icon={faSeedling} className="me-1 text-primary" />
+						安心小農
+					</a>
+					<button
+						className="navbar-toggler"
+						type="button"
+						data-bs-toggle="collapse"
+						data-bs-target="#navbarNav"
+						aria-controls="navbarNav"
+						aria-expanded="false"
+						aria-label="Toggle navigation"
+					>
+						<span className="navbar-toggler-icon"></span>
+					</button>
+					<div
+						className="collapse navbar-collapse bg-white custom-header-md-open"
+						id="navbarNav"
+					>
+						<ul className="navbar-nav">
+							<li className="nav-item active">
+								<a className="nav-link ps-0" href="./product.html">
+									產品列表
+								</a>
+							</li>
+							<li className="nav-item">
+								<a className="nav-link" href="./detail.html">
+									關於我們
+								</a>
+							</li>
+						</ul>
+					</div>
+					<div className="d-flex">
+						<Link to="/">
+							<FontAwesomeIcon
+								icon={faHeart}
+								size="lg"
+								className="me-4 text-danger"
+							/>
+						</Link>
+						<Link to="/cart">
+							<FontAwesomeIcon
+								icon={faBasketShopping}
+								size="lg"
+								className="text-primary"
+							/>
+						</Link>
+					</div>
+				</nav>
+			</div>
+		</div>
+	)
+}
+
+export default Navbar

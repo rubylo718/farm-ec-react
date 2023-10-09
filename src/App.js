@@ -6,6 +6,8 @@ import AdminProducts from './pages/admin/AdminProducts'
 import AdminCoupons from './pages/admin/AdminCoupons'
 import AdminOrders from './pages/admin/AdminOrders'
 import { AuthProvider } from './context/AuthContext'
+import Front from './pages/frontend/Front'
+import FrontHome from './pages/frontend/FrontHome'
 
 function App() {
 	return (
@@ -17,6 +19,9 @@ function App() {
 						<Route path="products" element={<AdminProducts />}></Route>
 						<Route path="coupons" element={<AdminCoupons />}></Route>
 						<Route path="orders" element={<AdminOrders />}></Route>
+					</Route>
+					<Route path="/" element={<Front />}>
+						<Route path="" element={<FrontHome />}></Route>
 					</Route>
 				</Routes>
 			</AuthProvider>
