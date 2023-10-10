@@ -11,10 +11,6 @@ $theme-colors: (
 );
 
 //$enable-rounded: false;
-@font-face {
-	font-family: ianshi;
-	src: url('https://github.com/ButTaiwan/iansui/blob/main/Iansui-Regular.ttf');
-}
 
 $font-family-sans-serif: 'iansui', 'Noto Sans TC', Roboto, system-ui, -apple-system,
 	'Segoe UI', 'Helvetica Neue', 'Noto Sans', 'Liberation Sans', Arial,
@@ -22,3 +18,8 @@ $font-family-sans-serif: 'iansui', 'Noto Sans TC', Roboto, system-ui, -apple-sys
 	'Noto Color Emoji' !default;
 
 @import 'bootstrap/scss/bootstrap';
+
+@font-face {
+	font-family: iansui;
+	src: url("https://raw.githubusercontent.com/ButTaiwan/iansui/main/Iansui-Regular.ttf")
+}
