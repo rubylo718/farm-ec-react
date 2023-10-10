@@ -11,8 +11,12 @@ $theme-colors: (
 );
 
 //$enable-rounded: false;
+@font-face {
+	font-family: ianshi;
+	src: url('https://github.com/ButTaiwan/iansui/blob/main/Iansui-Regular.ttf');
+}
 
-$font-family-sans-serif: 'Noto Sans TC', Roboto, system-ui, -apple-system,
+$font-family-sans-serif: 'iansui', 'Noto Sans TC', Roboto, system-ui, -apple-system,
 	'Segoe UI', 'Helvetica Neue', 'Noto Sans', 'Liberation Sans', Arial,
 	sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
 	'Noto Color Emoji' !default;
