@@ -17,6 +17,11 @@ $font-family-sans-serif: 'iansui', 'Noto Sans TC', Roboto, system-ui, -apple-sys
 	sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
 	'Noto Color Emoji' !default;
 
+$carousel-control-color:             #4ba83a;
+$carousel-control-opacity:           .7;
+$carousel-control-hover-opacity:     1;
+$carousel-control-icon-width:        3rem;
+
 @import 'bootstrap/scss/bootstrap';
 
 @font-face {
