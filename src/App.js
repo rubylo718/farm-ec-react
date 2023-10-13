@@ -8,6 +8,7 @@ import AdminOrders from './pages/admin/AdminOrders'
 import { AuthProvider } from './context/AuthContext'
 import Front from './pages/frontend/Front'
 import FrontHome from './pages/frontend/FrontHome'
+import Products from './pages/frontend/Products';
 
 function App() {
 	return (
@@ -22,6 +23,7 @@ function App() {
 					</Route>
 					<Route path="/" element={<Front />}>
 						<Route path="" element={<FrontHome />}></Route>
+						<Route path="products" element={<Products/>}></Route>
 					</Route>
 				</Routes>
 			</AuthProvider>
