@@ -14,8 +14,8 @@ const AdminProducts = () => {
 
 	const getProductList = async (page = 1) => {
 		const data = await getProducts(page)
-		setProducts(data.products)
-		setPagination(data.pagination)
+		setProducts(data?.products)
+		setPagination(data?.pagination)
 	}
 	const handleShowProductModal = (modalAction, modalData) => {
 		setModalAction(modalAction)

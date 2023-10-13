@@ -15,8 +15,8 @@ const AdminCoupons = () => {
 
 	const getCouponList = async (page = 1) => {
 		const data = await getCoupons(page)
-		setCoupons(data.coupons)
-		setPagination(data.pagination)
+		setCoupons(data?.coupons)
+		setPagination(data?.pagination)
 	}
 	const handleShowModal = (modalAction, modalData) => {
 		setModalAction(modalAction)

@@ -35,7 +35,9 @@ export const AuthProvider = ({ children }) => {
 				setCurrentUser(null)
 			}
 		}
-		checkTokenIsValid()
+		if (pathname.startsWith('/admin') || pathname.startsWith('/login')) {
+			checkTokenIsValid()
+		}
 	}, [pathname])
 
 	return (
@@ -50,7 +52,10 @@ export const AuthProvider = ({ children }) => {
 					})
 					const tempPayload = jwt.decode(token)
 					if (tempPayload) {
-						setCurrentUser({ id: tempPayload.user_id, email: tempPayload.email })
+						setCurrentUser({
+							id: tempPayload.user_id,
+							email: tempPayload.email,
+						})
 						setIsAuthenticated(true)
 						localStorage.setItem('authToken', token)
 					} else {

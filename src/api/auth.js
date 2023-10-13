@@ -19,6 +19,7 @@ const login = async ({ username, password }) => {
 		}
 	} catch (err) {
 		console.error('[Login Failed]: ', err)
+		return { success: false, ...err.response.data}
 	}
 }
 

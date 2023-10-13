@@ -13,8 +13,8 @@ const AdminOrders = () => {
 
 	const getOrderList = async (page = 1) => {
 		const data = await getOrders(page)
-		setOrders(data.orders)
-		setPagination(data.pagination)
+		setOrders(data?.orders)
+		setPagination(data?.pagination)
 	}
 	const handleShowModal = (modalData) => {
 		setModalData(modalData)
