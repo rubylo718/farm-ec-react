@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { getProductsCat } from '../../api/front'
 import productData from '../../utils/selectOptions.json'
-
 import Pagination from '../../components/Pagination'
 import Side from '../../components/frontend/products/Side'
 import ProductCard from '../../components/frontend/ProductCard'
@@ -14,7 +13,6 @@ const Products = () => {
 
 	const getDataList = async (page = 1, category = '新鮮蔬菜') => {
 		const res = await getProductsCat(page, category)
-
 		setProducts(res.products)
 		setPagination(res.pagination)
 	}

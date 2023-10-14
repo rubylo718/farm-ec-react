@@ -5,13 +5,28 @@ import ProductCarousel from '../../components/frontend/home/ProductCarousel'
 import SocialMedia from '../../components/frontend/home/SocialMedia'
 import Story from '../../components/frontend/home/Story'
 import { getProductsCat } from '../../api/front'
-import { ProductContext } from '../../context/ProductContext'
 
 const FrontHome = () => {
-	const [products, setProducts] = useState([])
-	const getDataList = async (page = 1, category = '新鮮蔬菜') => {
-		const res = await getProductsCat(page, category)
-		setProducts(res.products)
+	const [data, setData] = useState([
+		{ id: 1, products: [] },
+		{ id: 2, products: [] },
+		{ id: 3, products: [] },
+	])
+	const getDataList = async () => {
+		try {
+			const res1 = getProductsCat(1, '新鮮蔬菜')
+			const res2 = getProductsCat(1, '當季水果')
+			const res3 = getProductsCat(1, '乾貨')
+
+			const results = await Promise.all([res1, res2, res3])
+			setData([
+				{ id: 1, products: [...results[0].products] },
+				{ id: 2, products: [...results[1].products] },
+				{ id: 3, products: [...results[2].products] },
+			])
+		} catch (err) {
+			console.err(err)
+		}
 	}
 
 	useEffect(() => {
@@ -21,11 +36,7 @@ const FrontHome = () => {
 	return (
 		<>
 			<Banner />
-			<ProductContext.Provider value={products}>
-				<ProductCarousel />
-				{/* <ProductCarousel />
-					<ProductCarousel /> */}
-			</ProductContext.Provider>
+			<ProductCarousel data={data} />
 			<div className="bg-light">
 				<FeedbackCarousel />
 			</div>
