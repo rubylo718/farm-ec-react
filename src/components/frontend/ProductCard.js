@@ -1,8 +1,14 @@
+import { Link } from 'react-router-dom'
+
 const ProductCard = ({ item }) => {
 	return (
 		<div className="col-md-4 mt-md-2">
 			<div className="card border-0 mb-4 position-relative position-relative">
-				<img src={item?.imageUrl} className="card-img-top rounded-0" alt="..." />
+				<img
+					src={item?.imageUrl}
+					className="card-img-top rounded-0"
+					alt="..."
+				/>
 				<div className="card-body p-0">
 					<h4 className="mb-0 mt-4">{item?.title}</h4>
 					<div className="d-flex justify-content-between mt-3">
@@ -13,7 +19,12 @@ const ProductCard = ({ item }) => {
 							</small>
 						</p>
 						<button className="btn btn-outline-primary text-nowrap">
-							介紹
+							<Link
+								className="text-decoration-none text-reset"
+								to={`/detail/${item?.id}`}
+							>
+								介紹
+							</Link>
 						</button>
 						<button className="btn btn-outline-danger text-nowrap ms-1">
 							購買

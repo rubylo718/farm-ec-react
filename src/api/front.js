@@ -18,4 +18,13 @@ const getProductsCat = async (page, category) => {
 	}
 }
 
-export { getProductsCat }
+const getProductDetail = async(id) => {
+	try {
+		const res = await axiosInstance.get(`/product/${id}`)
+		return res.data
+	} catch (err) {
+		return err.response.data
+	}
+}
+
+export { getProductsCat, getProductDetail }

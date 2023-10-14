@@ -74,7 +74,7 @@ const ProductCarousel = ({ data }) => {
 									/>
 								</div>
 								<button
-									className="carousel-control-prev justify-content-start"
+									className="carousel-control-prev" style={{width: "48px", height:"48px", top:"40%", left:"-10%"}}
 									data-slide="prev"
 									onClick={()=> handlePrev(d?.id)}
 								>
@@ -85,7 +85,7 @@ const ProductCarousel = ({ data }) => {
 									<span className="sr-only">Previous</span>
 								</button>
 								<button
-									className="carousel-control-next  justify-content-end"
+									className="carousel-control-next" style={{width: "48px", height:"48px", top:"40%", right:"-10%"}}
 									data-slide="next"
 									onClick={() => handleNext(d?.id)}
 								>
