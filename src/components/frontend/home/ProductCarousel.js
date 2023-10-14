@@ -1,10 +1,54 @@
+import { useEffect, useRef } from 'react'
+import { Carousel } from 'bootstrap'
 import { Link } from 'react-router-dom'
 import ProductCarouselItem from './ProductCarouselItem'
 
 const ProductCarousel = ({ data }) => {
+	const catOneCarousel = useRef(null)
+	const catTwoCarousel = useRef(null)
+	const catThreeCarousel = useRef(null)
+
+	const handleNext = (carouselId) => {
+		switch (carouselId) {
+			case 1:
+				catOneCarousel.current.next()
+				break
+			case 2:
+				catTwoCarousel.current.next()
+				break
+			case 3:
+				catThreeCarousel.current.next()
+				break
+			default:
+				break
+		}
+	}
+
+	const handlePrev = (carouselId) => {
+		switch (carouselId) {
+			case 1:
+				catOneCarousel.current.prev()
+				break
+			case 2:
+				catTwoCarousel.current.prev()
+				break
+			case 3:
+				catThreeCarousel.current.prev()
+				break
+			default:
+				break
+		}
+	}
+
+	useEffect(() => {
+		catOneCarousel.current = new Carousel(`#carouselControls${data[0].id}`)
+		catTwoCarousel.current = new Carousel(`#carouselControls${data[1].id}`)
+		catThreeCarousel.current = new Carousel(`#carouselControls${data[2].id}`)
+	}, [data])
+
 	return (
 		<>
-			{data.map((d, index) => {
+			{data?.map((d, index) => {
 				return (
 					<div className="container mt-5" key={d.id}>
 						<h4 className="fs-4">
@@ -19,7 +63,7 @@ const ProductCarousel = ({ data }) => {
 						<hr />
 						<div className="container">
 							<div
-								id="carouselExampleControls"
+								id={`carouselControls${d.id}`}
 								className="carousel slide"
 								data-ride="carousel"
 							>
@@ -29,30 +73,28 @@ const ProductCarousel = ({ data }) => {
 										categoryId={d?.id}
 									/>
 								</div>
-								<a
+								<button
 									className="carousel-control-prev justify-content-start"
-									href="#carouselExampleControls"
-									role="button"
 									data-slide="prev"
+									onClick={()=> handlePrev(d?.id)}
 								>
 									<span
 										className="carousel-control-prev-icon"
 										aria-hidden="true"
 									></span>
 									<span className="sr-only">Previous</span>
-								</a>
-								<a
+								</button>
+								<button
 									className="carousel-control-next  justify-content-end"
-									href="#carouselExampleControls"
-									role="button"
 									data-slide="next"
+									onClick={() => handleNext(d?.id)}
 								>
 									<span
 										className="carousel-control-next-icon"
 										aria-hidden="true"
 									></span>
 									<span className="sr-only">Next</span>
-								</a>
+								</button>
 							</div>
 						</div>
 					</div>
