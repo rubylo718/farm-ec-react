@@ -10,6 +10,7 @@ import Front from './pages/frontend/Front'
 import FrontHome from './pages/frontend/FrontHome'
 import Products from './pages/frontend/Products'
 import Detail from './pages/frontend/Detail'
+import Cart from './pages/frontend/Cart'
 
 function App() {
 	return (
@@ -26,6 +27,7 @@ function App() {
 						<Route index element={<FrontHome />}></Route>
 						<Route path="products/:categoryId" element={<Products />}></Route>
 						<Route path="detail/:id" element={<Detail />}></Route>
+						<Route path="cart" element={<Cart />}></Route>
 					</Route>
 				</Routes>
 			</AuthProvider>
