@@ -4,14 +4,17 @@ import { faBasketShopping } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import ProductCarousel from '../../components/frontend/home/ProductCarousel'
 import SocialMedia from '../../components/frontend/home/SocialMedia'
-import { getProductDetail, getProductsCat } from '../../api/front'
+import { getProductDetail, getProductsCat, postCart } from '../../api/front'
 import AmountInput from '../../components/frontend/AmountInput'
 import productData from '../../utils/selectOptions.json'
+import { Toast } from '../../utils/toast-helper'
 
 const Detail = () => {
 	const [product, setProduct] = useState({})
 	const [productList, setProductList] = useState([])
 	const [categoryId, setCategoryId] = useState(1)
+	const [qty, setQty] = useState(1)
+	const [isLoading, setIsLoading] = useState(false)
 	const { id } = useParams()
 
 	const getData = async (id) => {
@@ -26,6 +29,22 @@ const Detail = () => {
 		)
 	}
 
+	const handleAddCart = async () => {
+		setIsLoading(true)
+		const res = await postCart({ data: { product_id: id, qty } })
+		if (res.success) {
+			Toast.fire({ icon: 'success', title: res.message })
+		}
+		setIsLoading(false)
+	}
+
+	const handleAdd = () => {
+		setQty(qty + 1)
+	}
+
+	const handleMinus = () => {
+		qty > 1 && setQty(qty - 1)
+	}
 	useEffect(() => {
 		getData(id)
 	}, [id])
@@ -65,10 +84,18 @@ const Detail = () => {
 						<p className="h4 fw-bold text-end">NT${product.price}</p>
 						<div className="row align-items-center">
 							<div className="col-6">
-								<AmountInput />
+								<AmountInput
+									qty={qty}
+									handleAdd={handleAdd}
+									handleMinus={handleMinus}
+								/>
 							</div>
 							<div className="col-6">
-								<button className="text-nowrap btn btn-outline-danger w-100 py-2">
+								<button
+									className="text-nowrap btn btn-outline-danger w-100 py-2"
+									onClick={handleAddCart}
+									disabled={isLoading}
+								>
 									加入菜籃
 									<FontAwesomeIcon icon={faBasketShopping} className="ms-1" />
 								</button>

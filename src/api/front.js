@@ -27,4 +27,13 @@ const getProductDetail = async(id) => {
 	}
 }
 
-export { getProductsCat, getProductDetail }
+const postCart = async(data) => {
+	try {
+		const res = await axiosInstance.post(`cart`, data)
+		return res.data
+	} catch(err) {
+		return err.response.data
+	}
+}
+
+export { getProductsCat, getProductDetail, postCart }
