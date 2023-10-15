@@ -2,20 +2,23 @@ import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { faBasketShopping } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-
+import ProductCarousel from '../../components/frontend/home/ProductCarousel'
 import SocialMedia from '../../components/frontend/home/SocialMedia'
-import { getProductDetail } from '../../api/front'
+import { getProductDetail, getProductsCat } from '../../api/front'
 import AmountInput from '../../components/frontend/AmountInput'
 import productData from '../../utils/selectOptions.json'
 
 const Detail = () => {
 	const [product, setProduct] = useState({})
+	const [productList, setProductList] = useState([])
 	const [categoryId, setCategoryId] = useState(1)
 	const { id } = useParams()
 
 	const getData = async (id) => {
 		const data = await getProductDetail(id)
+		const dataList = await getProductsCat(1, data.product.category)
 		setProduct(data.product)
+		setProductList(dataList.products)
 		setCategoryId(
 			productData.productCategories.find(
 				(item) => item.title === data.product.category
@@ -81,6 +84,8 @@ const Detail = () => {
 						<p>{product.description}</p>
 					</div>
 				</div>
+				<h4>同類商品推薦</h4>
+				<ProductCarousel data={{ id: categoryId, products: productList }} />
 			</div>
 			<div className="bg-light">
 				<SocialMedia />
