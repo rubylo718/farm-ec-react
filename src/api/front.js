@@ -18,7 +18,7 @@ const getProductsCat = async (page, category) => {
 	}
 }
 
-const getProductDetail = async(id) => {
+const getProductDetail = async (id) => {
 	try {
 		const res = await axiosInstance.get(`/product/${id}`)
 		return res.data
@@ -27,13 +27,45 @@ const getProductDetail = async(id) => {
 	}
 }
 
-const postCart = async(data) => {
+const postCart = async (data) => {
 	try {
 		const res = await axiosInstance.post(`cart`, data)
 		return res.data
-	} catch(err) {
+	} catch (err) {
 		return err.response.data
 	}
 }
 
-export { getProductsCat, getProductDetail, postCart }
+const getCart = async () => {
+	try {
+		const res = await axiosInstance.get(`cart`)
+		return res.data.data
+	} catch (err) {
+		console.error(err)
+	}
+}
+
+const deleteCartItem = async (id) => {
+	try {
+		const res = await axiosInstance.delete(`cart/${id}`)
+		return res.data
+	} catch (err) {
+		console.error(err)
+	}
+}
+
+const editCartItem = async (item, newQty) => {
+	try {
+		const res = await axiosInstance.put(`cart/${item.id}`, {
+			data: {
+				product_id: item.product_id,
+				qty: newQty,
+			},
+		})
+		return res.data
+	} catch (err) {
+		console.error(err)
+	}
+}
+
+export { getProductsCat, getProductDetail, postCart, getCart, deleteCartItem, editCartItem }

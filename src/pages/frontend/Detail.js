@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useParams, useOutletContext } from 'react-router-dom'
 import { faBasketShopping } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import ProductCarousel from '../../components/frontend/home/ProductCarousel'
@@ -16,6 +16,7 @@ const Detail = () => {
 	const [qty, setQty] = useState(1)
 	const [isLoading, setIsLoading] = useState(false)
 	const { id } = useParams()
+	const { getCurrentCart } = useOutletContext()
 
 	const getData = async (id) => {
 		const data = await getProductDetail(id)
@@ -35,6 +36,7 @@ const Detail = () => {
 		if (res.success) {
 			Toast.fire({ icon: 'success', title: res.message })
 		}
+		getCurrentCart()
 		setIsLoading(false)
 	}
 

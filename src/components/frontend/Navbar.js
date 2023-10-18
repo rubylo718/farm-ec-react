@@ -3,7 +3,7 @@ import { faSeedling, faBasketShopping } from '@fortawesome/free-solid-svg-icons'
 import { faHeart } from '@fortawesome/free-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-const Navbar = () => {
+const Navbar = ({ cartData }) => {
 	return (
 		<div
 			className="bg-white sticky-top"
@@ -48,7 +48,7 @@ const Navbar = () => {
 								</NavLink>
 							</li>
 							<li className="nav-item">
-								<NavLink  className="nav-link" to="/about">
+								<NavLink className="nav-link" to="/about">
 									關於我們
 								</NavLink>
 							</li>
@@ -62,12 +62,15 @@ const Navbar = () => {
 								className="me-4 text-danger"
 							/>
 						</Link>
-						<Link to="/cart">
+						<Link to="/cart" className='position-relative'>
 							<FontAwesomeIcon
 								icon={faBasketShopping}
 								size="lg"
 								className="text-primary"
 							/>
+							<span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+								{cartData?.carts?.length}
+							</span>
 						</Link>
 					</div>
 				</nav>
