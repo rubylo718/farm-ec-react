@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useForm, useWatch } from 'react-hook-form'
 import taiwanData from '../../../utils/taiwan.json'
+import { postOrder, postPay } from '../../../api/front'
+import { Toast } from '../../../utils/toast-helper'
 
 const Input = ({ register, errors, id, type, labelText, rules }) => {
 	return (
@@ -58,8 +60,24 @@ const CustomerInfoForm = () => {
 	const watchCity = useWatch({ control, name: 'city' })
 	const watchDistrict = useWatch({ control, name: 'district' })
 
-	const onSubmit = (data) => {
-		console.log('submit: ', data)
+	const onSubmit = async (data) => {
+		const user = {
+			name: data.name,
+			email: data.email,
+			tel: data.tel,
+			address: data.city + data.district + data.road + data.add,
+		}
+
+		const result = await postOrder(user, data.message)
+    if (result?.success) {
+      const orderId = result.orderId
+      const payResult = await postPay(orderId)
+      if (payResult.success) {
+        Toast.fire({ icon: 'success', title: '已成功付款' })
+        navigation(`/success/${orderId}`)
+      }
+    }
+
 	}
 
 	useEffect(() => {

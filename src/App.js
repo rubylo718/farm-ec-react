@@ -11,7 +11,8 @@ import FrontHome from './pages/frontend/FrontHome'
 import Products from './pages/frontend/Products'
 import Detail from './pages/frontend/Detail'
 import Cart from './pages/frontend/Cart'
-import Checkout from './pages/frontend/Checkout';
+import Checkout from './pages/frontend/Checkout'
+import { CheckoutSuccess } from './pages/frontend/CheckoutSuccess'
 
 function App() {
 	return (
@@ -30,6 +31,7 @@ function App() {
 						<Route path="detail/:id" element={<Detail />}></Route>
 						<Route path="cart" element={<Cart />}></Route>
 						<Route path="checkout" element={<Checkout />}></Route>
+						<Route path="success/:orderId" element={<CheckoutSuccess />}></Route>
 					</Route>
 				</Routes>
 			</AuthProvider>
