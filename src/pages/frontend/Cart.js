@@ -60,7 +60,6 @@ const Cart = () => {
 						</thead>
 						<tbody>
 							{cartData?.carts?.map((item) => {
-								console.log(item)
 								return (
 									<tr className="border-bottom" key={item.id}>
 										<th

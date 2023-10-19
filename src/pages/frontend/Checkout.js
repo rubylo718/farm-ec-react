@@ -1,9 +1,8 @@
-import { useOutletContext, useNavigate } from 'react-router-dom'
+import { useOutletContext } from 'react-router-dom'
 import CustomerInfoForm from '../../components/frontend/checkoutProcess/CustomerInfoForm'
 
 const Checkout = () => {
 	const { cartData } = useOutletContext()
-	const navigation = useNavigate()
 
 	return (
 		<div className="container my-5">
@@ -11,19 +10,7 @@ const Checkout = () => {
 			<div className="row">
 				<div className="col-md-8">
 					<CustomerInfoForm />
-					<div className="d-flex justify-content-end">
-						<button
-							className="btn btn-light w-25 mt-4"
-							onClick={() => navigation(-1)}
-						>
-							回上一頁
-						</button>
-						<button className="btn btn-primary w-25 mt-4 ms-4 text-white">
-							確認結帳
-						</button>
-					</div>
 				</div>
-
 				<div className="col-md-4">
 					<div className="border p-4 mb-4">
 						<h4 className="fw-bold mb-2">訂單資訊</h4>
@@ -43,7 +30,6 @@ const Checkout = () => {
 							</thead>
 							<tbody>
 								{cartData?.carts?.map((item) => {
-									console.log(item)
 									return (
 										<tr className="border-bottom" key={item.id}>
 											<th
