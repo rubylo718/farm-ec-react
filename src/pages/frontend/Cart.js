@@ -183,7 +183,12 @@ const Cart = () => {
 						>
 							繼續逛逛
 						</button>
-						<button className="btn btn-danger w-100 mt-4">結帳</button>
+						<button
+							className="btn btn-danger w-100 mt-4"
+							onClick={() => navigation('/checkout')}
+						>
+							結帳
+						</button>
 					</div>
 				</div>
 			</div>

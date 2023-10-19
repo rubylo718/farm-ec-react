@@ -11,6 +11,7 @@ import FrontHome from './pages/frontend/FrontHome'
 import Products from './pages/frontend/Products'
 import Detail from './pages/frontend/Detail'
 import Cart from './pages/frontend/Cart'
+import Checkout from './pages/frontend/Checkout';
 
 function App() {
 	return (
@@ -28,6 +29,7 @@ function App() {
 						<Route path="products/:categoryId" element={<Products />}></Route>
 						<Route path="detail/:id" element={<Detail />}></Route>
 						<Route path="cart" element={<Cart />}></Route>
+						<Route path="checkout" element={<Checkout />}></Route>
 					</Route>
 				</Routes>
 			</AuthProvider>
