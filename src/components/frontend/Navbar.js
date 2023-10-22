@@ -41,9 +41,9 @@ const Navbar = ({ cartData }) => {
 						className="collapse navbar-collapse bg-white custom-header-md-open"
 						id="navbarNav"
 					>
-						<ul className="navbar-nav">
-							<li className="nav-item active">
-								<NavLink className="nav-link ps-0" to="/products">
+						<ul className="nav">
+							<li className="nav-item">
+								<NavLink className="nav-link ps-0" to="/products/1">
 									產品列表
 								</NavLink>
 							</li>
@@ -62,7 +62,7 @@ const Navbar = ({ cartData }) => {
 								className="me-4 text-danger"
 							/>
 						</Link>
-						<Link to="/cart" className='position-relative'>
+						<Link to="/cart" className="position-relative">
 							<FontAwesomeIcon
 								icon={faBasketShopping}
 								size="lg"

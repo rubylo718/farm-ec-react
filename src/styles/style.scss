@@ -12,19 +12,30 @@ $theme-colors: (
 
 //$enable-rounded: false;
 
-$font-family-sans-serif: 'iansui', 'Noto Sans TC', Roboto, system-ui, -apple-system,
-	'Segoe UI', 'Helvetica Neue', 'Noto Sans', 'Liberation Sans', Arial,
-	sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+$font-family-sans-serif: 'iansui', 'Noto Sans TC', Roboto, system-ui,
+	-apple-system, 'Segoe UI', 'Helvetica Neue', 'Noto Sans', 'Liberation Sans',
+	Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
 	'Noto Color Emoji' !default;
 
-$carousel-control-color:             #4ba83a;
-$carousel-control-opacity:           .7;
-$carousel-control-hover-opacity:     1;
-$carousel-control-icon-width:        3rem;
+$carousel-control-color: #4ba83a;
+$carousel-control-opacity: 0.7;
+$carousel-control-hover-opacity: 1;
+$carousel-control-icon-width: 3rem;
+
+$nav-link-color: black;
+$nav-link-hover-color: #4ba83a;
+$nav-pills-border-radius: 0;
+$nav-pills-link-active-color: #4ba83a;
+$nav-pills-link-active-bg: none;
+
+$pagination-color: black;
+// $pagination-border-color: #4ba83a;
+$pagination-active-border-color: #4ba83a;
+$pagination-active-bg: #4ba83a;
 
 @import 'bootstrap/scss/bootstrap';
 
 @font-face {
 	font-family: iansui;
-	src: url("https://raw.githubusercontent.com/ButTaiwan/iansui/main/Iansui-Regular.ttf")
+	src: url('https://raw.githubusercontent.com/ButTaiwan/iansui/main/Iansui-Regular.ttf');
 }

@@ -20,7 +20,7 @@ const Admin = () => {
 	}
 	return (
 		<>
-			<nav className="navbar navbar-expand-lg bg-dark">
+			<nav className="navbar navbar-expand-lg navbar-dark bg-dark">
 				<div className="container-fluid">
 					<p className="mb-0 text-white navbar-brand">後台管理系統</p>
 					<button
