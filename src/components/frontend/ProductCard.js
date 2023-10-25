@@ -1,6 +1,17 @@
-import { Link } from 'react-router-dom'
+import { Link, useOutletContext } from 'react-router-dom'
+import { postCart } from '../../api/front'
+import { Toast } from '../../utils/toast-helper'
 
 const ProductCard = ({ item }) => {
+	const { getCurrentCart } = useOutletContext()
+	const handleAddCart = async (id) => {
+		const res = await postCart({ data: { product_id: id, qty: 1 } })
+		if (res.success) {
+			Toast.fire({ icon: 'success', title: res.message })
+		}
+		getCurrentCart()
+	}
+
 	return (
 		<div className="col-md-4 mt-md-2">
 			<div className="card border-0 mb-4 position-relative position-relative">
@@ -26,7 +37,10 @@ const ProductCard = ({ item }) => {
 								介紹
 							</Link>
 						</button>
-						<button className="btn btn-outline-danger text-nowrap ms-1">
+						<button
+							className="btn btn-outline-danger text-nowrap ms-1"
+							onClick={() => handleAddCart(item.id)}
+						>
 							購買
 						</button>
 					</div>
