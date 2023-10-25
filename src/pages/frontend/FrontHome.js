@@ -29,13 +29,17 @@ const FrontHome = () => {
 		}
 	}
 
+	const handleSearch = (e) => {
+		console.log(e.target.value)
+	}
+
 	useEffect(() => {
 		getAllProductList()
 	}, [])
 
 	return (
 		<>
-			<Banner />
+			<Banner handleSearch={handleSearch} />
 			<ProductCarouselCollection allData={allData} />
 			<div className="bg-light">
 				<FeedbackCarousel />

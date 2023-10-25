@@ -1,4 +1,19 @@
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+
 const Banner = () => {
+	const [searchInput, setSearchInput] = useState('')
+	const navigate = useNavigate()
+
+	const handleChange = (e) => {
+		setSearchInput(e.target.value)
+	}
+	const handleSearch = (e) => {
+		if (e.key === 'Enter' || e.target.id === 'search') {
+			navigate(`/products/keyword?query=${searchInput}`)
+		}
+	}
+
 	return (
 		<div className="container">
 			<div className="row flex-md-row-reverse flex-column mt-5">
@@ -19,16 +34,19 @@ const Banner = () => {
 							type="text"
 							className="form-control"
 							placeholder="請輸入關鍵字"
+							value={searchInput}
+							onChange={handleChange}
+							onKeyDown={handleSearch}
 						/>
-						<div className="input-group-append">
-							<button
-								className="btn btn-primary text-white"
-								type="button"
-								id="search"
-							>
-								查詢產品
-							</button>
-						</div>
+
+						<button
+							className="btn btn-primary text-white"
+							type="button"
+							id="search"
+							onClick={handleSearch}
+						>
+							搜尋產品
+						</button>
 					</div>
 				</div>
 			</div>

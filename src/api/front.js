@@ -77,7 +77,7 @@ const postOrder = async (user, message) => {
 	}
 }
 
-const postPay = async(id) => {
+const postPay = async (id) => {
 	try {
 		const res = await axiosInstance.post(`pay/${id}`)
 		return res.data
@@ -86,9 +86,18 @@ const postPay = async(id) => {
 	}
 }
 
-const getOrder = async(id) => {
+const getOrder = async (id) => {
 	try {
 		const res = await axiosInstance.get(`order/${id}`)
+		return res.data
+	} catch (err) {
+		console.error(err)
+	}
+}
+
+const getAllProducts = async () => {
+	try {
+		const res = await axiosInstance.get(`products/all`)
 		return res.data
 	} catch (err) {
 		console.error(err)
@@ -104,5 +113,6 @@ export {
 	editCartItem,
 	postOrder,
 	postPay,
-	getOrder
+	getOrder,
+	getAllProducts,
 }
