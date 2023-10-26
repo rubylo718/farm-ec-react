@@ -104,6 +104,15 @@ const getAllProducts = async () => {
 	}
 }
 
+const postCouponFront = async (code) => {
+	try {
+		const res = await axiosInstance.post('coupon', { data: { code } })
+		return res.data
+	} catch (err) {
+		return err.response.data
+	}
+}
+
 export {
 	getProductsCat,
 	getProductDetail,
@@ -115,4 +124,5 @@ export {
 	postPay,
 	getOrder,
 	getAllProducts,
+	postCouponFront,
 }

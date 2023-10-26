@@ -112,9 +112,22 @@ const OrderModal = ({ handleHideModal, getOrderList, modalData }) => {
 								})}
 							</tbody>
 							<tfoot>
-								<tr className="">
-									<td className="text-end border-bottom-0">總金額 $</td>
-									<td className="border-bottom-0">{inputData.total}</td>
+								{Object.values(inputData?.products || {})[0]?.coupon && (
+									<tr>
+										<td colSpan={2}>
+											使用優惠碼：
+											{
+												Object.values(inputData?.products || {})[0]?.coupon
+													?.code
+											}
+										</td>
+									</tr>
+								)}
+								<tr>
+									<td className="border-bottom-0 text-end">總金額 $</td>
+									<td className="border-bottom-0">
+										{Math.round(inputData?.total)}
+									</td>
 								</tr>
 							</tfoot>
 						</table>

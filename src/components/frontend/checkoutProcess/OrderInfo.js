@@ -70,7 +70,7 @@ const OrderInfo = () => {
 								優惠折抵
 							</th>
 							<td className="text-end border-0 px-0 pt-0 pb-4">
-								-${cartData.total - cartData.final_total}
+								-${cartData.total - Math.round(cartData.final_total)}
 							</td>
 						</tr>
 					)}
@@ -78,7 +78,7 @@ const OrderInfo = () => {
 			</table>
 			<div className="d-flex justify-content-between mt-4">
 				<p className="mb-0 h4 fw-bold">訂單總金額</p>
-				<p className="mb-0 h4 fw-bold">NT${cartData.final_total}</p>
+				<p className="mb-0 h4 fw-bold">NT${Math.round(cartData.final_total)}</p>
 			</div>
 		</div>
 	)

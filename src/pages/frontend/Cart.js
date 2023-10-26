@@ -1,11 +1,14 @@
+import { useState } from 'react'
 import { useOutletContext, useNavigate } from 'react-router-dom'
-import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons'
+import { faPlus, faMinus, faCheck } from '@fortawesome/free-solid-svg-icons'
 import { faTrashCan } from '@fortawesome/free-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { deleteCartItem, editCartItem } from '../../api/front'
+import { deleteCartItem, editCartItem, postCouponFront } from '../../api/front'
 import { Toast } from '../../utils/toast-helper'
 
 const Cart = () => {
+	const [couponCode, setCouponCode] = useState('')
+	const [couponResult, setCouponResult] = useState('')
 	const { cartData, getCurrentCart } = useOutletContext()
 	const navigation = useNavigate()
 
@@ -34,6 +37,21 @@ const Cart = () => {
 			}
 		}
 	}
+
+	const handleCoupon = async () => {
+		const res = await postCouponFront(couponCode)
+		console.log(res)
+		if (res?.success) {
+			Toast.fire({ icon: 'success', title: res.message })
+			setCouponResult(res.message)
+			getCurrentCart()
+		} else {
+			Toast.fire({ icon: 'error', title: res.message })
+			setCouponCode("")
+		}
+	}
+
+	console.log(cartData)
 
 	return (
 		<div className="container my-5">
@@ -134,10 +152,19 @@ const Cart = () => {
 							className="form-control border-bottom border-top-0 border-start-0 "
 							placeholder="請輸入優惠碼"
 							aria-label="coupon code"
+							value={couponCode}
+							onChange={(e) => setCouponCode(e.target.value)}
 						/>
 
-						<button className="btn btn-secondary rounded-0">套用</button>
+						<button
+							className="btn btn-secondary rounded-0"
+							onClick={handleCoupon}
+						>
+							套用
+						</button>
 					</div>
+					{couponResult && <FontAwesomeIcon icon={faCheck} className='text-primary' />}
+					<small className='ms-2'>{couponResult}</small>
 				</div>
 
 				<div className="col-md-4">
@@ -165,7 +192,7 @@ const Cart = () => {
 											優惠折抵
 										</th>
 										<td className="text-end border-0 px-0 pt-0 pb-4">
-											-${cartData.total - cartData.final_total}
+											-${cartData.total - Math.round(cartData.final_total)}
 										</td>
 									</tr>
 								)}
@@ -173,7 +200,7 @@ const Cart = () => {
 						</table>
 						<div className="d-flex justify-content-between mt-4">
 							<p className="mb-0 h4 fw-bold">訂單總計</p>
-							<p className="mb-0 h4 fw-bold">NT${cartData.final_total}</p>
+							<p className="mb-0 h4 fw-bold">NT${Math.round(cartData.final_total)}</p>
 						</div>
 
 						<button
