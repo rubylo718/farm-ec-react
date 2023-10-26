@@ -63,98 +63,34 @@ const OrderModal = ({ handleHideModal, getOrderList, modalData }) => {
 						/>
 					</div>
 					<div className="modal-body">
-						<div className="row mb-1">
-							<label className="col-sm-3 col-form-label" htmlFor="create_at">
-								訂單日期
-							</label>
-							<div className="col-sm-9">
-								<input
-									type="date"
-									readOnly
-									id="create_at"
-									name="create_at"
-									className=" form-control-plaintext"
-									value={unixToDateString(inputData.create_at)}
-								/>
-							</div>
-						</div>
-						<div className="row mb-1">
-							<label className="col-sm-3 col-form-label" htmlFor="staticName">
-								顧客姓名
-							</label>
-							<div className="col-sm-9">
-								<input
-									type="text"
-									readOnly
-									id="staticName"
-									name="name"
-									className="form-control-plaintext"
-									value={inputData.user?.name}
-								/>
-							</div>
-						</div>
-						<div className="row mb-1">
-							<label className="col-sm-3 col-form-label" htmlFor="staticEmail">
-								Email
-							</label>
-							<div className="col-sm-9">
-								<input
-									type="text"
-									readOnly
-									id="staticEmail"
-									name="email"
-									className="col-md-8 form-control-plaintext"
-									value={inputData.user?.email}
-								/>
-							</div>
-						</div>
-						<div className="row mb-1">
-							<label className="col-sm-3 col-form-label" htmlFor="staticTel">
-								聯絡電話
-							</label>
-							<div className="col-sm-9">
-								<input
-									type="text"
-									readOnly
-									id="staticTel"
-									name="tel"
-									className="form-control-plaintext"
-									value={inputData.user?.tel}
-								/>
-							</div>
-						</div>
-						<div className="row mb-1">
-							<label
-								className="col-sm-3 col-form-label"
-								htmlFor="staticAddress"
-							>
-								送貨地址
-							</label>
-							<div className="col-sm-9">
-								<input
-									type="text"
-									readOnly
-									id="staticAddress"
-									name="address"
-									className="form-control-plaintext"
-									value={inputData.user?.address}
-								/>
-							</div>
-						</div>
-						<div className="row mb-1">
-							<label className="col-sm-3 col-form-label" htmlFor="message">
-								顧客留言
-							</label>
-							<div className="col-sm-9">
-								<textarea
-									readOnly
-									id="message"
-									name="message"
-									className="form-control-plaintext"
-									defaultValue={inputData.message}
-								/>
-							</div>
-						</div>
+						<table className="table table-borderless">
+							<tbody>
+								<tr>
+									<th scope="row">訂單日期</th>
+									<td>{unixToDateString(inputData.create_at)}</td>
+								</tr>
+								<tr>
+									<th scope="row">顧客姓名</th>
+									<td>{inputData.user?.name}</td>
+								</tr>
+								<tr>
+									<th scope="row">Email</th>
+									<td>{inputData.user?.email}</td>
+								</tr>
+								<tr>
+									<th scope="row">聯絡電話</th>
+									<td>{inputData.user?.tel}</td>
+								</tr>
+								<tr>
+									<th scope="row">送貨地址</th>
+									<td>{inputData.user?.address}</td>
+								</tr>
+								<tr>
+									<th scope="row">顧客留言</th>
+									<td>{inputData.message || '（無）'}</td>
+								</tr>
+							</tbody>
+						</table>
 
 						<hr />
 
@@ -166,19 +102,19 @@ const OrderModal = ({ handleHideModal, getOrderList, modalData }) => {
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>商品</td>
-									<td>3</td>
-								</tr>
-								<tr>
-									<td>item title</td>
-									<td>2</td>
-								</tr>
+								{Object.values(inputData?.products).map((item) => {
+									return (
+										<tr key={item.product.id}>
+											<td>{item.product.title}</td>
+											<td>{item.qty}</td>
+										</tr>
+									)
+								})}
 							</tbody>
 							<tfoot>
 								<tr className="">
-									<td className="text-end border-bottom-0">總金額</td>
-									<td className="border-bottom-0">$ 1200</td>
+									<td className="text-end border-bottom-0">總金額 $</td>
+									<td className="border-bottom-0">{inputData.total}</td>
 								</tr>
 							</tfoot>
 						</table>
@@ -191,7 +127,7 @@ const OrderModal = ({ handleHideModal, getOrderList, modalData }) => {
 							name="is_paid"
 							rows={3}
 							onChange={handleChange}
-							checked={inputData.is_paid}
+							checked={inputData.is_paid || false}
 						/>
 						<label className="form-check-label" htmlFor="is_paid">
 							付款狀態（{inputData.is_paid ? '付款完成' : '未付款'}）
