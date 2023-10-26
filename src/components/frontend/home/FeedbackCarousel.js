@@ -1,40 +1,45 @@
+import { useEffect, useRef } from 'react'
+import { Carousel } from 'bootstrap'
 import FeedbackCarouselItem from './FeedbackCarouselItem'
 
-const FeedbackCarousel = () => {
+const FeedbackCarousel = ({ feedback }) => {
+	const feedbackCarousel = useRef(null)
+
+	const handleNext = () => {
+		feedbackCarousel.current.next()
+	}
+	const handlePrev = () => {
+		feedbackCarousel.current.prev()
+	}
+
+	useEffect(() => {
+		feedbackCarousel.current = new Carousel('#feedbackCarouselControls')
+	})
+
 	return (
 		<div className="container my-5">
 			<div
-				id="carouselExampleControls"
+				id="feedbackCarouselControls"
 				className="carousel slide"
 				data-ride="carousel"
 			>
 				<div className="carousel-inner">
-					<FeedbackCarouselItem />
+					<FeedbackCarouselItem feedback={feedback} />
 				</div>
-				<a
-					className="carousel-control-prev"
-					href="#carouselExampleControls"
-					role="button"
-					data-slide="prev"
-				>
+				<button className="carousel-control-prev" onClick={handlePrev}>
 					<span
 						className="carousel-control-prev-icon"
 						aria-hidden="true"
 					></span>
 					<span className="sr-only">Previous</span>
-				</a>
-				<a
-					className="carousel-control-next"
-					href="#carouselExampleControls"
-					role="button"
-					data-slide="next"
-				>
+				</button>
+				<button className="carousel-control-next" onClick={handleNext}>
 					<span
 						className="carousel-control-next-icon"
 						aria-hidden="true"
 					></span>
 					<span className="sr-only">Next</span>
-				</a>
+				</button>
 			</div>
 		</div>
 	)
