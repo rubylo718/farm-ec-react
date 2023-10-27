@@ -1,17 +1,50 @@
 import { useEffect, useState } from 'react'
-import { Outlet } from 'react-router-dom'
+import { Link, Outlet, useNavigate } from 'react-router-dom'
 import Pagination from '../../components/Pagination'
-import { getStories } from '../../api/admin'
+import { getStories, postStory, editStory, deleteStory } from '../../api/admin'
 import StoryTable from '../../components/admin/StoryTable'
+import {
+	Toast,
+	DeleteConfirmation,
+	Confirmation,
+} from '../../utils/toast-helper'
 
 const AdminStoriesIndex = () => {
 	const [stories, setStories] = useState([])
 	const [pagination, setPagination] = useState({})
+	const navigate = useNavigate()
 
 	const getStroyList = async () => {
 		const data = await getStories()
 		setStories(data?.articles)
 		setPagination(data?.pagination)
+	}
+
+	const handleSubmit = async (data) => {
+		let result
+		if (data.id === 'create') {
+			result = await postStory(data)
+		} else {
+			result = await editStory(data, data.id)
+		}
+		if (result?.success) {
+			Toast.fire({ icon: 'success', title: result.message })
+			getStroyList()
+			navigate('')
+		} else {
+			Toast.fire({ icon: 'error', title: result.message || '錯誤，請重新操作' })
+		}
+	}
+
+	const handleDeleteStory = async (id) => {
+		const { isConfirmed } = await DeleteConfirmation.fire()
+		if (isConfirmed) {
+			const result = await deleteStory(id)
+			if (result?.success) {
+				Confirmation.fire({ title: '已刪除文章' })
+				getStroyList()
+			}
+		}
 	}
 
 	useEffect(() => {
@@ -24,11 +57,14 @@ const AdminStoriesIndex = () => {
 			<hr />
 			<div className="row">
 				<div className="col-6">
-					<StoryTable stories={stories} />
+					<Link className="btn btn-primary btn-sm" to="create" role="button">
+						新增文章
+					</Link>
+					<StoryTable stories={stories} handleDeleteStory={handleDeleteStory} />
 					<Pagination pagination={pagination} getDataList={getStroyList} />
 				</div>
 				<div className="col-6">
-					<Outlet />
+					<Outlet context={{ handleSubmit, navigate }} />
 				</div>
 			</div>
 		</div>

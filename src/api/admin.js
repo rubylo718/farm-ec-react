@@ -141,6 +141,33 @@ const getStory = async (id) => {
 	}
 }
 
+const editStory = async (data, id) => {
+	try {
+		const res = await axiosInstance.put(`article/${id}`, { data })
+		return res.data
+	} catch (err) {
+		return err.response.data
+	}
+}
+
+const postStory = async (data) => {
+	try {
+		const res = await axiosInstance.post('article', { data })
+		return res.data
+	} catch (err) {
+		return err.response.data
+	}
+}
+
+const deleteStory = async (id) => {
+	try {
+		const res = await axiosInstance.delete(`article/${id}`)
+		return res.data
+	} catch (err) {
+		return err.response.data
+	}
+}
+
 export {
 	getProducts,
 	postProduct,
@@ -154,4 +181,7 @@ export {
 	editOrder,
 	getStories,
 	getStory,
+	postStory,
+	editStory,
+	deleteStory,
 }

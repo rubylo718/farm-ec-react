@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { unixToDateString } from '../../utils/dayjs-helper'
 
-const StoryTable = ({ stories }) => {
+const StoryTable = ({ stories, handleDeleteStory }) => {
 	return (
 		<table className="table">
 			<thead>
@@ -20,12 +20,17 @@ const StoryTable = ({ stories }) => {
 							<td>{unixToDateString(story.create_at)}</td>
 							<td>{story.isPublic ? '已公開' : '尚未公開'}</td>
 							<td>
-								<Link className="btn btn-primary btn-sm" to={story.id} role="button">
+								<Link
+									className="btn btn-primary btn-sm"
+									to={story.id}
+									role="button"
+								>
 									查看
 								</Link>
 								<button
 									type="button"
 									className="btn btn-outline-danger btn-sm ms-2"
+									onClick={() => handleDeleteStory(story.id)}
 								>
 									刪除
 								</button>
