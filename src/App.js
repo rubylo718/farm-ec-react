@@ -12,8 +12,10 @@ import Products from './pages/frontend/Products'
 import Detail from './pages/frontend/Detail'
 import Cart from './pages/frontend/Cart'
 import Checkout from './pages/frontend/Checkout'
-import { CheckoutSuccess } from './pages/frontend/CheckoutSuccess'
+import CheckoutSuccess from './pages/frontend/CheckoutSuccess'
 import SearchResult from './pages/frontend/SearchResult'
+import AdminStoryContent from './pages/admin/AdminStoryContent'
+import AdminStoriesIndex from './pages/admin/AdminStoryIndex'
 
 function App() {
 	return (
@@ -25,6 +27,9 @@ function App() {
 						<Route path="products" element={<AdminProducts />}></Route>
 						<Route path="coupons" element={<AdminCoupons />}></Route>
 						<Route path="orders" element={<AdminOrders />}></Route>
+						<Route path="stories" element={<AdminStoriesIndex />}>
+							<Route path=":id" element={<AdminStoryContent />}></Route>
+						</Route>
 					</Route>
 					<Route path="/" element={<Front />}>
 						<Route index element={<FrontHome />}></Route>

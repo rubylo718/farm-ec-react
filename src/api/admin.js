@@ -122,6 +122,25 @@ const editOrder = async (data, id) => {
 	}
 }
 
+// stories
+const getStories = async () => {
+	try {
+		const res = await axiosInstance.get('articles')
+		return res.data
+	} catch (err) {
+		return err.response.data
+	}
+}
+
+const getStory = async (id) => {
+	try {
+		const res = await axiosInstance.get(`article/${id}`)
+		return res.data
+	} catch (err) {
+		return err.response.data
+	}
+}
+
 export {
 	getProducts,
 	postProduct,
@@ -132,5 +151,7 @@ export {
 	editCoupon,
 	deleteCoupon,
 	getOrders,
-	editOrder
+	editOrder,
+	getStories,
+	getStory,
 }

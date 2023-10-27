@@ -45,6 +45,16 @@ const Admin = () => {
 							<li className="nav-item">
 								<button
 									type="button"
+									className="btn btn-sm btn-outline-light me-3"
+								>
+									<Link to="/" target="_blank" className='text-reset text-decoration-none'>
+										開啟前台
+									</Link>
+								</button>
+							</li>
+							<li className="nav-item">
+								<button
+									type="button"
 									className="btn btn-sm btn-outline-light"
 									onClick={handleLogout}
 								>
@@ -75,6 +85,12 @@ const Admin = () => {
 							to="/admin/orders"
 						>
 							訂單列表
+						</Link>
+						<Link
+							className="list-group-item list-group-item-action py-3"
+							to="/admin/stories"
+						>
+							文章列表
 						</Link>
 					</ul>
 				</div>

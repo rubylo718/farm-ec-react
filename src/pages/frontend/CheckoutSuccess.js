@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { getOrder } from '../../api/front'
 import { unixToDateString } from '../../utils/dayjs-helper'
 
-export const CheckoutSuccess = () => {
+const CheckoutSuccess = () => {
 	const { orderId } = useParams()
 	const [orderData, setOrderData] = useState({})
 	const navigation = useNavigate()
@@ -17,8 +17,6 @@ export const CheckoutSuccess = () => {
 		}
 		getOrderData(orderId)
 	}, [orderId])
-
-	// console.log(Object.values(orderData?.products || {})[0].coupon?.code)
 
 	return (
 		<div className="container my-5">
@@ -103,3 +101,5 @@ export const CheckoutSuccess = () => {
 		</div>
 	)
 }
+
+export default CheckoutSuccess
