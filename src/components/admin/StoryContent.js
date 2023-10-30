@@ -34,6 +34,7 @@ const StoryContent = ({ story }) => {
 					className="form-control mt-1"
 					onChange={handleChange}
 					value={data.title}
+					readOnly={!data.isEditMode}
 				/>
 			</div>
 			<div className="col-md-6 mb-2">
@@ -47,6 +48,7 @@ const StoryContent = ({ story }) => {
 					className="form-control mt-1"
 					onChange={handleChange}
 					value={unixToDateString(data.create_at)}
+					readOnly={!data.isEditMode}
 				/>
 			</div>
 			<div className="col-md-6 mb-2">
@@ -60,6 +62,7 @@ const StoryContent = ({ story }) => {
 					className="form-control mt-1"
 					onChange={handleChange}
 					value={data.author}
+					readOnly={!data.isEditMode}
 				/>
 			</div>
 			<div className="col-md-12 mb-2">
@@ -73,6 +76,7 @@ const StoryContent = ({ story }) => {
 					value={data.image}
 					onChange={handleChange}
 					rows={1}
+					readOnly={!data.isEditMode}
 				/>
 				{data.image && (
 					<>
@@ -97,6 +101,7 @@ const StoryContent = ({ story }) => {
 					value={data.description}
 					onChange={handleChange}
 					rows={1}
+					readOnly={!data.isEditMode}
 				/>
 			</div>
 			<div className="col-md-12 mb-2">
@@ -110,9 +115,10 @@ const StoryContent = ({ story }) => {
 					value={data.content}
 					onChange={handleChange}
 					rows={10}
+					readOnly={!data.isEditMode}
 				/>
 			</div>
-			<div className="col-md-8 mb-2">
+			<div className="col-md-8 mb-2 form-check">
 				<input
 					className="form-check-input me-2"
 					type="checkbox"
@@ -120,6 +126,7 @@ const StoryContent = ({ story }) => {
 					name="isPublic"
 					onChange={handleChange}
 					checked={data.isPublic}
+					disabled={!data.isEditMode}
 				/>
 				<label className="form-check-label" htmlFor="isPublic">
 					是否公開
@@ -132,12 +139,21 @@ const StoryContent = ({ story }) => {
 				>
 					取消
 				</button>
-				<button
-					className="btn btn-primary btn-sm"
-					onClick={() => handleSubmit(data)}
-				>
-					儲存
-				</button>
+				{data.isEditMode ? (
+					<button
+						className="btn btn-primary btn-sm"
+						onClick={() => handleSubmit({ ...data, isEditMode: false })}
+					>
+						儲存
+					</button>
+				) : (
+					<button
+						className="btn btn-warning btn-sm"
+						onClick={() => setData({ ...data, isEditMode: true })}
+					>
+						編輯
+					</button>
+				)}
 			</div>
 		</div>
 	)

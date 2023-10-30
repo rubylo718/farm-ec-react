@@ -36,7 +36,7 @@ const AdminStoryContent = () => {
 				isPublic: false,
 				tag: [],
 				title: '',
-				isEditMode: false,
+				isEditMode: true,
 			})
 		}
 	}, [id])
