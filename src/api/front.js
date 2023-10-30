@@ -104,12 +104,23 @@ const getAllProducts = async () => {
 	}
 }
 
+//coupon
 const postCouponFront = async (code) => {
 	try {
 		const res = await axiosInstance.post('coupon', { data: { code } })
 		return res.data
 	} catch (err) {
 		return err.response.data
+	}
+}
+
+//story
+const getStoriesFront = async (page) => {
+	try {
+		const res = await axiosInstance.get(`articles?page=${page}`)
+		return res.data
+	} catch (err) {
+		console.error(err)
 	}
 }
 
@@ -125,4 +136,5 @@ export {
 	getOrder,
 	getAllProducts,
 	postCouponFront,
+	getStoriesFront,
 }

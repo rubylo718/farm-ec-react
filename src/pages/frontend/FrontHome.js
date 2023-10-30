@@ -4,7 +4,7 @@ import FeedbackCarousel from '../../components/frontend/home/FeedbackCarousel'
 import ProductCarouselCollection from '../../components/frontend/home/ProductCarouselCollection'
 import SocialMedia from '../../components/frontend/home/SocialMedia'
 import Story from '../../components/frontend/home/Story'
-import { getProductsCat } from '../../api/front'
+import { getProductsCat, getStoriesFront } from '../../api/front'
 import feedback from '../../utils/feedback.json'
 
 const FrontHome = () => {
@@ -13,6 +13,8 @@ const FrontHome = () => {
 		{ id: 2, products: [] },
 		{ id: 3, products: [] },
 	])
+	const [stories, setStories] = useState([])
+
 	const getAllProductList = async () => {
 		try {
 			const res1 = getProductsCat(1, '新鮮蔬菜')
@@ -26,7 +28,16 @@ const FrontHome = () => {
 				{ id: 3, products: [...results[2].products] },
 			])
 		} catch (err) {
-			console.err(err)
+			console.error(err)
+		}
+	}
+
+	const getStories = async() => {
+		try {
+			const result = await getStoriesFront(1)
+			setStories(result.articles.filter(item => item.isPublic).slice(0, 3))
+		} catch(err) {
+			console.error(err)
 		}
 	}
 
@@ -36,6 +47,7 @@ const FrontHome = () => {
 
 	useEffect(() => {
 		getAllProductList()
+		getStories()
 	}, [])
 
 	return (
@@ -45,7 +57,7 @@ const FrontHome = () => {
 			<div className="bg-light">
 				<FeedbackCarousel feedback={feedback} />
 			</div>
-			<Story />
+			<Story stories={stories} />
 			<div className="bg-light">
 				<SocialMedia />
 			</div>
