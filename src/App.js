@@ -16,6 +16,7 @@ import CheckoutSuccess from './pages/frontend/CheckoutSuccess'
 import SearchResult from './pages/frontend/SearchResult'
 import AdminStoryContent from './pages/admin/AdminStoryContent'
 import AdminStoriesIndex from './pages/admin/AdminStoryIndex'
+import Blog from './pages/frontend/Blog'
 
 function App() {
 	return (
@@ -42,6 +43,7 @@ function App() {
 							path="success/:orderId"
 							element={<CheckoutSuccess />}
 						></Route>
+						<Route path="blog" element={<Blog />}></Route>
 					</Route>
 				</Routes>
 			</AuthProvider>

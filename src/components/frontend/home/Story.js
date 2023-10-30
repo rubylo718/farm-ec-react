@@ -1,12 +1,14 @@
+import { Link } from "react-router-dom"
+
 const Story = ({ stories }) => {
 	return (
 		<div className="container my-5">
 			<div className="row">
 				<h4 className="fs-4">
 					產地故事
-					<a className="float-end btn btn-outline-dark" href="/">
+					<Link className="float-end btn btn-outline-dark" to="blog">
 						看更多
-					</a>
+					</Link>
 				</h4>
 				<hr />
 				{stories.map((item) => {
