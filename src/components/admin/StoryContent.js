@@ -3,7 +3,7 @@ import { useOutletContext } from 'react-router-dom'
 import { dateStringToUnix, unixToDateString } from '../../utils/dayjs-helper'
 
 const StoryContent = ({ story }) => {
-	const [data, setData] = useState({})
+	const [data, setData] = useState({ ...story, tag: story.tag })
 	const { handleSubmit, navigate } = useOutletContext()
 
 	const handleChange = (e) => {
@@ -12,6 +12,8 @@ const StoryContent = ({ story }) => {
 			setData({ ...data, [name]: e.target.checked })
 		} else if (name === 'create_date_string') {
 			setData({ ...data, create_at: dateStringToUnix(value) })
+		} else if (name === 'tag') {
+			setData({ ...data, tag: [value.trim()] })
 		} else {
 			setData({ ...data, [name]: value })
 		}
@@ -89,6 +91,20 @@ const StoryContent = ({ story }) => {
 						/>
 					</>
 				)}
+			</div>
+			<div className="col-md-12 mb-2">
+				<label className="w-100" htmlFor="tag">
+					標籤
+				</label>
+				<input
+					type="text"
+					id="tag"
+					name="tag"
+					className="form-control mt-1"
+					onChange={handleChange}
+					value={data?.tag || ''}
+					readOnly={!data.isEditMode}
+				/>
 			</div>
 			<div className="col-md-12 mb-2">
 				<label className="w-100" htmlFor="description">

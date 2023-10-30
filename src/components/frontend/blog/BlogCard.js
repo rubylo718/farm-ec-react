@@ -4,19 +4,23 @@ import { unixToDateString } from '../../../utils/dayjs-helper'
 const BlogCard = ({ story, size }) => {
 	return (
 		<div className="card mb-3 text-center">
-			<img
-				src={story.image}
-				className="card-img-top"
-				style={{
-					height: size === 'big' ? '300px' : '150px',
-					objectFit: 'cover',
-				}}
-				alt="..."
-			/>
+			<Link to={story.id}>
+				<img
+					src={story.image}
+					className="card-img-top"
+					style={{
+						height: size === 'big' ? '300px' : '150px',
+						objectFit: 'cover',
+					}}
+					alt="..."
+				/>
+			</Link>
 			<div className="card-body ">
-				<h4 className={`card-title ${size === `small` ? `fs-5` : ''}`}>
-					{story.title}
-				</h4>
+				<Link className="text-reset text-decoration-none" to={story.id}>
+					<h4 className={`card-title ${size === `small` ? `fs-5` : ''}`}>
+						{story.title}
+					</h4>
+				</Link>
 				<small className="text-mute text-secondary">
 					{unixToDateString(story.create_at)}
 					<br />

@@ -5,6 +5,8 @@ import {
 	useOutletContext,
 	useNavigate,
 } from 'react-router-dom'
+import { faHandPointer } from '@fortawesome/free-regular-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { getStoryFront } from '../../api/front'
 import { unixToDateString } from '../../utils/dayjs-helper'
 
@@ -44,7 +46,15 @@ const BlogContent = () => {
 					<p className="my-4 fs-5 text-secondary">{story.description}</p>
 					<p className="my-4 fs-5">{story.content}</p>
 					<button
-						className="btn btn-outline-primary"
+						className="btn btn-primary btn-lg text-white my-4"
+						onClick={() => navigate(`/products/keyword?query=${story.tag}`)}
+					>
+						<FontAwesomeIcon icon={faHandPointer} className="me-1" />
+						立即選購相關商品
+					</button>
+					<br />
+					<button
+						className="btn btn-outline-secondary"
 						onClick={() => navigate('/blog')}
 					>
 						回文章列表
