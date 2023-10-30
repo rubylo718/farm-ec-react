@@ -123,9 +123,9 @@ const editOrder = async (data, id) => {
 }
 
 // stories
-const getStories = async () => {
+const getStories = async (page) => {
 	try {
-		const res = await axiosInstance.get('articles')
+		const res = await axiosInstance.get(`/articles?page=${page}`)
 		return res.data
 	} catch (err) {
 		return err.response.data

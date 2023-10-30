@@ -14,8 +14,8 @@ const AdminStoriesIndex = () => {
 	const [pagination, setPagination] = useState({})
 	const navigate = useNavigate()
 
-	const getStroyList = async () => {
-		const data = await getStories()
+	const getStroyList = async (page = 1) => {
+		const data = await getStories(page)
 		setStories(data?.articles)
 		setPagination(data?.pagination)
 	}

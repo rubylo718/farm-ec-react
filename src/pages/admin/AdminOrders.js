@@ -18,7 +18,6 @@ const AdminOrders = () => {
 	}
 	const handleShowModal = (modalData) => {
 		setModalData(modalData)
-
 		orderModal.current.show()
 	}
 	const handleHideModal = () => {

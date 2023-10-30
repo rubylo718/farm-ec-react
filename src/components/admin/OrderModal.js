@@ -126,7 +126,7 @@ const OrderModal = ({ handleHideModal, getOrderList, modalData }) => {
 								<tr>
 									<td className="border-bottom-0 text-end">總金額 $</td>
 									<td className="border-bottom-0">
-										{Math.round(inputData?.total)}
+										{Math.round(inputData?.total || 0)}
 									</td>
 								</tr>
 							</tfoot>
