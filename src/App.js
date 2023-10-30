@@ -17,6 +17,8 @@ import SearchResult from './pages/frontend/SearchResult'
 import AdminStoryContent from './pages/admin/AdminStoryContent'
 import AdminStoriesIndex from './pages/admin/AdminStoryIndex'
 import Blog from './pages/frontend/Blog'
+import BlogList from './pages/frontend/BlogList'
+import BlogContent from './pages/frontend/BlogContent'
 
 function App() {
 	return (
@@ -43,7 +45,10 @@ function App() {
 							path="success/:orderId"
 							element={<CheckoutSuccess />}
 						></Route>
-						<Route path="blog" element={<Blog />}></Route>
+						<Route path="blog" element={<Blog />}>
+							<Route index element={<BlogList />}></Route>
+							<Route path=":id" element={<BlogContent />}></Route>
+						</Route>
 					</Route>
 				</Routes>
 			</AuthProvider>

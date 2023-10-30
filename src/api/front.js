@@ -124,6 +124,15 @@ const getStoriesFront = async (page) => {
 	}
 }
 
+const getStoryFront = async (id) => {
+	try {
+		const res = await axiosInstance.get(`article/${id}`)
+		return res.data
+	} catch (err) {
+		return err.response.data
+	}
+}
+
 export {
 	getProductsCat,
 	getProductDetail,
@@ -137,4 +146,5 @@ export {
 	getAllProducts,
 	postCouponFront,
 	getStoriesFront,
+	getStoryFront,
 }

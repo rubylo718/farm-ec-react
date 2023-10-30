@@ -8,20 +8,22 @@ const BlogCard = ({ story, size }) => {
 				src={story.image}
 				className="card-img-top"
 				style={{
-					height: size === 'big' ? '300px' : '150opx',
+					height: size === 'big' ? '300px' : '150px',
 					objectFit: 'cover',
 				}}
 				alt="..."
 			/>
 			<div className="card-body ">
-				<h4 className="card-title">{story.title}</h4>
+				<h4 className={`card-title ${size === `small` ? `fs-5` : ''}`}>
+					{story.title}
+				</h4>
 				<small className="text-mute text-secondary">
 					{unixToDateString(story.create_at)}
 					<br />
 					作者：{story.author}
 				</small>
 				<p className="card-text mt-2">{story.description}</p>
-				<Link to="#" className="btn btn-outline-primary">
+				<Link to={story.id} className="btn btn-outline-primary">
 					繼續閱讀
 				</Link>
 			</div>
