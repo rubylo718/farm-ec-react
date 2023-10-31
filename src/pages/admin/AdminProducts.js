@@ -58,7 +58,7 @@ const AdminProducts = () => {
 			<div className="text-end">
 				<button
 					type="button"
-					className="btn btn-primary btn-sm"
+					className="btn btn-primary btn-sm text-white"
 					onClick={() => handleShowProductModal('create', {})}
 				>
 					建立新商品
@@ -69,7 +69,8 @@ const AdminProducts = () => {
 					<tr>
 						<th scope="col">分類</th>
 						<th scope="col">名稱</th>
-						<th scope="col">價格</th>
+						<th scope="col">原價</th>
+						<th scope="col">售價</th>
 						<th scope="col">狀態</th>
 						<th scope="col">動作</th>
 					</tr>
@@ -80,19 +81,20 @@ const AdminProducts = () => {
 							<tr key={product.id}>
 								<td>{product.category}</td>
 								<td>{product.title}</td>
+								<td>{product.origin_price}</td>
 								<td>{product.price}</td>
-								<td>{product.is_enabled ? '啟用' : '未啟用'}</td>
+								<td>{product.is_enabled ? '上架' : '未上架'}</td>
 								<td>
 									<button
 										type="button"
-										className="btn btn-primary btn-sm"
+										className="btn btn-primary btn-sm text-white me-2"
 										onClick={() => handleShowProductModal('edit', product)}
 									>
 										編輯
 									</button>
 									<button
 										type="button"
-										className="btn btn-outline-danger btn-sm ms-2"
+										className="btn btn-outline-danger btn-sm"
 										onClick={() => handleDeleteProduct(product.id)}
 									>
 										刪除

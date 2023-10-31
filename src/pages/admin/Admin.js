@@ -69,25 +69,25 @@ const Admin = () => {
 				<div className="bg-light" style={{ width: '200px' }}>
 					<ul className="list-group list-group-flush">
 						<Link
-							className="list-group-item list-group-item-action py-3"
+							className="list-group-item list-group-item-action list-group-item-light py-3"
 							to="/admin/products"
 						>
 							產品列表
 						</Link>
 						<Link
-							className="list-group-item list-group-item-action py-3"
+							className="list-group-item list-group-item-action list-group-item-light py-3"
 							to="/admin/coupons"
 						>
 							優惠券列表
 						</Link>
 						<Link
-							className="list-group-item list-group-item-action py-3"
+							className="list-group-item list-group-item-action list-group-item-light py-3"
 							to="/admin/orders"
 						>
 							訂單列表
 						</Link>
 						<Link
-							className="list-group-item list-group-item-action py-3"
+							className="list-group-item list-group-item-action list-group-item-light py-3"
 							to="/admin/stories"
 						>
 							文章列表

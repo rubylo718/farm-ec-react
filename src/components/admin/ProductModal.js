@@ -42,7 +42,10 @@ const ProductModal = ({
 		if (result.success) {
 			Toast.fire({ icon: 'success', title: `${result.message}` })
 		} else {
-			Toast.fire({ icon: 'error', title: `${result.message || `錯誤，請重新操作`}` })
+			Toast.fire({
+				icon: 'error',
+				title: `${result.message || `錯誤，請重新操作`}`,
+			})
 		}
 		getProductList()
 		handleHideProductModal()
@@ -78,7 +81,8 @@ const ProductModal = ({
 				<div className="modal-content">
 					<div className="modal-header">
 						<h1 className="modal-title fs-5">
-							{ modalAction === 'create' ? '建立新商品' : '編輯商品' }</h1>
+							{modalAction === 'create' ? '建立新商品' : '編輯商品'}
+						</h1>
 						<button
 							type="button"
 							className="btn-close"
@@ -93,27 +97,26 @@ const ProductModal = ({
 									<label className="w-100" htmlFor="image">
 										輸入圖片網址
 									</label>
-									<input
-										type="text"
+									<textarea
 										name="imageUrl"
 										id="image"
 										placeholder="請輸入圖片網址"
 										className="form-control"
 										value={inputData.imageUrl}
 										onChange={handleChange}
+										rows={"2"}
 									/>
 								</div>
-								<div className="form-group mb-2">
-									<label className="w-100" htmlFor="customFile">
-										或 上傳圖片
-										<input
-											type="file"
-											id="customFile"
-											className="form-control"
+								{inputData.imageUrl && (
+									<>
+										<p className="mb-1">圖片預覽</p>
+										<img
+											src={inputData.imageUrl}
+											alt=""
+											className="img-fluid"
 										/>
-									</label>
-								</div>
-								<img src="" alt="" className="img-fluid" />
+									</>
+								)}
 							</div>
 							<div className="col-sm-8">
 								<div className="form-group mb-2">
@@ -247,13 +250,12 @@ const ProductModal = ({
 											className="w-100 form-check-label"
 											htmlFor="is_enabled"
 										>
-											是否啟用
+											上架
 										</label>
 										<input
 											type="checkbox"
 											id="is_enabled"
 											name="is_enabled"
-											placeholder="請輸入產品說明內容"
 											className="form-check-input"
 											checked={Boolean(inputData.is_enabled)}
 											onChange={handleChange}

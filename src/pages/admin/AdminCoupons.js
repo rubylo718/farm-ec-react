@@ -59,7 +59,7 @@ const AdminCoupons = () => {
 			<div className="text-end">
 				<button
 					type="button"
-					className="btn btn-primary btn-sm"
+					className="btn btn-primary btn-sm text-white"
 					onClick={() => handleShowModal('create', {})}
 				>
 					建立優惠券
@@ -69,7 +69,8 @@ const AdminCoupons = () => {
 				<thead>
 					<tr>
 						<th scope="col">標題</th>
-						<th scope="col">折數</th>
+						<th scope="col">折扣碼</th>
+						<th scope="col">折數(%)</th>
 						<th scope="col">到期日</th>
 						<th scope="col">狀態</th>
 						<th scope="col">動作</th>
@@ -80,20 +81,21 @@ const AdminCoupons = () => {
 						return (
 							<tr key={coupon.id}>
 								<td>{coupon.title}</td>
+								<td>{coupon.code}</td>
 								<td>{coupon.percent}</td>
 								<td>{unixToDateString(coupon.due_date)}</td>
 								<td>{coupon.is_enabled ? '啟用' : '未啟用'}</td>
 								<td>
 									<button
 										type="button"
-										className="btn btn-primary btn-sm"
+										className="btn btn-primary btn-sm text-white me-2"
 										onClick={() => handleShowModal('edit', coupon)}
 									>
 										編輯
 									</button>
 									<button
 										type="button"
-										className="btn btn-outline-danger btn-sm ms-2"
+										className="btn btn-outline-danger btn-sm"
 										onClick={() => handleDelete(coupon.id)}
 									>
 										刪除

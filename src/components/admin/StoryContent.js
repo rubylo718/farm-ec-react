@@ -145,7 +145,7 @@ const StoryContent = ({ story }) => {
 					disabled={!data.isEditMode}
 				/>
 				<label className="form-check-label" htmlFor="isPublic">
-					是否公開
+					公開
 				</label>
 			</div>
 			<div className="col-md-4 text-end">

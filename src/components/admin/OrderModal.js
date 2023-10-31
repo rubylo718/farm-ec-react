@@ -143,7 +143,7 @@ const OrderModal = ({ handleHideModal, getOrderList, modalData }) => {
 							checked={inputData.is_paid || false}
 						/>
 						<label className="form-check-label" htmlFor="is_paid">
-							付款狀態（{inputData.is_paid ? '付款完成' : '未付款'}）
+							付款狀態（{inputData.is_paid ? '完成' : '未完成'}）
 						</label>
 					</div>
 					<div className="modal-footer">

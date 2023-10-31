@@ -57,7 +57,7 @@ const AdminStoriesIndex = () => {
 			<hr />
 			<div className="row">
 				<div className="col-6">
-					<Link className="btn btn-primary btn-sm" to="create" role="button">
+					<Link className="btn btn-primary btn-sm text-white" to="create" role="button">
 						新增文章
 					</Link>
 					<StoryTable stories={stories} handleDeleteStory={handleDeleteStory} />

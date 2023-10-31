@@ -58,12 +58,12 @@ const AdminOrders = () => {
 								<td>{order.id}</td>
 								<td>{unixToDateString(order.create_at)}</td>
 								<td>{order.user.name}</td>
-								<td>{order.is_paid ? '付款完成' : '未付款'}</td>
+								<td>{order.is_paid ? '完成' : '未完成'}</td>
 
 								<td>
 									<button
 										type="button"
-										className="btn btn-primary btn-sm"
+										className="btn btn-primary btn-sm text-white"
 										onClick={() => handleShowModal(order)}
 									>
 										查看

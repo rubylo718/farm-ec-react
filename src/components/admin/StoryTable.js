@@ -8,7 +8,7 @@ const StoryTable = ({ stories, handleDeleteStory }) => {
 				<tr>
 					<th scope="col">文章標題</th>
 					<th scope="col">建立日期</th>
-					<th scope="col">是否公開</th>
+					<th scope="col">狀態</th>
 					<th scope="col">動作</th>
 				</tr>
 			</thead>
@@ -18,10 +18,10 @@ const StoryTable = ({ stories, handleDeleteStory }) => {
 						<tr key={story.id}>
 							<td>{story.title}</td>
 							<td>{unixToDateString(story.create_at)}</td>
-							<td>{story.isPublic ? '已公開' : '尚未公開'}</td>
-							<td>
+							<td>{story.isPublic ? '公開' : '未公開'}</td>
+							<td className="">
 								<Link
-									className="btn btn-primary btn-sm"
+									className="btn btn-primary btn-sm text-white"
 									to={story.id}
 									role="button"
 								>
@@ -29,7 +29,7 @@ const StoryTable = ({ stories, handleDeleteStory }) => {
 								</Link>
 								<button
 									type="button"
-									className="btn btn-outline-danger btn-sm ms-2"
+									className="btn btn-outline-danger btn-sm ms-xl-1"
 									onClick={() => handleDeleteStory(story.id)}
 								>
 									刪除
