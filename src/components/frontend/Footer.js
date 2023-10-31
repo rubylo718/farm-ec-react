@@ -16,10 +16,10 @@ const Footer = () => {
 					<div className="col-sm-4 col-6 py-2">
 						<h3 className="fs-4">安心選購</h3>
 						<ul className="nav nav-pills nav-stacked flex-column">
-							{productData.productCategories.map((item) => {
+							{productData.productCategories.map((item, index) => {
 								return (
 									<li key={item.id}>
-										<Link to="/" className="text-white text-decoration-none">
+										<Link to={`/products/${index + 1}`} className="text-white text-decoration-none">
 											{item.title}
 										</Link>
 									</li>
@@ -28,11 +28,11 @@ const Footer = () => {
 						</ul>
 					</div>
 					<div className="col-sm-4 col-6 py-2">
-						<h3 className="fs-4">關於我們</h3>
+						<h3 className="fs-4">部落格</h3>
 						<ul className="nav nav-pills nav-stacked flex-column">
 							<li>
-								<Link to="/" className="text-white text-decoration-none">
-									關於文章
+								<Link to="/blog" className="text-white text-decoration-none">
+									產地故事
 								</Link>
 							</li>
 						</ul>

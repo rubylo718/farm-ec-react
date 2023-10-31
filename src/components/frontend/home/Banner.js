@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const Banner = () => {
 	const [searchInput, setSearchInput] = useState('')
@@ -9,7 +11,12 @@ const Banner = () => {
 		setSearchInput(e.target.value)
 	}
 	const handleSearch = (e) => {
-		if (e.key === 'Enter' || e.target.id === 'search') {
+		if (!searchInput.length) return
+		if (
+			e.key === 'Enter' ||
+			e.target.id === 'search' ||
+			e.target.id === 'searchIcon'
+		) {
 			navigate(`/products/keyword?query=${searchInput}`)
 		}
 	}
@@ -29,11 +36,11 @@ const Banner = () => {
 					<h5 className="font-weight-normal text-muted mt-2">
 						陪您幸福料理好味道
 					</h5>
-					<div className="input-group mb-0 mt-4">
+					<div className="input-group mb-0 mt-4 w-75">
 						<input
 							type="text"
 							className="form-control"
-							placeholder="請輸入關鍵字"
+							placeholder="搜尋商品名稱"
 							value={searchInput}
 							onChange={handleChange}
 							onKeyDown={handleSearch}
@@ -45,7 +52,12 @@ const Banner = () => {
 							id="search"
 							onClick={handleSearch}
 						>
-							搜尋產品
+							<FontAwesomeIcon
+								icon={faMagnifyingGlass}
+								className="text-white"
+								id="searchIcon"
+								onClick={handleSearch}
+							/>
 						</button>
 					</div>
 				</div>

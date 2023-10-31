@@ -79,7 +79,7 @@ const Detail = () => {
 								</li>
 							</ol>
 						</nav>
-						<h2 className="fw-bold h1 mb-1">{product.title}</h2>
+						<h2 className="fw-bold mb-1">{product.title}</h2>
 						<p className="mb-0 text-muted text-end">
 							<del>NT${product.origin_price}</del>
 						</p>
@@ -107,12 +107,31 @@ const Detail = () => {
 				</div>
 				<div className="row my-5">
 					<div className="col-md-7">
-						<p>{product.content}</p>
+						<h4>商品簡介</h4>
+						<p className="fs-5">{product.description}</p>
+						<br />
+						<h4>商品描述</h4>
+						<p className="fs-5">{product.content}</p>
 					</div>
 					<div className="col-md-5">
-						<p>{product.description}</p>
+						<h5>訂購須知</h5>
+						<ul>
+							<li>
+								adhaero accendo bestia calamitas veritas campana molestiae caput
+								antiquus eaque admoveo delectatio censura terror unus
+							</li>
+							<li>
+								adhaero accendo bestia calamitas veritas campana molestiae caput
+								antiquus eaque admoveo delectatio censura terror unus
+							</li>
+							<li>
+								adhaero accendo bestia calamitas veritas campana molestiae caput
+								antiquus eaque admoveo delectatio censura terror unus
+							</li>
+						</ul>
 					</div>
 				</div>
+				<hr />
 				<h4>同類商品推薦</h4>
 				<ProductCarousel data={{ id: categoryId, products: productList }} />
 			</div>

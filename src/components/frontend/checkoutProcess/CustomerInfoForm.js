@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useOutletContext } from 'react-router-dom'
 import { useForm, useWatch } from 'react-hook-form'
 import taiwanData from '../../../utils/taiwan.json'
 import { postOrder, postPay } from '../../../api/front'
@@ -61,6 +61,7 @@ const CustomerInfoForm = () => {
 	const watchCity = useWatch({ control, name: 'city' })
 	const watchDistrict = useWatch({ control, name: 'district' })
 	const [isLoading, setIsLoading] = useState(false)
+	const { getCurrentCart } = useOutletContext()
 
 	const onSubmit = async (data) => {
 		const user = {
@@ -76,6 +77,7 @@ const CustomerInfoForm = () => {
 			const payResult = await postPay(orderId)
 			if (payResult.success) {
 				Toast.fire({ icon: 'success', title: '已成功付款' })
+				getCurrentCart()
 				navigation(`/success/${orderId}`)
 			}
 		}
@@ -169,7 +171,7 @@ const CustomerInfoForm = () => {
 						?.AreaList?.find((area) => area.AreaName === getValues().district)
 						?.RoadList.map((road) => {
 							return (
-								<option value={road.RoadName} key={road.RoadEngName}>
+								<option value={road.RoadName} key={road.RoadName}>
 									{road.RoadName}
 								</option>
 							)

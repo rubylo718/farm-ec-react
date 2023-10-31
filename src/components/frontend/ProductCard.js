@@ -15,13 +15,21 @@ const ProductCard = ({ item }) => {
 	return (
 		<div className="col-md-4 mt-md-2">
 			<div className="card border-0 mb-4 position-relative position-relative">
-				<img
-					src={item?.imageUrl}
-					className="card-img-top rounded-0"
-					alt="..."
-				/>
+				<Link to={`/detail/${item?.id}`}>
+					<img
+						src={item?.imageUrl}
+						className="card-img-top rounded-0"
+						alt={item?.title}
+						style={{ height: '20vh', objectFit: 'cover' }}
+					/>
+				</Link>
 				<div className="card-body p-0">
-					<h4 className="mb-0 mt-4">{item?.title}</h4>
+					<Link
+						className="text-reset text-decoration-none"
+						to={`/detail/${item?.id}`}
+					>
+						<h4 className="mb-0 mt-4 fs-5">{item?.title}</h4>
+					</Link>
 					<div className="d-flex justify-content-between mt-3">
 						<p className="card-text fs-5 mb-0 w-75">
 							${`${item?.price} `}
@@ -29,7 +37,7 @@ const ProductCard = ({ item }) => {
 								${item?.origin_price}
 							</small>
 						</p>
-						<button className="btn btn-outline-primary text-nowrap">
+						<button className="btn btn-primary text-nowrap text-white">
 							<Link
 								className="text-decoration-none text-reset"
 								to={`/detail/${item?.id}`}

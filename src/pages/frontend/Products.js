@@ -18,10 +18,6 @@ const Products = () => {
 	}
 
 	useEffect(() => {
-		getDataList()
-	}, [])
-
-	useEffect(() => {
 		const categoryTitle = productData.productCategories.find(
 			(item) => item.id === Number(categoryId)
 		).title

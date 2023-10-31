@@ -47,11 +47,9 @@ const Cart = () => {
 			getCurrentCart()
 		} else {
 			Toast.fire({ icon: 'error', title: res.message })
-			setCouponCode("")
+			setCouponCode('')
 		}
 	}
-
-	console.log(cartData)
 
 	return (
 		<div className="container my-5">
@@ -145,26 +143,41 @@ const Cart = () => {
 							})}
 						</tbody>
 					</table>
+					{!cartData?.carts.length && (
+						<div className="mt-5 text-center">
+							<p className="fs-5">您的購物車內尚無商品喔！</p>
+							<button
+								className="btn btn-info mt-1 text-white"
+								onClick={() => navigation('/')}
+							>
+								去逛逛
+							</button>
+						</div>
+					)}
 
-					<div className="input-group w-50 mb-3">
-						<input
-							type="text"
-							className="form-control border-bottom border-top-0 border-start-0 "
-							placeholder="請輸入優惠碼"
-							aria-label="coupon code"
-							value={couponCode}
-							onChange={(e) => setCouponCode(e.target.value)}
-						/>
+					{cartData?.carts.length !== 0 && (
+						<div className="input-group w-50 mb-3">
+							<input
+								type="text"
+								className="form-control border-bottom border-top-0 border-start-0 "
+								placeholder="輸入welcome打95折"
+								aria-label="coupon code"
+								value={couponCode}
+								onChange={(e) => setCouponCode(e.target.value)}
+							/>
 
-						<button
-							className="btn btn-secondary rounded-0"
-							onClick={handleCoupon}
-						>
-							套用
-						</button>
-					</div>
-					{couponResult && <FontAwesomeIcon icon={faCheck} className='text-primary' />}
-					<small className='ms-2'>{couponResult}</small>
+							<button
+								className="btn btn-secondary rounded-0"
+								onClick={handleCoupon}
+							>
+								套用
+							</button>
+						</div>
+					)}
+					{couponResult && (
+						<FontAwesomeIcon icon={faCheck} className="text-primary" />
+					)}
+					<small className="ms-2">{couponResult}</small>
 				</div>
 
 				<div className="col-md-4">
@@ -200,21 +213,27 @@ const Cart = () => {
 						</table>
 						<div className="d-flex justify-content-between mt-4">
 							<p className="mb-0 h4 fw-bold">訂單總計</p>
-							<p className="mb-0 h4 fw-bold">NT${Math.round(cartData.final_total)}</p>
+							<p className="mb-0 h4 fw-bold">
+								NT${Math.round(cartData.final_total)}
+							</p>
 						</div>
+						{cartData.final_total > 0 && (
+							<>
+								<button
+									className="btn btn-light w-100 mt-4"
+									onClick={() => navigation('/')}
+								>
+									繼續逛逛
+								</button>
 
-						<button
-							className="btn btn-outline-dark w-100 mt-4"
-							onClick={() => navigation(-1)}
-						>
-							繼續逛逛
-						</button>
-						<button
-							className="btn btn-danger w-100 mt-4"
-							onClick={() => navigation('/checkout')}
-						>
-							結帳
-						</button>
+								<button
+									className="btn btn-danger w-100 mt-4"
+									onClick={() => navigation('/checkout')}
+								>
+									結帳
+								</button>
+							</>
+						)}
 					</div>
 				</div>
 			</div>
