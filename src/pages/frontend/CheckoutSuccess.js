@@ -24,6 +24,7 @@ const CheckoutSuccess = () => {
 			<div className="row">
 				<div className="col-md-6">
 					<p>感謝惠顧！</p>
+					<p>您的商品會在 3~5 個工作天送達，若有問題請洽客服。</p>
 					<button
 						className="btn btn-primary text-white"
 						onClick={() => navigation('/')}
@@ -34,8 +35,10 @@ const CheckoutSuccess = () => {
 				<div className="col-md-6">
 					<div className="border p-4 mb-4">
 						<h4 className="fw-bold mb-3 ">訂單內容</h4>
-						<p className="mb-1">訂單編號：{orderData?.id}</p>
-						<p>購買日期：{unixToDateString(orderData?.create_at)}</p>
+						<p className="mb-1 fw-bold">訂單編號：{orderData?.id}</p>
+						<p className="fw-bold">
+							購買日期：{unixToDateString(orderData?.create_at)}
+						</p>
 						<h5>商品明細</h5>
 						<table className="table table-sm align-middle">
 							<thead>
@@ -43,7 +46,7 @@ const CheckoutSuccess = () => {
 									<th scope="col" className="border-0 ps-0">
 										商品
 									</th>
-									<th scope="col" className="border-0">
+									<th scope="col" className="border-0 w-25 text-center">
 										數量
 									</th>
 								</tr>
@@ -60,10 +63,11 @@ const CheckoutSuccess = () => {
 													<img
 														src={item.product.imageUrl}
 														alt="product"
-														style={{
-															maxWidth: '48px',
-															objectFit: 'cover',
-														}}
+														className='w-100 object-fit-cover el-hover'
+														// style={{
+														// 	width: '100%',
+														// 	objectFit: 'cover',
+														// }}
 													/>
 												</div>
 												<div className="col-lg-9">
@@ -71,7 +75,9 @@ const CheckoutSuccess = () => {
 												</div>
 											</th>
 											<td className="border-0">
-												<p className="mb-0 ms-auto align-middle">{item.qty}</p>
+												<p className="mb-0 ms-auto align-middle text-center">
+													{item.qty}
+												</p>
 											</td>
 										</tr>
 									)

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useOutletContext, useNavigate } from 'react-router-dom'
+import { useOutletContext, useNavigate, Link } from 'react-router-dom'
 import { faPlus, faMinus, faCheck } from '@fortawesome/free-solid-svg-icons'
 import { faTrashCan } from '@fortawesome/free-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -38,16 +38,18 @@ const Cart = () => {
 		}
 	}
 
-	const handleCoupon = async () => {
-		const res = await postCouponFront(couponCode)
-		console.log(res)
-		if (res?.success) {
-			Toast.fire({ icon: 'success', title: res.message })
-			setCouponResult(res.message)
-			getCurrentCart()
-		} else {
-			Toast.fire({ icon: 'error', title: res.message })
-			setCouponCode('')
+	const handleCoupon = async (e) => {
+		if (!couponCode.length) return
+		if (e.key === 'Enter' || e.target.id === 'setCoupon') {
+			const res = await postCouponFront(couponCode)
+			if (res?.success) {
+				Toast.fire({ icon: 'success', title: res.message })
+				setCouponResult(res.message)
+				getCurrentCart()
+			} else {
+				Toast.fire({ icon: 'error', title: res.message })
+				setCouponCode('')
+			}
 		}
 	}
 
@@ -83,19 +85,27 @@ const Cart = () => {
 											className="row border-0 px-0 py-4 align-items-center"
 										>
 											<div className="col-lg-3">
-												<img
-													src={item.product.imageUrl}
-													alt="product"
-													style={{
-														maxWidth: '72px',
-														objectFit: 'cover',
-													}}
-												/>
+												<Link to={`/detail/${item.product.id}`}>
+													<img
+														className="px-1 el-hover"
+														src={item.product.imageUrl}
+														alt="product"
+														style={{
+															maxWidth: '72px',
+															objectFit: 'cover',
+														}}
+													/>
+												</Link>
 											</div>
 											<div className="col-lg-9">
-												<p className="my-0 px-2 text-break">
-													{item.product.title}
-												</p>
+												<Link
+													to={`/detail/${item.product.id}`}
+													className="text-reset text-decoration-none el-hover"
+												>
+													<p className="my-0 text-break">
+														{item.product.title}
+													</p>
+												</Link>
 											</div>
 										</th>
 										<td className="border-0" style={{ maxWidth: '160px' }}>
@@ -131,7 +141,7 @@ const Cart = () => {
 											<p className="mb-0 ms-auto">NT${item.total}</p>
 										</td>
 										<td className="border-0 align-middle">
-											<button type="button" className="btn">
+											<button type="button" className="btn el-hover">
 												<FontAwesomeIcon
 													icon={faTrashCan}
 													onClick={() => handleDeleteItem(item.id)}
@@ -164,10 +174,12 @@ const Cart = () => {
 								aria-label="coupon code"
 								value={couponCode}
 								onChange={(e) => setCouponCode(e.target.value)}
+								onKeyDown={handleCoupon}
 							/>
 
 							<button
 								className="btn btn-secondary rounded-0"
+								id="setCoupon"
 								onClick={handleCoupon}
 							>
 								套用
@@ -225,7 +237,6 @@ const Cart = () => {
 								>
 									繼續逛逛
 								</button>
-
 								<button
 									className="btn btn-danger w-100 mt-4"
 									onClick={() => navigation('/checkout')}

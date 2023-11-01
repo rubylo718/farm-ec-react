@@ -7,16 +7,17 @@ const BlogCard = ({ story, size }) => {
 			<Link to={story.id}>
 				<img
 					src={story.image}
-					className="card-img-top"
+					className="card-img-top el-hover"
 					style={{
-						height: size === 'big' ? '300px' : '150px',
+						height: size === 'big' ? '30vw' : '20vw',
+						maxHeight: size === 'big' ? '250px' : '150px',
 						objectFit: 'cover',
 					}}
 					alt="..."
 				/>
 			</Link>
-			<div className="card-body ">
-				<Link className="text-reset text-decoration-none" to={story.id}>
+			<div className="card-body">
+				<Link className="text-reset text-decoration-none el-hover" to={story.id}>
 					<h4 className={`card-title ${size === `small` ? `fs-5` : ''}`}>
 						{story.title}
 					</h4>

@@ -9,7 +9,12 @@ const ProductCarouselCollection = ({ allData }) => {
 				return (
 					<div className="container mt-5" key={data.id}>
 						<h4 className="fs-4">
-							{data?.products[0]?.category}
+							<Link
+								className="text-reset text-decoration-none el-hover"
+								to={`/products/${data.id}`}
+							>
+								{data?.products[0]?.category}
+							</Link>
 							<Link
 								className="float-end btn btn-outline-dark"
 								to={`/products/${data.id}`}

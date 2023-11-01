@@ -56,7 +56,7 @@ const Detail = () => {
 			<div className="container">
 				<div className="row align-items-center mt-4">
 					<div className="col-md-7">
-						<img src={product.imageUrl} className="d-block w-100" alt="..." />
+						<img src={product?.imageUrl} className="d-block w-100" alt="..." />
 					</div>
 					<div className="col-md-5">
 						<nav aria-label="breadcrumb">
@@ -71,19 +71,19 @@ const Detail = () => {
 										className="text-muted text-decoration-none"
 										to={`/products/${categoryId}`}
 									>
-										{product.category}
+										{product?.category}
 									</Link>
 								</li>
 								<li className="breadcrumb-item active" aria-current="page">
-									{product.title}
+									{product?.title}
 								</li>
 							</ol>
 						</nav>
-						<h2 className="fw-bold mb-1">{product.title}</h2>
+						<h2 className="fw-bold mb-1">{product?.title}</h2>
 						<p className="mb-0 text-muted text-end">
-							<del>NT${product.origin_price}</del>
+							<del>NT${product?.origin_price}</del>
 						</p>
-						<p className="h4 fw-bold text-end">NT${product.price}</p>
+						<p className="h4 fw-bold text-end">NT${product?.price}</p>
 						<div className="row align-items-center">
 							<div className="col-6">
 								<AmountInput
@@ -108,10 +108,10 @@ const Detail = () => {
 				<div className="row my-5">
 					<div className="col-md-7">
 						<h4>商品簡介</h4>
-						<p className="fs-5">{product.description}</p>
+						<p className="fs-5">{product?.description}</p>
 						<br />
 						<h4>商品描述</h4>
-						<p className="fs-5">{product.content}</p>
+						<p className="fs-5">{product?.content}</p>
 					</div>
 					<div className="col-md-5">
 						<h5>訂購須知</h5>

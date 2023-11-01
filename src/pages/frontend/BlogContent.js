@@ -35,7 +35,7 @@ const BlogContent = () => {
 					</p>
 					<img
 						src={story.image}
-						className="card-img-top"
+						className="card-img-top el-hover"
 						style={{
 							width: '100%',
 							maxHeight: '20rem',
@@ -68,7 +68,7 @@ const BlogContent = () => {
 							<Link to={'/blog/' + item.id}>
 								<img
 									src={item.image}
-									className="card-img-top"
+									className="card-img-top el-hover"
 									style={{ height: '150px', objectFit: 'cover' }}
 									alt={item.title}
 								/>
@@ -76,7 +76,7 @@ const BlogContent = () => {
 							<div className="card-body">
 								<Link
 									to={'/blog/' + item.id}
-									className="text-reset text-decoration-none"
+									className="text-reset text-decoration-none el-hover"
 								>
 									<h5 className="card-title">{item.title}</h5>
 								</Link>

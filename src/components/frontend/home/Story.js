@@ -4,8 +4,10 @@ const Story = ({ stories }) => {
 	return (
 		<div className="container my-5">
 			<div className="row">
-				<h4 className="fs-4">
+				<h4 className="">
+					<Link className='text-reset text-decoration-none el-hover' to="blog">
 					產地故事
+					</Link>
 					<Link className="float-end btn btn-outline-dark" to="blog">
 						看更多
 					</Link>
@@ -18,7 +20,7 @@ const Story = ({ stories }) => {
 								<Link to={`blog/${item?.id}`}>
 									<img
 										src={item?.image}
-										className="card-img-top rounded-0"
+										className="card-img-top rounded-0 el-hover"
 										alt="..."
 										style={{ height: '20vh', objectFit: 'cover' }}
 									/>

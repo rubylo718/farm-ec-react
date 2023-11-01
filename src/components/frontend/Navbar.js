@@ -35,7 +35,7 @@ const Navbar = ({ cartData }) => {
 		>
 			<div className="container">
 				<nav className="navbar px-0 navbar-expand-lg navbar-light bg-white">
-					<div className="container-fluid">
+					<div className="container-fluid position-relative">
 						<button
 							className="navbar-toggler"
 							type="button"
@@ -47,12 +47,12 @@ const Navbar = ({ cartData }) => {
 							<span className="navbar-toggler-icon"></span>
 						</button>
 						<NavLink
-							className="navbar-brand position-absolute fs-4"
+							className="navbar-brand position-absolute fs-4 el-hover"
 							to="/"
 							style={{
+								top: '20px',
 								left: '50%',
 								transform: 'translate(-50%, -50%)',
-								top: '50%',
 							}}
 						>
 							<FontAwesomeIcon
@@ -62,7 +62,26 @@ const Navbar = ({ cartData }) => {
 							安心小農
 						</NavLink>
 						<div
-							className="collapse navbar-collapse bg-white custom-header-md-open"
+							className="position-absolute el-hover"
+							style={{
+								top: '20px',
+								right: '0%',
+								transform: 'translate(-50%, -50%)',
+							}}
+						>
+							<Link to="/cart" className="position-relative">
+								<FontAwesomeIcon
+									icon={faBasketShopping}
+									size="lg"
+									className="text-primary"
+								/>
+								<span className="position-absolute top-0 start-100 translate-middle badge rounded-pill text-bg-danger">
+									{cartData?.carts?.length}
+								</span>
+							</Link>
+						</div>
+						<div
+							className="collapse navbar-collapse bg-white custom-header-md-open mt-1"
 							id="navbarToggler"
 						>
 							<ul className="navbar-nav me-auto mb-2 mb-lg-0">
@@ -71,12 +90,12 @@ const Navbar = ({ cartData }) => {
 										產品列表
 									</NavLink>
 								</li>
-								<li className="nav-item">
+								<li className="nav-item me-2">
 									<NavLink className="nav-link" to="/blog">
 										部落格
 									</NavLink>
 								</li>
-								<li className="nav-item input-group ms-2 w-50">
+								<li className="nav-item input-group w-50">
 									<input
 										type="text"
 										className="form-control"
@@ -101,18 +120,6 @@ const Navbar = ({ cartData }) => {
 									</button>
 								</li>
 							</ul>
-						</div>
-						<div className="d-flex">
-							<Link to="/cart" className="position-relative">
-								<FontAwesomeIcon
-									icon={faBasketShopping}
-									size="lg"
-									className="text-primary"
-								/>
-								<span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-									{cartData?.carts?.length}
-								</span>
-							</Link>
 						</div>
 					</div>
 				</nav>

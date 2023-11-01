@@ -35,7 +35,11 @@ const SearchResult = () => {
 						<hr />
 						<div className="row">
 							{products.map((item) => {
-								return <ProductCard item={item} key={item.id} />
+								return (
+									<div className="col-md-4 col-6" key={item.id}>
+										<ProductCard item={item} />
+									</div>
+								)
 							})}
 						</div>
 						<button

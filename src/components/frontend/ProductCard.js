@@ -13,12 +13,11 @@ const ProductCard = ({ item }) => {
 	}
 
 	return (
-		<div className="col-md-4 mt-md-2">
 			<div className="card border-0 mb-4 position-relative position-relative">
 				<Link to={`/detail/${item?.id}`}>
 					<img
 						src={item?.imageUrl}
-						className="card-img-top rounded-0"
+						className="card-img-top rounded-0 el-hover"
 						alt={item?.title}
 						style={{ height: '20vh', objectFit: 'cover' }}
 					/>
@@ -53,7 +52,6 @@ const ProductCard = ({ item }) => {
 						</button>
 					</div>
 				</div>
-			</div>
 		</div>
 	)
 }

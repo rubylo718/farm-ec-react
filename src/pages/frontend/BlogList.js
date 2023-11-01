@@ -9,15 +9,15 @@ const BlogList = () => {
 
 	return (
 		<>
-			<h3 className="mb-3">產地故事</h3>
+			<h3 className="mb-3 el-hover">產地故事</h3>
 			<div className="row mb-3">
 				{topTwoStory.map((story) => (
-					<div className="col-md-6" key={story.id}>
+					<div className="col-6" key={story.id}>
 						<BlogCard story={story} size="big" />
 					</div>
 				))}
 				{restStories.map((story) => (
-					<div className="col-lg-3 col-md-4 col-sm-6" key={story.id}>
+					<div className="col-lg-3 col-md-4 col-6" key={story.id}>
 						<BlogCard story={story} size="small" />
 					</div>
 				))}

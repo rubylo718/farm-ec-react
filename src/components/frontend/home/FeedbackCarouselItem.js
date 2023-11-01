@@ -12,7 +12,7 @@ const FeedbackCarouselItem = ({ feedback }) => {
 								<img
 									src={item.photoUrl}
 									alt=""
-									className="rounded-circle me-5"
+									className="rounded-circle me-5 el-hover"
 									style={{
 										width: '160px',
 										height: '160px',
@@ -20,7 +20,7 @@ const FeedbackCarouselItem = ({ feedback }) => {
 									}}
 								/>
 								<div className="d-flex flex-column">
-									<p className="h5">“{item.content}”</p>
+									<p className="h5 el-hover">“{item.content}”</p>
 									<p className="mt-auto text-muted">
 										{item.city} {item.last_name + item.title} {item.job}
 									</p>

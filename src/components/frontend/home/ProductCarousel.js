@@ -36,7 +36,7 @@ const ProductCarousel = ({ data }) => {
 							width: '48px',
 							height: '48px',
 							top: '40%',
-							left: '-10%',
+							left: '-2%',
 						}}
 						data-slide="prev"
 						onClick={handlePrev}
@@ -53,7 +53,7 @@ const ProductCarousel = ({ data }) => {
 							width: '48px',
 							height: '48px',
 							top: '40%',
-							right: '-10%',
+							right: '-2%',
 						}}
 						data-slide="next"
 						onClick={handleNext}

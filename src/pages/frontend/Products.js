@@ -34,7 +34,11 @@ const Products = () => {
 					<div className="col-md-9">
 						<div className="row">
 							{products.map((item) => {
-								return <ProductCard item={item} key={item.id} />
+								return (
+									<div className="col-6 col-lg-4" key={item.id}>
+										<ProductCard item={item} />
+									</div>
+								)
 							})}
 							<div className="d-flex justify-content-center">
 								<Pagination pagination={pagination} getDataList={getDataList} />
