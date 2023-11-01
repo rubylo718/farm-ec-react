@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import productData from '../../utils/selectOptions.json'
+import productData from '../../assets/selectOptions.json'
 import { postProduct, editProduct } from '../../api/admin'
 import { Toast } from '../../utils/toast-helper'
 
@@ -218,13 +218,13 @@ const ProductModal = ({
 								<hr />
 								<div className="form-group mb-2">
 									<label className="w-100" htmlFor="description">
-										產品描述
+										商品簡介
 									</label>
 									<textarea
 										type="text"
 										id="description"
 										name="description"
-										placeholder="請輸入產品描述"
+										placeholder="請輸入商品簡介"
 										className="form-control"
 										value={inputData.description}
 										onChange={handleChange}
@@ -232,16 +232,17 @@ const ProductModal = ({
 								</div>
 								<div className="form-group mb-2">
 									<label className="w-100" htmlFor="content">
-										說明內容
+										商品說明（按Enter分段）
 									</label>
 									<textarea
 										type="text"
 										id="content"
 										name="content"
-										placeholder="請輸入產品說明內容"
+										placeholder="請輸入商品說明"
 										className="form-control"
 										value={inputData.content}
 										onChange={handleChange}
+										rows={"8"}
 									/>
 								</div>
 								<div className="form-group mb-2">

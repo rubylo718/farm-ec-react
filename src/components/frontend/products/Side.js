@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom'
-import productData from '../../../utils/selectOptions.json'
+import productData from '../../../assets/selectOptions.json'
 
 const Side = () => {
 	return (

@@ -29,7 +29,7 @@ const ProductCarouselItem = ({ productList, categoryId }) => {
 						<div className="card border-0 align-items-center">
 							<div className="card-body my-5 ">
 								<Link
-									className="text-decoration-none text-secondary fs-2 text-center p-4 border rounded-pill"
+									className="text-decoration-none text-secondary fs-2 text-center p-4 border rounded-pill el-hover"
 									to={`/products/${categoryId}`}
 								>
 									完整列表

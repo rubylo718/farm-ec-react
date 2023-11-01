@@ -22,9 +22,9 @@ const CheckoutSuccess = () => {
 		<div className="container my-5">
 			<h3 className="mb-4">付款成功</h3>
 			<div className="row">
-				<div className="col-md-6">
+				<div className="col-md-6 mb-4">
 					<p>感謝惠顧！</p>
-					<p>您的商品會在 3~5 個工作天送達，若有問題請洽客服。</p>
+					<p>您的商品會在 3-5 個工作天送達，若有問題請洽安心小農Line客服。</p>
 					<button
 						className="btn btn-primary text-white"
 						onClick={() => navigation('/')}
@@ -43,9 +43,14 @@ const CheckoutSuccess = () => {
 						<table className="table table-sm align-middle">
 							<thead>
 								<tr className="border-bottom">
-									<th scope="col" className="border-0 ps-0">
+									<th
+										scope="col"
+										className="border-0 ps-0 text-center"
+										style={{ width: '15%' }}
+									>
 										商品
 									</th>
+									<th scope="col"></th>
 									<th scope="col" className="border-0 w-25 text-center">
 										數量
 									</th>
@@ -59,21 +64,15 @@ const CheckoutSuccess = () => {
 												scope="row"
 												className="row border-0 px-0 py-4 align-items-center"
 											>
-												<div className="col-lg-3">
-													<img
-														src={item.product.imageUrl}
-														alt="product"
-														className='w-100 object-fit-cover el-hover'
-														// style={{
-														// 	width: '100%',
-														// 	objectFit: 'cover',
-														// }}
-													/>
-												</div>
-												<div className="col-lg-9">
-													<p className="my-0 px-2">{item.product.title}</p>
-												</div>
+												<img
+													src={item.product.imageUrl}
+													alt="product"
+													className="w-100 object-fit-cover el-hover"
+												/>
 											</th>
+											<td>
+												<p className="my-0 px-2">{item.product.title}</p>
+											</td>
 											<td className="border-0">
 												<p className="mb-0 ms-auto align-middle text-center">
 													{item.qty}

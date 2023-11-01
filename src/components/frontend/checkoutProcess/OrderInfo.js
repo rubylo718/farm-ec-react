@@ -8,13 +8,16 @@ const OrderInfo = () => {
 			<table className="table table-sm table-borderless align-middle">
 				<thead>
 					<tr className="border-bottom ">
-						<th scope="col" className="ps-0">
+						<th scope="col" style={{ width: '15%' }} className="text-center">
 							商品
 						</th>
-						<th scope="col" style={{ width: '15%' }} className='text-center'>
+						<th scope="col"></th>
+						<th scope="col" style={{ width: '15%' }} className="text-center">
 							數量
 						</th>
-						<th scope="col" className='text-center'>小計</th>
+						<th scope="col" className="text-center">
+							小計
+						</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -25,14 +28,12 @@ const OrderInfo = () => {
 									<img
 										src={item.product.imageUrl}
 										alt="product"
-										style={{
-											width: '35%',
-											objectFit: 'cover',
-										}}
+										className="w-100 object-fit-cover"
 									/>
-									<br />
-									<p className="my-1 pe-3">{item.product.title}</p>
 								</th>
+								<td>
+									<p className="my-1 pe-3">{item.product.title}</p>
+								</td>
 								<td>
 									<p className="mb-0 text-center">{item.qty}</p>
 								</td>

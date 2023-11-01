@@ -6,7 +6,7 @@ import {
 	faYoutube,
 } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import productData from '../../utils/selectOptions.json'
+import productData from '../../assets/selectOptions.json'
 
 const Footer = () => {
 	return (

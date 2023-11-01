@@ -16,6 +16,10 @@ const Blog = () => {
 		getData()
 	}, [])
 
+	useEffect(() => {
+		window.scrollTo(0, 0)
+	}, [stories])
+
 	return (
 		<div className="container my-5">
 			<Outlet context={{ stories, pagination, getData }} />

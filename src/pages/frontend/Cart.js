@@ -61,7 +61,7 @@ const Cart = () => {
 					<table className="table align-middle">
 						<thead>
 							<tr className="border-bottom">
-								<th scope="col" className="border-0 ps-0 col-5">
+								<th scope="col" className="border-0">
 									商品
 								</th>
 								<th scope="col" className="border-0">

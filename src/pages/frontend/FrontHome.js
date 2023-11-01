@@ -5,7 +5,7 @@ import ProductCarouselCollection from '../../components/frontend/home/ProductCar
 import SocialMedia from '../../components/frontend/home/SocialMedia'
 import Story from '../../components/frontend/home/Story'
 import { getProductsCat, getStoriesFront } from '../../api/front'
-import feedback from '../../utils/feedback.json'
+import feedback from '../../assets/feedback.json'
 
 const FrontHome = () => {
 	const [allData, setAllData] = useState([

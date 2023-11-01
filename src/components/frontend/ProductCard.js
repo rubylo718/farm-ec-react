@@ -24,7 +24,7 @@ const ProductCard = ({ item }) => {
 				</Link>
 				<div className="card-body p-0">
 					<Link
-						className="text-reset text-decoration-none"
+						className="text-reset text-decoration-none el-hover"
 						to={`/detail/${item?.id}`}
 					>
 						<h4 className="mb-0 mt-4 fs-5">{item?.title}</h4>

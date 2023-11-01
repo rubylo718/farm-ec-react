@@ -6,8 +6,9 @@ import ProductCarousel from '../../components/frontend/home/ProductCarousel'
 import SocialMedia from '../../components/frontend/home/SocialMedia'
 import { getProductDetail, getProductsCat, postCart } from '../../api/front'
 import AmountInput from '../../components/frontend/AmountInput'
-import productData from '../../utils/selectOptions.json'
+import productData from '../../assets/selectOptions.json'
 import { Toast } from '../../utils/toast-helper'
+import Instruction from '../../components/frontend/products/Instruction'
 
 const Detail = () => {
 	const [product, setProduct] = useState({})
@@ -62,13 +63,13 @@ const Detail = () => {
 						<nav aria-label="breadcrumb">
 							<ol className="breadcrumb bg-white px-0 mb-0 py-3">
 								<li className="breadcrumb-item">
-									<Link className="text-muted text-decoration-none" to="/">
+									<Link className="text-muted" to="/">
 										首頁
 									</Link>
 								</li>
 								<li className="breadcrumb-item">
 									<Link
-										className="text-muted text-decoration-none"
+										className="text-muted"
 										to={`/products/${categoryId}`}
 									>
 										{product?.category}
@@ -107,28 +108,17 @@ const Detail = () => {
 				</div>
 				<div className="row my-5">
 					<div className="col-md-7">
-						<h4>商品簡介</h4>
-						<p className="fs-5">{product?.description}</p>
+						<h5 className="text-decoration-underline">商品簡介</h5>
+						<p>{product?.description}</p>
 						<br />
-						<h4>商品描述</h4>
-						<p className="fs-5">{product?.content}</p>
+						<h5 className="text-decoration-underline">商品說明</h5>
+						{product?.content?.split('\n').map((item, i) => (
+							<p key={i}>{item}</p>
+						))}
 					</div>
 					<div className="col-md-5">
-						<h5>訂購須知</h5>
-						<ul>
-							<li>
-								adhaero accendo bestia calamitas veritas campana molestiae caput
-								antiquus eaque admoveo delectatio censura terror unus
-							</li>
-							<li>
-								adhaero accendo bestia calamitas veritas campana molestiae caput
-								antiquus eaque admoveo delectatio censura terror unus
-							</li>
-							<li>
-								adhaero accendo bestia calamitas veritas campana molestiae caput
-								antiquus eaque admoveo delectatio censura terror unus
-							</li>
-						</ul>
+						<h5 className="mb-3 text-decoration-underline">訂購須知</h5>
+						<Instruction />
 					</div>
 				</div>
 				<hr />

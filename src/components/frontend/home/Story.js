@@ -27,7 +27,7 @@ const Story = ({ stories }) => {
 								</Link>
 								<div className="card-body p-0">
 									<Link
-										className="text-reset text-decoration-none"
+										className="text-reset text-decoration-none el-hover"
 										to={`blog/${item?.id}`}
 									>
 										<h4 className="mb-0 mt-4">{item?.title}</h4>

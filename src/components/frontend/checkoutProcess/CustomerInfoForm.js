@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, useOutletContext } from 'react-router-dom'
 import { useForm, useWatch } from 'react-hook-form'
-import taiwanData from '../../../utils/taiwan.json'
+import taiwanData from '../../../assets/taiwan.json'
 import { postOrder, postPay } from '../../../api/front'
 import { Toast } from '../../../utils/toast-helper'
 import Spinner from '../../Spinner'
