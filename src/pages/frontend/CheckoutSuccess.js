@@ -84,7 +84,7 @@ const CheckoutSuccess = () => {
 							</tbody>
 							<tfoot>
 								<tr>
-									<td className="border-0">
+									<td colSpan={2} className="border-0">
 										{Object.values(orderData?.products || {})[0]?.coupon &&
 											`使用優惠碼：${
 												Object.values(orderData?.products || {})[0]?.coupon

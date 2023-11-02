@@ -5,12 +5,14 @@ import { faTrashCan } from '@fortawesome/free-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { deleteCartItem, editCartItem, postCouponFront } from '../../api/front'
 import { Toast } from '../../utils/toast-helper'
+import Spinner from '../../components/Spinner'
 
 const Cart = () => {
 	const [couponCode, setCouponCode] = useState('')
 	const [couponResult, setCouponResult] = useState('')
 	const { cartData, getCurrentCart } = useOutletContext()
 	const navigation = useNavigate()
+	const [isLoading, setIsLoading] = useState(false)
 
 	const handleDeleteItem = async (id) => {
 		const result = await deleteCartItem(id)
@@ -22,25 +24,30 @@ const Cart = () => {
 
 	const handleAddQty = async (item) => {
 		const newQty = item.qty + 1
+		setIsLoading(true)
 		const result = await editCartItem(item, newQty)
 		if (result.success) {
 			getCurrentCart()
 		}
+		setIsLoading(false)
 	}
 
 	const handleMinusQty = async (item) => {
 		if (item.qty > 1) {
+			setIsLoading(true)
 			const newQty = item.qty - 1
 			const result = await editCartItem(item, newQty)
 			if (result.success) {
 				getCurrentCart()
 			}
+			setIsLoading(false)
 		}
 	}
 
 	const handleCoupon = async (e) => {
 		if (!couponCode.length) return
 		if (e.key === 'Enter' || e.target.id === 'setCoupon') {
+			setIsLoading(true)
 			const res = await postCouponFront(couponCode)
 			if (res?.success) {
 				Toast.fire({ icon: 'success', title: res.message })
@@ -50,11 +57,13 @@ const Cart = () => {
 				Toast.fire({ icon: 'error', title: res.message })
 				setCouponCode('')
 			}
+			setIsLoading(false)
 		}
 	}
 
 	return (
 		<div className="container my-5">
+			<Spinner isLoading={isLoading} />
 			<h3 className="mb-4">購物明細</h3>
 			<div className="row">
 				<div className="col-md-8 table-responsive">
@@ -84,20 +93,21 @@ const Cart = () => {
 											scope="row"
 											className="row border-0 px-0 py-4 align-items-center"
 										>
-											<div className="col-lg-3">
+											<div className="col-lg-4">
 												<Link to={`/detail/${item.product.id}`}>
 													<img
-														className="px-1 el-hover"
+														className="el-hover"
 														src={item.product.imageUrl}
 														alt="product"
 														style={{
-															maxWidth: '72px',
+															width: '100%',
+															maxWidth: '120px',
 															objectFit: 'cover',
 														}}
 													/>
 												</Link>
 											</div>
-											<div className="col-lg-9">
+											<div className="col-lg-8">
 												<Link
 													to={`/detail/${item.product.id}`}
 													className="text-reset text-decoration-none el-hover"

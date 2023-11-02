@@ -6,26 +6,26 @@ const ProductCarouselItem = ({ productList, categoryId }) => {
 		<>
 			<div className="carousel-item active">
 				<div className="row">
-					<div className="col-md-4 mt-md-2">
+					<div className="col-4 mt-sm-2">
 						<ProductCard item={productList[0]} />
 					</div>
-					<div className="col-md-4 mt-md-2">
+					<div className="col-4 mt-sm-2">
 						<ProductCard item={productList[1]} />
 					</div>
-					<div className="col-md-4 mt-md-2">
+					<div className="col-4 mt-sm-2">
 						<ProductCard item={productList[2]} />
 					</div>
 				</div>
 			</div>
 			<div className="carousel-item">
 				<div className="row">
-					<div className="col-md-4 mt-md-2">
+					<div className="col-md-4 mt-sm-2">
 						<ProductCard item={productList[3]} />
 					</div>
-					<div className="col-md-4 mt-md-2">
+					<div className="col-md-4 mt-sm-2">
 						<ProductCard item={productList[4]} />
 					</div>
-					<div className="col-md-4 mt-md-2">
+					<div className="col-md-4 mt-sm-2">
 						<div className="card border-0 align-items-center">
 							<div className="card-body my-5 ">
 								<Link

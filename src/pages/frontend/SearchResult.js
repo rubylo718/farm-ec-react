@@ -33,6 +33,14 @@ const SearchResult = () => {
 							關鍵字 {searchString} ，找到 {products.length} 筆商品
 						</p>
 						<hr />
+						{products?.length ? (
+							''
+						) : (
+							<p>
+								很抱歉，查無 {searchString} 的相關商品，您可以調整關鍵字再試試看
+							</p>
+						)}
+
 						<div className="row">
 							{products.map((item) => {
 								return (
@@ -44,7 +52,7 @@ const SearchResult = () => {
 						</div>
 						<button
 							type="button"
-							className="btn btn-primary mb-4 text-white"
+							className="btn btn-info mb-4 text-white"
 							onClick={() => navigate('/')}
 						>
 							回首頁
