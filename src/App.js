@@ -19,6 +19,7 @@ import AdminStoriesIndex from './pages/admin/AdminStoryIndex'
 import Blog from './pages/frontend/Blog'
 import BlogList from './pages/frontend/BlogList'
 import BlogContent from './pages/frontend/BlogContent'
+import Page404 from './pages/Page404'
 
 function App() {
 	return (
@@ -49,6 +50,7 @@ function App() {
 							<Route index element={<BlogList />}></Route>
 							<Route path=":id" element={<BlogContent />}></Route>
 						</Route>
+						<Route path="*" element={<Page404 />}></Route>
 					</Route>
 				</Routes>
 			</AuthProvider>
