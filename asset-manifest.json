@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/farm-ec-react/static/css/main.2a996c5b.css",
+    "main.js": "/farm-ec-react/static/js/main.aa55220c.js",
+    "index.html": "/farm-ec-react/index.html",
+    "main.2a996c5b.css.map": "/farm-ec-react/static/css/main.2a996c5b.css.map",
+    "main.aa55220c.js.map": "/farm-ec-react/static/js/main.aa55220c.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.2a996c5b.css",
+    "static/js/main.aa55220c.js"
+  ]
+}
