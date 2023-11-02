@@ -94,7 +94,7 @@ const StoryContent = ({ story }) => {
 			</div>
 			<div className="col-md-12 mb-2">
 				<label className="w-100" htmlFor="tag">
-					標籤
+					關鍵詞
 				</label>
 				<input
 					type="text"
@@ -122,7 +122,7 @@ const StoryContent = ({ story }) => {
 			</div>
 			<div className="col-md-12 mb-2">
 				<label className="w-100" htmlFor="content">
-					內容
+					內容（按Enter分段）
 				</label>
 				<textarea
 					id="content"
@@ -157,7 +157,7 @@ const StoryContent = ({ story }) => {
 				</button>
 				{data.isEditMode ? (
 					<button
-						className="btn btn-primary btn-sm"
+						className="btn btn-primary btn-sm text-white"
 						onClick={() => handleSubmit({ ...data, isEditMode: false })}
 					>
 						儲存

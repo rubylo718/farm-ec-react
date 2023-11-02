@@ -122,6 +122,15 @@ const editOrder = async (data, id) => {
 	}
 }
 
+const deleteOrder = async (id) => {
+	try {
+		const res = await axiosInstance.delete(`/order/${id}`)
+		return res.data
+	} catch (err) {
+		return err.response.data
+	}
+}
+
 // stories
 const getStories = async (page) => {
 	try {
@@ -179,6 +188,7 @@ export {
 	deleteCoupon,
 	getOrders,
 	editOrder,
+	deleteOrder,
 	getStories,
 	getStory,
 	postStory,

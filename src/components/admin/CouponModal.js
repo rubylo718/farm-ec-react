@@ -44,9 +44,27 @@ const CouponModal = ({
 		if (result?.success) {
 			Toast.fire({ icon: 'success', title: `${result.message}` })
 		} else {
-			Toast.fire({ icon: 'error', title: `${result.message || `錯誤，請重新操作`}` })
+			Toast.fire({
+				icon: 'error',
+				title: `${result.message || `錯誤，請重新操作`}`,
+			})
 		}
 		getCouponList()
+		handleHideModal()
+	}
+
+	const handleCancel = () => {
+		if (modalAction === 'create') {
+			setInputData({
+				title: '',
+				percent: 100,
+				code: '',
+				due_date: todayUnix(),
+				is_enabled: 0,
+			})
+		} else if (modalAction === 'edit') {
+			setInputData(modalData)
+		}
 		handleHideModal()
 	}
 
@@ -72,7 +90,7 @@ const CouponModal = ({
 			aria-hidden="true"
 			id="couponModal"
 		>
-			<div className="modal-dialog modal-lg">
+			<div className="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
 				<div className="modal-content">
 					<div className="modal-header">
 						<h1 className="modal-title fs-5">
@@ -155,20 +173,20 @@ const CouponModal = ({
 							checked={Boolean(inputData.is_enabled)}
 						/>
 						<label className="form-check-label" htmlFor="is_enabled">
-							是否啟用
+							啟用
 						</label>
 					</div>
 					<div className="modal-footer">
 						<button
 							type="button"
-							className="btn btn-secondary"
-							onClick={handleHideModal}
+							className="btn btn-outline-secondary"
+							onClick={() => handleCancel()}
 						>
-							關閉
+							取消
 						</button>
 						<button
 							type="button"
-							className="btn btn-primary"
+							className="btn btn-primary text-white"
 							onClick={() => handleSubmit(modalAction, modalData.id)}
 						>
 							儲存

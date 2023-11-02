@@ -44,7 +44,11 @@ const BlogContent = () => {
 						alt="..."
 					/>
 					<p className="my-4 fs-5 text-secondary">{story.description}</p>
-					<p className="my-4 fs-5">{story.content}</p>
+					{story?.content?.split('\n').map((item, i) => (
+						<p key={i} className="lh-lg fs-5">
+							{item}
+						</p>
+					))}
 					<button
 						className="btn btn-primary btn-lg text-white my-4"
 						onClick={() => navigate(`/products/keyword?query=${story.tag}`)}

@@ -68,10 +68,7 @@ const Detail = () => {
 									</Link>
 								</li>
 								<li className="breadcrumb-item">
-									<Link
-										className="text-muted"
-										to={`/products/${categoryId}`}
-									>
+									<Link className="text-muted" to={`/products/${categoryId}`}>
 										{product?.category}
 									</Link>
 								</li>
@@ -113,7 +110,9 @@ const Detail = () => {
 						<br />
 						<h5 className="text-decoration-underline">商品說明</h5>
 						{product?.content?.split('\n').map((item, i) => (
-							<p key={i}>{item}</p>
+							<p key={i} className="lh-lg">
+								{item}
+							</p>
 						))}
 					</div>
 					<div className="col-md-5">

@@ -51,6 +51,25 @@ const ProductModal = ({
 		handleHideProductModal()
 	}
 
+	const handleCancel = () => {
+		if (modalAction === 'create') {
+			setInputData({
+				title: '',
+				category: '',
+				origin_price: 0,
+				price: 0,
+				unit: '',
+				description: '',
+				content: '',
+				is_enabled: 0,
+				imageUrl: '',
+			})
+		} else if (modalAction === 'edit') {
+			setInputData(modalData)
+		}
+		handleHideProductModal()
+	}
+
 	useEffect(() => {
 		if (modalAction === 'create') {
 			setInputData({
@@ -77,7 +96,7 @@ const ProductModal = ({
 			aria-hidden="true"
 			id="productModal"
 		>
-			<div className="modal-dialog modal-lg">
+			<div className="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
 				<div className="modal-content">
 					<div className="modal-header">
 						<h1 className="modal-title fs-5">
@@ -269,14 +288,14 @@ const ProductModal = ({
 					<div className="modal-footer">
 						<button
 							type="button"
-							className="btn btn-secondary"
-							onClick={handleHideProductModal}
+							className="btn btn-outline-secondary"
+							onClick={()=>handleCancel()}
 						>
-							關閉
+							取消
 						</button>
 						<button
 							type="button"
-							className="btn btn-primary"
+							className="btn btn-primary text-white"
 							onClick={() => handleSubmit(modalAction, modalData.id)}
 						>
 							儲存

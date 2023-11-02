@@ -35,6 +35,15 @@ const OrderModal = ({ handleHideModal, getOrderList, modalData }) => {
 		handleHideModal()
 	}
 
+	const handleCancel = () => {
+		setInputData({
+			...modalData,
+			products: { ...modalData.products },
+			user: { ...modalData.user },
+		})
+		handleHideModal()
+	}
+
 	useEffect(() => {
 		setInputData({
 			...modalData,
@@ -51,7 +60,7 @@ const OrderModal = ({ handleHideModal, getOrderList, modalData }) => {
 			aria-hidden="true"
 			id="orderModal"
 		>
-			<div className="modal-dialog modal-lg">
+			<div className="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
 				<div className="modal-content">
 					<div className="modal-header">
 						<h1 className="modal-title fs-5">訂單內容</h1>
@@ -97,8 +106,10 @@ const OrderModal = ({ handleHideModal, getOrderList, modalData }) => {
 						<table className="table table-sm">
 							<thead>
 								<tr>
-									<th scope="col">品項名稱</th>
+									<th scope="col">商品名稱</th>
+									<th scope="col">單價</th>
 									<th scope="col">數量</th>
+									<th scope="col">小計</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -106,7 +117,9 @@ const OrderModal = ({ handleHideModal, getOrderList, modalData }) => {
 									return (
 										<tr key={item.product.id}>
 											<td>{item.product.title}</td>
+											<td>$ {item.product.price}</td>
 											<td>{item.qty}</td>
+											<td>$ {item.total}</td>
 										</tr>
 									)
 								})}
@@ -114,19 +127,28 @@ const OrderModal = ({ handleHideModal, getOrderList, modalData }) => {
 							<tfoot>
 								{Object.values(inputData?.products || {})[0]?.coupon && (
 									<tr>
-										<td colSpan={2}>
+										<td colSpan={4}>
 											使用優惠碼：
 											{
 												Object.values(inputData?.products || {})[0]?.coupon
 													?.code
 											}
+											（折數：
+											{
+												Object.values(inputData?.products || {})[0]?.coupon
+													?.percent
+											}
+											%）
 										</td>
 									</tr>
 								)}
 								<tr>
-									<td className="border-bottom-0 text-end">總金額 $</td>
-									<td className="border-bottom-0">
-										{Math.round(inputData?.total || 0)}
+									<td className="border-bottom-0 fw-bold">訂單總金額</td>
+									<td colSpan={2} className="border-bottom-0 text-end">
+										NT
+									</td>
+									<td className="border-bottom-0 fw-bold">
+										$ {Math.round(inputData?.total || 0)}
 									</td>
 								</tr>
 							</tfoot>
@@ -149,14 +171,14 @@ const OrderModal = ({ handleHideModal, getOrderList, modalData }) => {
 					<div className="modal-footer">
 						<button
 							type="button"
-							className="btn btn-secondary"
-							onClick={handleHideModal}
+							className="btn btn-outline-secondary"
+							onClick={() => handleCancel()}
 						>
-							關閉
+							取消
 						</button>
 						<button
 							type="button"
-							className="btn btn-primary"
+							className="btn btn-primary text-white"
 							onClick={() => handleSubmit(modalData.id)}
 						>
 							儲存
