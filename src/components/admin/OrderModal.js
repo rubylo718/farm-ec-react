@@ -125,23 +125,25 @@ const OrderModal = ({ handleHideModal, getOrderList, modalData }) => {
 								})}
 							</tbody>
 							<tfoot>
-								{Object.values(inputData?.products || {})[0]?.coupon && (
-									<tr>
-										<td colSpan={4}>
-											使用優惠碼：
-											{
-												Object.values(inputData?.products || {})[0]?.coupon
-													?.code
-											}
-											（折數：
-											{
-												Object.values(inputData?.products || {})[0]?.coupon
-													?.percent
-											}
-											%）
-										</td>
-									</tr>
-								)}
+								{Object.values(inputData?.products || {})[0]?.coupon &&
+									Object.values(inputData?.products || {})[0]?.coupon
+										.percent !== 100 && (
+										<tr>
+											<td colSpan={4}>
+												使用優惠：
+												{
+													Object.values(inputData?.products || {})[0]?.coupon
+														?.title
+												}
+												（折數：
+												{
+													Object.values(inputData?.products || {})[0]?.coupon
+														?.percent
+												}
+												%）
+											</td>
+										</tr>
+									)}
 								<tr>
 									<td className="border-bottom-0 fw-bold">訂單總金額</td>
 									<td colSpan={2} className="border-bottom-0 text-end">

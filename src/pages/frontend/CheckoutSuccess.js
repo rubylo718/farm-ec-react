@@ -2,6 +2,9 @@ import { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { getOrder } from '../../api/front'
 import { unixToDateString } from '../../utils/dayjs-helper'
+import CheckoutProgress from '../../components/frontend/checkoutProcess/CheckoutProgress'
+import { faCheck } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const CheckoutSuccess = () => {
 	const { orderId } = useParams()
@@ -20,6 +23,7 @@ const CheckoutSuccess = () => {
 
 	return (
 		<div className="container my-5">
+			<CheckoutProgress step={3} />
 			<h3 className="mb-4">付款成功</h3>
 			<div className="row">
 				<div className="col-md-6 mb-4">
@@ -86,10 +90,21 @@ const CheckoutSuccess = () => {
 								<tr>
 									<td colSpan={2} className="border-0">
 										{Object.values(orderData?.products || {})[0]?.coupon &&
-											`使用優惠碼：${
-												Object.values(orderData?.products || {})[0]?.coupon
-													?.code
-											}`}
+											Object.values(orderData?.products || {})[0]?.coupon
+												.percent !== 100 && (
+												<>
+													<FontAwesomeIcon
+														icon={faCheck}
+														className="text-primary d-inline"
+													/>
+													<p className="d-inline ms-2">
+														{
+															Object.values(orderData?.products || {})[0]
+																?.coupon?.title
+														}
+													</p>
+												</>
+											)}
 									</td>
 								</tr>
 							</tfoot>

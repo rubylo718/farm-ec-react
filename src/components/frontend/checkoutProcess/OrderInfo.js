@@ -1,4 +1,6 @@
 import { useOutletContext } from 'react-router-dom'
+import { faCheck } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const OrderInfo = () => {
 	const { cartData } = useOutletContext()
@@ -55,14 +57,27 @@ const OrderInfo = () => {
 						<td className="text-end pe-0">${cartData.total}</td>
 					</tr>
 					{cartData.total - cartData.final_total > 0 && (
-						<tr>
-							<th scope="row" className="ps-0">
-								優惠折抵
-							</th>
-							<td className="text-end pe-0">
-								-${cartData.total - Math.round(cartData.final_total)}
-							</td>
-						</tr>
+						<>
+							<tr>
+								<th scope="row" className="ps-0">
+									優惠折抵
+								</th>
+								<td className="text-end pe-0">
+									-${cartData.total - Math.round(cartData.final_total)}
+								</td>
+							</tr>
+							<tr>
+								<th colSpan={2}>
+									<FontAwesomeIcon
+										icon={faCheck}
+										className="text-primary d-inline"
+									/>
+									<p className="d-inline ms-2">
+										{cartData?.carts[0]?.coupon?.title}
+									</p>
+								</th>
+							</tr>
+						</>
 					)}
 				</tbody>
 			</table>

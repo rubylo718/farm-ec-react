@@ -6,10 +6,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { deleteCartItem, editCartItem, postCouponFront } from '../../api/front'
 import { Toast } from '../../utils/toast-helper'
 import Spinner from '../../components/Spinner'
+import couponList from '../../assets/couponList.json'
+import CheckoutProgress from '../../components/frontend/checkoutProcess/CheckoutProgress'
 
 const Cart = () => {
 	const [couponCode, setCouponCode] = useState('')
-	const [couponResult, setCouponResult] = useState('')
 	const { cartData, getCurrentCart } = useOutletContext()
 	const navigation = useNavigate()
 	const [isLoading, setIsLoading] = useState(false)
@@ -45,28 +46,49 @@ const Cart = () => {
 	}
 
 	const handleCoupon = async (e) => {
-		if (!couponCode.length) return
 		if (e.key === 'Enter' || e.target.id === 'setCoupon') {
+			if (!couponCode.length) return
 			setIsLoading(true)
 			const res = await postCouponFront(couponCode)
 			if (res?.success) {
 				Toast.fire({ icon: 'success', title: res.message })
-				setCouponResult(res.message)
 				getCurrentCart()
 			} else {
 				Toast.fire({ icon: 'error', title: res.message })
 				setCouponCode('')
 			}
 			setIsLoading(false)
+		} else if (e.target.id === 'reset') {
+			const res = await postCouponFront('reset')
+			if (res?.success) {
+				Toast.fire({ icon: 'warning', title: '已取消使用優惠' })
+				setCouponCode('')
+				getCurrentCart()
+			}
 		}
+	}
+
+	const handleSelectCoupon = async (code) => {
+		setCouponCode(code)
+		setIsLoading(true)
+		const res = await postCouponFront(code)
+		if (res?.success) {
+			Toast.fire({ icon: 'success', title: res.message })
+			getCurrentCart()
+		} else {
+			Toast.fire({ icon: 'error', title: res.message })
+			setCouponCode('')
+		}
+		setIsLoading(false)
 	}
 
 	return (
 		<div className="container my-5">
 			<Spinner isLoading={isLoading} />
-			<h3 className="mb-4">購物明細</h3>
+			<CheckoutProgress step={1} />
 			<div className="row">
 				<div className="col-md-8 table-responsive">
+					<h3 className="mb-4">購物明細</h3>
 					<table className="table align-middle">
 						<thead>
 							<tr className="border-bottom">
@@ -128,7 +150,8 @@ const Cart = () => {
 												</button>
 												<input
 													type="text"
-													className="form-control border-0 text-center bg-light"
+													className="form-control border-0 text-center bg-light px-1"
+													style={{ minWidth: '24px' }}
 													aria-label="amount"
 													value={item.qty}
 													readOnly
@@ -176,35 +199,68 @@ const Cart = () => {
 					)}
 
 					{cartData?.carts.length !== 0 && (
-						<div className="input-group w-50 mb-3">
-							<input
-								type="text"
-								className="form-control border-bottom border-top-0 border-start-0 "
-								placeholder="輸入welcome打95折"
-								aria-label="coupon code"
-								value={couponCode}
-								onChange={(e) => setCouponCode(e.target.value)}
-								onKeyDown={handleCoupon}
-							/>
+						<>
+							<div className="input-group w-50 mb-3">
+								<input
+									type="text"
+									className="form-control border-bottom border-top-0 border-start-0 "
+									placeholder="輸入welcome打95折"
+									aria-label="coupon code"
+									value={couponCode}
+									onChange={(e) => setCouponCode(e.target.value)}
+									onKeyDown={handleCoupon}
+								/>
 
-							<button
-								className="btn btn-secondary rounded-0"
-								id="setCoupon"
-								onClick={handleCoupon}
-							>
-								套用
-							</button>
-						</div>
+								<button
+									className="btn btn-dark rounded-0"
+									id="setCoupon"
+									onClick={handleCoupon}
+								>
+									套用
+								</button>
+								<button
+									className="btn btn-secondary rounded-0"
+									id="reset"
+									onClick={handleCoupon}
+								>
+									取消
+								</button>
+							</div>
+							<h5 className='mt-4'>選擇優惠碼</h5>
+							<table className="table table-sm align-middle">
+								<thead className="table-light">
+									<tr>
+										<th scope="col">名稱</th>
+										<th scope="col">優惠碼</th>
+										<th scope="col">到期日</th>
+										<th scope="col">選擇</th>
+									</tr>
+								</thead>
+								<tbody>
+									{couponList.map((item) => (
+										<tr key={item.id}>
+											<th scope="row">{item.title}</th>
+											<td>{item.code}</td>
+											<td>{item.dueDate}</td>
+											<td>
+												<button
+													className="btn btn-outline-dark btn-sm"
+													onClick={() => handleSelectCoupon(item.code)}
+												>
+													使用
+												</button>
+											</td>
+										</tr>
+									))}
+								</tbody>
+							</table>
+						</>
 					)}
-					{couponResult && (
-						<FontAwesomeIcon icon={faCheck} className="text-primary" />
-					)}
-					<small className="ms-2">{couponResult}</small>
 				</div>
 
 				<div className="col-md-4">
 					<div className="border p-4 mb-4">
-						<h4 className="fw-bold mb-4">訂單資訊</h4>
+						<h4 className="fw-bold mb-2">訂單資訊</h4>
 						<table className="table text-muted border-bottom">
 							<tbody>
 								<tr>
@@ -219,17 +275,30 @@ const Cart = () => {
 									</td>
 								</tr>
 								{cartData.total - cartData.final_total > 0 && (
-									<tr>
-										<th
-											scope="row"
-											className="border-0 px-0 pt-0 pb-4 font-weight-normal"
-										>
-											優惠折抵
-										</th>
-										<td className="text-end border-0 px-0 pt-0 pb-4">
-											-${cartData.total - Math.round(cartData.final_total)}
-										</td>
-									</tr>
+									<>
+										<tr>
+											<th
+												scope="row"
+												className="border-0 px-0 pt-0 pb-2 font-weight-normal"
+											>
+												優惠折抵
+											</th>
+											<td className="text-end border-0 px-0 pt-0 pb-2">
+												-${cartData.total - Math.round(cartData.final_total)}
+											</td>
+										</tr>
+										<tr>
+											<th colSpan={2}>
+												<FontAwesomeIcon
+													icon={faCheck}
+													className="text-primary d-inline"
+												/>
+												<p className="d-inline ms-2">
+													{cartData?.carts[0]?.coupon?.title}
+												</p>
+											</th>
+										</tr>
+									</>
 								)}
 							</tbody>
 						</table>
