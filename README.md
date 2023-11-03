@@ -1,70 +1,64 @@
-# Getting Started with Create React App
+# ![seedling](/src/assets/seedling.svg) 安心小農 - 農產品電商網站 | React
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 專案簡介
+這是一個以販售農產與相關產品為主題的電商網站。顧客能在網站中瀏覽商品以及相關訊息，將喜歡的商品加入購物車，進行線上購物。
 
-## Available Scripts
+本專案為前後分離開發之前端部分，使用 React 搭配 Bootstrap，並串接後端 API（30多個）進行開發。
 
-In the project directory, you can run:
+### Live Demo
+本專案為技術練習作品，不具任何商業行為，測試操作時勿留下真實個人資料。
 
-### `npm start`
+- 前台（顧客）https://rubylo718.github.io/farm-ec-react/#/
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- 後台（管理員）https://rubylo718.github.io/farm-ec-react/#/login
+- 管理員帳號 `rubylo718@gmail.com` 密碼 `12345678`
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 功能
+### 前台（顧客）
+- 使用者可從網站瀏覽商品，檢視特定類別商品，或透過關鍵字搜尋商品。
+- 使用者可將商品加入購物車，調整數量，或是刪除項目。
+- 使用者可在購物車中，套用不同的優惠碼，獲得不同程度的折扣。
+- 使用者可閱讀部落格文章，文章會將使用者引導至相關商品頁面。
+- 需時間載入時顯示Spinner，優化使用者體驗，亦避免資料重複送出。
+- RWD 響應式網站，支援多種尺寸介面瀏覽。
 
-### `npm test`
+### 後台（管理員）
+- 需登入有效之帳號密碼，才可操作使用。
+- 使用者登入後，在 token 有效且尚未登出前，不需重複登入。
+- 使用者可操作管理商品、優惠券、訂單、部落格文章。
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+## 使用技術
+- 使用 React functional components & hooks 進行開發
+- Create-React-App 建立專案
+- 透過 useReducer & useContext 進行狀態管理
+- 使用 react-hook-form 進行表單開發，實現表單監聽與驗證功能
+- 使用 Bootstrap 5 進行 RWD 響應式網頁排版
+- 使用 sass 客制樣式
+- 使用 Github Actions 將更新內容自動部署至 GitHub Pages
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 專案安裝
+```
+$ git clone https://github.com/rubylo718/farm-ec-react.git
+$ cd farm-ec-react
+$ npm install
+$ npm start
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 專案套件
+- Runtime Environment: Node.js @16.4
+- Front-end Library: React @18.2
+- UI Framework: Bootstrap @5.3
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+詳細資訊請參閱 [package.json](https://github.com/rubylo718/farm-ec-react/blob/main/package.json)
 
-### `npm run eject`
+## 資源
+- 圖片來源：[Unsplash](https://unsplash.com/), [Pexels](https://www.pexels.com/zh-tw/)
+- Logo & Icon: [Font Awesome](https://fontawesome.com/)
+- 繁體中文字型 - 芫荽體：https://github.com/ButTaiwan/iansui
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## 作者
+Ruby Lo 
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## License
+Licensed under the MIT License, Copyright © 2023-present Ruby Lo
