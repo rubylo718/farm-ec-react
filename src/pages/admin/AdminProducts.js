@@ -4,6 +4,7 @@ import { getProducts, deleteProduct } from '../../api/admin'
 import ProductModal from '../../components/admin/ProductModal'
 import Pagination from '../../components/Pagination'
 import { DeleteConfirmation, Confirmation } from '../../utils/toast-helper'
+import { useAuth } from '../../context/AuthContext'
 
 const AdminProducts = () => {
 	const [products, setProducts] = useState([])
@@ -11,12 +12,18 @@ const AdminProducts = () => {
 	const [modalAction, setModalAction] = useState('create') // or 'edit'
 	const [modalData, setModalData] = useState({})
 	const productModal = useRef(null)
+	const { logout } = useAuth()
 
 	const getProductList = async (page = 1) => {
 		const data = await getProducts(page)
-		setProducts(data?.products)
-		setPagination(data?.pagination)
+		if (data.success) {
+			setProducts(data?.products)
+			setPagination(data?.pagination)
+		} else if (data.message.startsWith('禁止使用')) {
+			logout()
+		}
 	}
+
 	const handleShowProductModal = (modalAction, modalData) => {
 		setModalAction(modalAction)
 		setModalData(modalData)
@@ -43,6 +50,7 @@ const AdminProducts = () => {
 			keyboard: false,
 		})
 		getProductList()
+		// eslint-disable-next-line
 	}, [])
 
 	return (

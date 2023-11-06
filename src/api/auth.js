@@ -30,6 +30,7 @@ const checkPermission = async (token) => {
 		return res.data
 	} catch (err) {
 		console.error('[Check Permission Failed]: ', err)
+		return err.response.data
 	}
 }
 
