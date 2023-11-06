@@ -5,8 +5,8 @@ const Story = ({ stories }) => {
 		<div className="container my-5">
 			<div className="row">
 				<h4 className="">
-					<Link className='text-reset text-decoration-none el-hover' to="blog">
-					產地故事
+					<Link className="text-reset text-decoration-none el-hover" to="blog">
+						產地故事
 					</Link>
 					<Link className="float-end btn btn-outline-dark" to="blog">
 						看更多
@@ -30,14 +30,16 @@ const Story = ({ stories }) => {
 										className="text-reset text-decoration-none el-hover"
 										to={`blog/${item?.id}`}
 									>
-										<h4 className="mb-0 mt-4">{item?.title}</h4>
+										<h4 className="mb-0 mt-4" style={{ minHeight: '58px' }}>
+											{item?.title}
+										</h4>
 									</Link>
-									<div className="d-flex justify-content-between mt-3">
+									<div className="d-flex justify-content-between align-items-start mt-3">
 										<p className="card-text text-muted mb-0">
 											{item?.description}
 										</p>
 										<Link
-											className="btn btn-primary text-white"
+											className="btn btn-primary text-white text-nowrap"
 											to={`blog/${item?.id}`}
 										>
 											繼續閱讀

@@ -27,17 +27,20 @@ const ProductCard = ({ item }) => {
 					className="text-reset text-decoration-none el-hover"
 					to={`/detail/${item?.id}`}
 				>
-					<h4 className="mb-0 mt-4 fs-5">{item?.title}</h4>
+					<h4 className="mb-0 mt-4 fs-5" style={{ minHeight: '48px' }}>
+						{item?.title}
+					</h4>
 				</Link>
-				<div className="d-lg-flex justify-content-between mt-2">
-					<p className="card-text fs-5 mb-1 mb-lg-0 d-lg-inline">
-						${`${item?.price} `}
-						<small className="fs-6 text-decoration-line-through text-secondary">
+				<div className="d-flex justify-content-between mt-2">
+					<div className="align-text-bottom">
+						<p className="card-text fs-5 mb-1 mb-lg-0 d-lg-inline">${`${item?.price} `}</p>
+						<small className="fs-6 text-decoration-line-through text-secondary d-lg-inline">
 							${item?.origin_price}
 						</small>
-					</p>
-					<div className='d-lg-inline'>
-						<button className="btn btn-primary text-nowrap text-white me-1">
+					</div>
+
+					<div className="text-end">
+						<button className="btn btn-primary text-nowrap text-white mb-1 mb-md-0 me-md-1">
 							<Link
 								className="text-decoration-none text-reset"
 								to={`/detail/${item?.id}`}

@@ -35,7 +35,7 @@ const Navbar = ({ cartData }) => {
 		>
 			<div className="container">
 				<nav className="navbar px-0 navbar-expand-lg navbar-light bg-white">
-					<div className="container-fluid position-relative">
+					<div className="container-fluid position-relative px-0">
 						<button
 							className="navbar-toggler"
 							type="button"

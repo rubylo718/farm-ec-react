@@ -141,7 +141,7 @@ const Cart = () => {
 											</div>
 										</th>
 										<td className="border-0" style={{ maxWidth: '160px' }}>
-											<div className="input-group pe-5">
+											<div className="input-group pe-5 flex-nowrap">
 												<button
 													className="btn btn-outline-secondary rounded"
 													onClick={() => handleMinusQty(item)}
@@ -200,7 +200,7 @@ const Cart = () => {
 
 					{cartData?.carts.length !== 0 && (
 						<>
-							<div className="input-group w-50 mb-3">
+							<div className="input-group w-75 mb-3">
 								<input
 									type="text"
 									className="form-control border-bottom border-top-0 border-start-0 "
@@ -226,7 +226,7 @@ const Cart = () => {
 									取消
 								</button>
 							</div>
-							<h5 className='mt-4'>選擇優惠碼</h5>
+							<h5 className="mt-4">選擇優惠碼</h5>
 							<table className="table table-sm align-middle">
 								<thead className="table-light">
 									<tr>

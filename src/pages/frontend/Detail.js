@@ -83,14 +83,14 @@ const Detail = () => {
 						</p>
 						<p className="h4 fw-bold text-end">NT${product?.price}</p>
 						<div className="row align-items-center">
-							<div className="col-6">
+							<div className="col-sm-6">
 								<AmountInput
 									qty={qty}
 									handleAdd={handleAdd}
 									handleMinus={handleMinus}
 								/>
 							</div>
-							<div className="col-6">
+							<div className="col-sm-6">
 								<button
 									className="text-nowrap btn btn-outline-danger w-100 py-2"
 									onClick={handleAddCart}

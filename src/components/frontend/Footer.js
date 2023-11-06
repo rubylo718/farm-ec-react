@@ -9,6 +9,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import productData from '../../assets/selectOptions.json'
 
 const Footer = () => {
+	const GITHUB_URL = 'https://github.com/rubylo718/farm-ec-react'
+
 	return (
 		<footer className="bg-primary">
 			<div className="container py-4">
@@ -44,7 +46,11 @@ const Footer = () => {
 						<h3 className="fs-4">社群連結</h3>
 						<ul className="nav nav-pills">
 							<li className="nav-item">
-								<Link to="/" className="nav-link ps-0 pe-2">
+								<Link
+									to={GITHUB_URL}
+									target="_blank"
+									className="nav-link ps-0 pe-2"
+								>
 									<FontAwesomeIcon
 										icon={faFacebook}
 										style={{ color: '#ffffff' }}
@@ -53,7 +59,11 @@ const Footer = () => {
 								</Link>
 							</li>
 							<li className="nav-item">
-								<Link to="/" className="nav-link ps-0 pe-2">
+								<Link
+									to={GITHUB_URL}
+									target="_blank"
+									className="nav-link ps-0 pe-2"
+								>
 									<FontAwesomeIcon
 										icon={faInstagram}
 										style={{ color: '#ffffff' }}
@@ -62,7 +72,11 @@ const Footer = () => {
 								</Link>
 							</li>
 							<li className="nav-item">
-								<Link to="/" className="nav-link ps-0 pe-2">
+								<Link
+									to={GITHUB_URL}
+									target="_blank"
+									className="nav-link ps-0 pe-2"
+								>
 									<FontAwesomeIcon
 										icon={faLine}
 										style={{ color: '#ffffff' }}
@@ -71,7 +85,11 @@ const Footer = () => {
 								</Link>
 							</li>
 							<li className="nav-item">
-								<Link to="/" className="nav-link ps-0 pe-2">
+								<Link
+									to={GITHUB_URL}
+									target="_blank"
+									className="nav-link ps-0 pe-2"
+								>
 									<FontAwesomeIcon
 										icon={faYoutube}
 										style={{ color: '#ffffff' }}
@@ -82,8 +100,13 @@ const Footer = () => {
 						</ul>
 					</div>
 				</div>
-				<div className="row mt-3">
-					<p className="text-white">© 2023 Ruby Lo All Rights Reserved.</p>
+				<div className="mt-3">
+					<p className="text-white d-md-inline mb-1 mb-md-4">
+						© 2023 Ruby Lo All Rights Reserved.
+					</p>
+					<p className="text-white d-md-inline">
+						本網站為技術練習作品，不具任何商業行為。
+					</p>
 				</div>
 			</div>
 		</footer>
