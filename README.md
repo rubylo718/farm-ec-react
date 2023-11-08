@@ -1,4 +1,4 @@
-# ![seedling](/src/assets/seedling.svg) 安心小農 - 農產品電商網站 | React
+# ![seedling](/public/seedling.svg) 安心小農 - 農產品電商網站 | React
 
 ## 專案簡介
 這是一個以販售農產與相關產品為主題的電商網站。顧客能在網站中瀏覽商品以及相關訊息，將喜歡的商品加入購物車，進行線上購物。
