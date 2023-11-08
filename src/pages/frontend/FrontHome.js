@@ -28,7 +28,7 @@ const FrontHome = () => {
 				{ id: 3, products: [...results[2].products] },
 			])
 		} catch (err) {
-			console.error(err)
+			return err.response.data
 		}
 	}
 
@@ -37,12 +37,8 @@ const FrontHome = () => {
 			const result = await getStoriesFront(1)
 			setStories(result.articles.filter(item => item.isPublic).slice(0, 3))
 		} catch(err) {
-			console.error(err)
+			return err.response.data
 		}
-	}
-
-	const handleSearch = (e) => {
-		console.log(e.target.value)
 	}
 
 	useEffect(() => {
@@ -52,7 +48,7 @@ const FrontHome = () => {
 
 	return (
 		<>
-			<Banner handleSearch={handleSearch} />
+			<Banner />
 			<ProductCarouselCollection allData={allData} />
 			<div className="bg-light">
 				<FeedbackCarousel feedback={feedback} />

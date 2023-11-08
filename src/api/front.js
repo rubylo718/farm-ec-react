@@ -41,7 +41,7 @@ const getCart = async () => {
 		const res = await axiosInstance.get(`cart`)
 		return res.data.data
 	} catch (err) {
-		console.error(err)
+		return err.response.data
 	}
 }
 
@@ -50,7 +50,7 @@ const deleteCartItem = async (id) => {
 		const res = await axiosInstance.delete(`cart/${id}`)
 		return res.data
 	} catch (err) {
-		console.error(err)
+		return err.response.data
 	}
 }
 
@@ -64,7 +64,7 @@ const editCartItem = async (item, newQty) => {
 		})
 		return res.data
 	} catch (err) {
-		console.error(err)
+		return err.response.data
 	}
 }
 
@@ -73,7 +73,7 @@ const postOrder = async (user, message) => {
 		const res = await axiosInstance.post(`order`, { data: { user, message } })
 		return res.data
 	} catch (err) {
-		console.error(err)
+		return err.response.data
 	}
 }
 
@@ -82,7 +82,7 @@ const postPay = async (id) => {
 		const res = await axiosInstance.post(`pay/${id}`)
 		return res.data
 	} catch (err) {
-		console.error(err)
+		return err.response.data
 	}
 }
 
@@ -91,7 +91,7 @@ const getOrder = async (id) => {
 		const res = await axiosInstance.get(`order/${id}`)
 		return res.data
 	} catch (err) {
-		console.error(err)
+		return err.response.data
 	}
 }
 
@@ -100,7 +100,7 @@ const getAllProducts = async () => {
 		const res = await axiosInstance.get(`products/all`)
 		return res.data
 	} catch (err) {
-		console.error(err)
+		return err.response.data
 	}
 }
 
@@ -120,7 +120,7 @@ const getStoriesFront = async (page) => {
 		const res = await axiosInstance.get(`articles?page=${page}`)
 		return res.data
 	} catch (err) {
-		console.error(err)
+		return err.response.data
 	}
 }
 
