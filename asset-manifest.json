@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/farm-ec-react/static/css/main.5e0a4523.css",
-    "main.js": "/farm-ec-react/static/js/main.cd837077.js",
+    "main.js": "/farm-ec-react/static/js/main.d94a30cf.js",
     "index.html": "/farm-ec-react/index.html",
     "main.5e0a4523.css.map": "/farm-ec-react/static/css/main.5e0a4523.css.map",
-    "main.cd837077.js.map": "/farm-ec-react/static/js/main.cd837077.js.map"
+    "main.d94a30cf.js.map": "/farm-ec-react/static/js/main.d94a30cf.js.map"
   },
   "entrypoints": [
     "static/css/main.5e0a4523.css",
-    "static/js/main.cd837077.js"
+    "static/js/main.d94a30cf.js"
   ]
 }
