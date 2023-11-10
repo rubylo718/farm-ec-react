@@ -19,7 +19,7 @@ const ProductCarouselCollection = ({ allData }) => {
 								className="float-end btn btn-outline-dark"
 								to={`/products/${data.id}`}
 							>
-								看更多
+								完整列表
 							</Link>
 						</h4>
 						<hr />

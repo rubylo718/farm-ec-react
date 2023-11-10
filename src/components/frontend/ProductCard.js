@@ -33,14 +33,14 @@ const ProductCard = ({ item }) => {
 				</Link>
 				<div className="d-flex justify-content-between mt-2">
 					<div className="align-text-bottom">
-						<p className="card-text fs-5 mb-1 mb-lg-0 d-lg-inline">${`${item?.price} `}</p>
-						<small className="fs-6 text-decoration-line-through text-secondary d-lg-inline">
+						<p className="card-text fs-5 mb-1 mb-lg-0 d-inline">${`${item?.price} `}</p>
+						<small className="fs-6 text-decoration-line-through text-secondary d-inline">
 							${item?.origin_price}
 						</small>
 					</div>
 
-					<div className="text-end">
-						<button className="btn btn-primary text-nowrap text-white mb-1 mb-md-0 me-md-1">
+					<div className="text-end" style={{ minWidth: '120px' }}>
+						<button className="btn btn-primary text-nowrap text-white me-1">
 							<Link
 								className="text-decoration-none text-reset"
 								to={`/detail/${item?.id}`}

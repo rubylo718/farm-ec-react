@@ -31,16 +31,23 @@ $pagination-color: black;
 $pagination-active-border-color: #4ba83a;
 $pagination-active-bg: #4ba83a;
 
-.el-hover {
-	&:hover {
-		opacity: 0.7;
-	}
-}
-
 @import 'bootstrap/scss/bootstrap';
+@import 'slick-carousel/slick/slick';
+@import 'slick-carousel/slick/slick-theme';
 
 @font-face {
 	font-family: iansui;
 	src: url('https://raw.githubusercontent.com/ButTaiwan/iansui/main/Iansui-Regular.ttf');
 }
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap');
+
+.el-hover {
+	&:hover {
+		opacity: 0.7;
+	}
+}
+
+.slick-prev:before,
+.slick-next:before {
+	color: #6c757d;
+}
