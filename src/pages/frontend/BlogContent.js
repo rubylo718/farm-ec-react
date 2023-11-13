@@ -28,14 +28,14 @@ const BlogContent = () => {
 	return (
 		<div className="container mt-5">
 			<div className="row justify-content-around">
-				<div className="col-md-8">
+				<div className="col-lg-8">
 					<h2> {story?.title}</h2>
 					<p className="text-secondary">
 						{unixToDateString(story?.create_at)} 作者：{story?.author}
 					</p>
 					<img
 						src={story.image}
-						className="card-img-top el-hover"
+						className="card-img-top"
 						style={{
 							width: '100%',
 							maxHeight: '20rem',
@@ -45,7 +45,7 @@ const BlogContent = () => {
 					/>
 					<p className="my-4 fs-5 text-secondary">{story.description}</p>
 					{story?.content?.split('\n').map((item, i) => (
-						<p key={i} className="lh-lg fs-5">
+						<p key={i} className="fs-5">
 							{item}
 						</p>
 					))}
@@ -64,32 +64,36 @@ const BlogContent = () => {
 						回文章列表
 					</button>
 				</div>
-				<div className="col-md-3">
-					<h4 className="text-center">推薦文章</h4>
-					<hr />
-					{stories.slice(-3).map((item) => (
-						<div className="card mb-3 text-center" key={item.id}>
-							<Link to={'/blog/' + item.id}>
-								<img
-									src={item.image}
-									className="card-img-top el-hover"
-									style={{ height: '150px', objectFit: 'cover' }}
-									alt={item.title}
-								/>
-							</Link>
-							<div className="card-body">
-								<Link
-									to={'/blog/' + item.id}
-									className="text-reset text-decoration-none el-hover"
-								>
-									<h5 className="card-title">{item.title}</h5>
-								</Link>
-								<small className="text-mute text-secondary">
-									{unixToDateString(item.create_at)} 作者：{item.author}
-								</small>
+				<div className="col-lg-3">
+					<h4 className="text-center my-3">推薦文章</h4>
+					<hr className="mb-4" />
+					<div className="row">
+						{stories.slice(-4).map((item) => (
+							<div className="col-6 col-lg-12">
+								<div className="card mb-3 text-center" key={item.id}>
+									<Link to={'/blog/' + item.id}>
+										<img
+											src={item.image}
+											className="card-img-top el-hover"
+											style={{ height: '150px', objectFit: 'cover' }}
+											alt={item.title}
+										/>
+									</Link>
+									<div className="card-body">
+										<Link
+											to={'/blog/' + item.id}
+											className="text-reset text-decoration-none el-hover"
+										>
+											<h5 className="card-title">{item.title}</h5>
+										</Link>
+										<small className="text-mute text-secondary">
+											{unixToDateString(item.create_at)} 作者：{item.author}
+										</small>
+									</div>
+								</div>
 							</div>
-						</div>
-					))}
+						))}
+					</div>
 				</div>
 			</div>
 		</div>

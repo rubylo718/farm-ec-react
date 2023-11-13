@@ -5,8 +5,8 @@ const Side = () => {
 	return (
 		<>
 			<h3 className="text-center fw-bold">產品列表</h3>
-			<nav className="navbar navbar-expand-lg navbar-light justify-content-center border border-start-0 border-end-0 border-top border-bottom">
-				<ul className="nav nav-pills nav-justified flex-column overflow-auto navbar-custom-scroll">
+			<nav className="navbar navbar-expand-lg navbar-light justify-content-center border border-start-0 border-end-0 border-top border-bottom mb-4">
+				<ul className="nav nav-pills nav-justified flex-lg-column overflow-auto navbar-custom-scroll">
 					{productData.productCategories.map((item) => {
 						return (
 							<li className="nav-item" key={item.id}>
