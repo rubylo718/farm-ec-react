@@ -1,13 +1,17 @@
 {
   "files": {
-    "main.css": "/farm-ec-react/static/css/main.5e0a4523.css",
-    "main.js": "/farm-ec-react/static/js/main.d94a30cf.js",
+    "main.css": "/farm-ec-react/static/css/main.1c607e79.css",
+    "main.js": "/farm-ec-react/static/js/main.40146699.js",
+    "static/media/slick.svg": "/farm-ec-react/static/media/slick.2630a3e3eab21c607e21.svg",
+    "static/media/slick.eot": "/farm-ec-react/static/media/slick.a4e97f5a2a64f0ab1323.eot",
+    "static/media/slick.ttf": "/farm-ec-react/static/media/slick.c94f7671dcc99dce43e2.ttf",
+    "static/media/slick.woff": "/farm-ec-react/static/media/slick.295183786cd8a1389865.woff",
     "index.html": "/farm-ec-react/index.html",
-    "main.5e0a4523.css.map": "/farm-ec-react/static/css/main.5e0a4523.css.map",
-    "main.d94a30cf.js.map": "/farm-ec-react/static/js/main.d94a30cf.js.map"
+    "main.1c607e79.css.map": "/farm-ec-react/static/css/main.1c607e79.css.map",
+    "main.40146699.js.map": "/farm-ec-react/static/js/main.40146699.js.map"
   },
   "entrypoints": [
-    "static/css/main.5e0a4523.css",
-    "static/js/main.d94a30cf.js"
+    "static/css/main.1c607e79.css",
+    "static/js/main.40146699.js"
   ]
 }
