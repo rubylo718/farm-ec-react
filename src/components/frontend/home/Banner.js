@@ -39,6 +39,7 @@ const Banner = () => {
 					<div className="input-group mb-0 mt-4 w-75">
 						<input
 							type="text"
+							id="searchInput"
 							className="form-control"
 							placeholder="搜尋商品名稱"
 							value={searchInput}

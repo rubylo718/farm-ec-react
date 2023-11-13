@@ -54,6 +54,15 @@ const deleteCartItem = async (id) => {
 	}
 }
 
+const deleteCartAll = async () => {
+	try {
+		const res = await axiosInstance.delete('carts')
+		return res.data
+	} catch (err) {
+		return err.response.data
+	}
+}
+
 const editCartItem = async (item, newQty) => {
 	try {
 		const res = await axiosInstance.put(`cart/${item.id}`, {
@@ -139,6 +148,7 @@ export {
 	postCart,
 	getCart,
 	deleteCartItem,
+	deleteCartAll,
 	editCartItem,
 	postOrder,
 	postPay,

@@ -98,6 +98,7 @@ const Navbar = ({ cartData }) => {
 								<li className="nav-item input-group w-50">
 									<input
 										type="text"
+										id="searchInputNav"
 										className="form-control"
 										placeholder="搜尋商品名稱"
 										value={searchInput}

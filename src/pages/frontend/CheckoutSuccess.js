@@ -24,9 +24,9 @@ const CheckoutSuccess = () => {
 	return (
 		<div className="container my-5">
 			<CheckoutProgress step={3} />
-			<h3 className="mb-4">付款成功</h3>
 			<div className="row">
-				<div className="col-md-6 mb-4">
+				<div className="col-lg-6 mb-4">
+					<h3 className="mb-4 fw-bold">付款成功</h3>
 					<p>感謝惠顧！</p>
 					<p>您的商品會在 3-5 個工作天送達，若有問題請洽安心小農Line客服。</p>
 					<button
@@ -36,7 +36,7 @@ const CheckoutSuccess = () => {
 						回到首頁
 					</button>
 				</div>
-				<div className="col-md-6">
+				<div className="col-lg-6">
 					<div className="border p-4 mb-4">
 						<h4 className="fw-bold mb-3 ">訂單內容</h4>
 						<p className="mb-1 fw-bold">訂單編號：{orderData?.id}</p>

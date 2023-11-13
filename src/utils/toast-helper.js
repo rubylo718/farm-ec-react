@@ -13,7 +13,8 @@ export const DeleteConfirmation = Swal.mixin({
 	icon: 'warning',
 	customClass: {
 		confirmButton: 'btn btn-danger me-1',
-		cancelButton: 'btn btn-outline-secondary ms-1',
+		cancelButton: 'btn btn-light ms-1',
+		title: 'fs-5',
 	},
 	buttonsStyling: false,
 	showCancelButton: true,

@@ -17,6 +17,7 @@ const Input = ({ register, errors, id, type, labelText, rules }) => {
 				id={id}
 				type={type}
 				className={`form-control ${errors[id] ? 'is-invalid' : ''}`}
+				autoComplete="on"
 				{...register(id, rules)}
 			/>
 			{errors[id] && (
@@ -192,15 +193,13 @@ const CustomerInfoForm = () => {
 					<textarea
 						className="form-control"
 						{...register('message')}
+						id="message"
 						name="message"
 						placeholder="有什麼想告訴我們嗎？"
 					/>
 				</div>
 				<div className="d-flex justify-content-end">
-					<button
-						className="btn btn-light mt-4"
-						onClick={() => navigation(-1)}
-					>
+					<button className="btn btn-light mt-4" onClick={() => navigation(-1)}>
 						回上一頁
 					</button>
 					<button
