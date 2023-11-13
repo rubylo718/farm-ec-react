@@ -121,7 +121,13 @@ const Detail = () => {
 					</div>
 				</div>
 				<hr />
-				<h4>同類商品推薦</h4>
+				<h4 className="mb-3">
+					同類商品推薦
+					<Link className="btn btn-outline-dark float-end" to={`/products/${categoryId}`}>
+						完整列表
+					</Link>
+				</h4>
+
 				<ProductCarousel data={{ id: categoryId, products: productList }} />
 			</div>
 			<div className="bg-light">

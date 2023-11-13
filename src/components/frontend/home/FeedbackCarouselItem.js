@@ -11,7 +11,7 @@ const FeedbackCarouselItem = ({ feedback }) => {
 							<div className="col-md-8 d-flex">
 								<img
 									src={item.photoUrl}
-									alt=""
+									alt={item.last_name + item.title}
 									className="rounded-circle me-5 el-hover"
 									style={{
 										width: '160px',
