@@ -16,11 +16,13 @@ const Cart = () => {
 	const [isLoading, setIsLoading] = useState(false)
 
 	const handleDeleteItem = async (id) => {
+		setIsLoading(true)
 		const result = await deleteCartItem(id)
 		if (result.success) {
 			Toast.fire({ icon: 'success', title: `${result.message}` })
 			getCurrentCart()
 		}
+		setIsLoading(false)
 	}
 
 	const handleAddQty = async (item) => {
@@ -87,105 +89,87 @@ const Cart = () => {
 			<Spinner isLoading={isLoading} />
 			<CheckoutProgress step={1} />
 			<div className="row">
-				<div className="col-md-8 table-responsive">
-					<h3 className="mb-4">購物明細</h3>
-					<table className="table align-middle">
-						<thead>
-							<tr className="border-bottom">
-								<th scope="col" className="border-0">
-									商品
-								</th>
-								<th scope="col" className="border-0">
-									數量
-								</th>
-								<th scope="col" className="border-0">
-									單價
-								</th>
-								<th scope="col" className="border-0">
-									小計
-								</th>
-								<th scope="col" className="border-0"></th>
-							</tr>
-						</thead>
-						<tbody>
-							{cartData?.carts?.map((item) => {
-								return (
-									<tr className="border-bottom" key={item.id}>
-										<th
-											scope="row"
-											className="row border-0 px-0 py-4 align-items-center"
-										>
-											<div className="col-lg-4">
-												<Link to={`/detail/${item.product.id}`}>
-													<img
-														className="el-hover"
-														src={item.product.imageUrl}
-														alt="product"
-														style={{
-															width: '100%',
-															maxWidth: '120px',
-															objectFit: 'cover',
-														}}
-													/>
-												</Link>
-											</div>
-											<div className="col-lg-8">
+				<div className="col-md-8">
+					<h3>購物明細</h3>
+					<div className="card my-4">
+						<div className="card-header">商品資訊</div>
+						<ul className="list-group list-group-flush">
+							{cartData?.carts?.map((item) => (
+								<li className="list-group-item position-relative" key={item.id}>
+									<div className="row align-items-center">
+										<div className="col-4">
+											<Link to={`/detail/${item.product.id}`}>
+												<img
+													className="el-hover"
+													src={item.product.imageUrl}
+													alt="product"
+													style={{
+														width: '100%',
+														maxWidth: '120px',
+														objectFit: 'cover',
+													}}
+												/>
+											</Link>
+										</div>
+										<div className="col-6">
+											<div className="row">
 												<Link
 													to={`/detail/${item.product.id}`}
 													className="text-reset text-decoration-none el-hover"
 												>
-													<p className="my-0 text-break">
+													<p className="mb-0 text-break">
 														{item.product.title}
 													</p>
 												</Link>
 											</div>
-										</th>
-										<td className="border-0" style={{ maxWidth: '160px' }}>
-											<div className="input-group pe-5 flex-nowrap">
-												<button
-													className="btn btn-outline-secondary rounded"
-													onClick={() => handleMinusQty(item)}
+											<div className="my-1">${item.product.price}</div>
+
+											<div className="row">
+												<div
+													className="input-group flex-nowrap"
+													style={{ maxWidth: '240px' }}
 												>
-													<FontAwesomeIcon icon={faMinus} size="2xs" />
-												</button>
-												<input
-													type="text"
-													className="form-control border-0 text-center bg-light px-1"
-													style={{ minWidth: '24px' }}
-													aria-label="amount"
-													value={item.qty}
-													readOnly
-												/>
-												<button
-													className="btn btn-outline-secondary rounded"
-													onClick={() => handleAddQty(item)}
-												>
-													<FontAwesomeIcon icon={faPlus} size="2xs" />
-												</button>
+													<button
+														className="btn btn-outline-secondary rounded"
+														onClick={() => handleMinusQty(item)}
+													>
+														<FontAwesomeIcon icon={faMinus} size="2xs" />
+													</button>
+													<input
+														type="text"
+														className="form-control border-0 text-center bg-light px-1"
+														style={{ minWidth: '24px' }}
+														aria-label="amount"
+														value={item.qty}
+														readOnly
+													/>
+													<button
+														className="btn btn-outline-secondary rounded"
+														onClick={() => handleAddQty(item)}
+													>
+														<FontAwesomeIcon icon={faPlus} size="2xs" />
+													</button>
+												</div>
 											</div>
-										</td>
-										<td className="border-0 align-middle">
-											<small className="mb-0 text-secondary text-decoration-line-through">
-												NT${item.product.origin_price}
-											</small>
-											<p className="mb-0 ms-auto">NT${item.product.price}</p>
-										</td>
-										<td className="border-0 align-middle">
-											<p className="mb-0 ms-auto">NT${item.total}</p>
-										</td>
-										<td className="border-0 align-middle">
-											<button type="button" className="btn el-hover">
-												<FontAwesomeIcon
-													icon={faTrashCan}
-													onClick={() => handleDeleteItem(item.id)}
-												/>
-											</button>
-										</td>
-									</tr>
-								)
-							})}
-						</tbody>
-					</table>
+										</div>
+
+										<div className="col-2 text-center p-0">
+											<div>${item.total}</div>
+										</div>
+									</div>
+									<div className="position-absolute top-0 end-0">
+										<button type="button" className="btn el-hove">
+											<FontAwesomeIcon
+												icon={faTrashCan}
+												onClick={() => handleDeleteItem(item.id)}
+											/>
+										</button>
+									</div>
+								</li>
+							))}
+						</ul>
+					</div>
+
 					{!cartData?.carts.length && (
 						<div className="mt-5 text-center">
 							<p className="fs-5">您的購物車內尚無商品喔！</p>

@@ -198,14 +198,14 @@ const CustomerInfoForm = () => {
 				</div>
 				<div className="d-flex justify-content-end">
 					<button
-						className="btn btn-light w-25 mt-4"
+						className="btn btn-light mt-4"
 						onClick={() => navigation(-1)}
 					>
 						回上一頁
 					</button>
 					<button
 						type="submit"
-						className="btn btn-primary w-25 mt-4 ms-4 text-white"
+						className="btn btn-primary mt-4 ms-4 text-white"
 					>
 						確認結帳
 					</button>

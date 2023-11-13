@@ -10,21 +10,21 @@ const SocialMedia = () => {
 					<p className="text-muted">掃描行動條碼，即可將官方帳號加入好友！</p>
 					<Link
 						role="button"
-						className="btn btn-outline-light mt-4 rounded-0"
+						className="btn btn-outline-light rounded-0"
 						to={GITHUB_URL}
-						target="_blank" 
+						target="_blank"
 					>
 						點我立即加入好友
 					</Link>
 				</div>
 				<div className="col-5 text-center bg-info py-2 el-hover">
-					<h3>作伙來FB小農粉絲團</h3>
+					<h3>作伙來 FB 小農粉絲團</h3>
 					<p className="text-muted">得知小農最新商品，以及不定期限時優惠！</p>
 					<Link
 						role="button"
-						className="btn btn-outline-light mt-4 rounded-0"
+						className="btn btn-outline-light rounded-0"
 						to={GITHUB_URL}
-						target="_blank" 
+						target="_blank"
 					>
 						點我進入粉絲專頁
 					</Link>

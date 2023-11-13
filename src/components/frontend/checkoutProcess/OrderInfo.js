@@ -7,7 +7,7 @@ const OrderInfo = () => {
 	return (
 		<div className="border p-4 mb-4">
 			<h4 className="fw-bold mb-2">訂單資訊</h4>
-			<table className="table table-sm table-borderless align-middle">
+			<table className="table table-responsive table-sm table-borderless align-middle">
 				<thead>
 					<tr className="border-bottom ">
 						<th scope="col" style={{ width: '15%' }} className="text-center">
