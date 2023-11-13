@@ -69,8 +69,8 @@ const BlogContent = () => {
 					<hr className="mb-4" />
 					<div className="row">
 						{stories.slice(-4).map((item) => (
-							<div className="col-6 col-lg-12">
-								<div className="card mb-3 text-center" key={item.id}>
+							<div className="col-6 col-lg-12" key={item.id}>
+								<div className="card mb-3 text-center">
 									<Link to={'/blog/' + item.id}>
 										<img
 											src={item.image}
@@ -87,7 +87,9 @@ const BlogContent = () => {
 											<h5 className="card-title">{item.title}</h5>
 										</Link>
 										<small className="text-mute text-secondary">
-											{unixToDateString(item.create_at)} 作者：{item.author}
+											{unixToDateString(item.create_at)}
+											<br />
+											作者：{item.author}
 										</small>
 									</div>
 								</div>

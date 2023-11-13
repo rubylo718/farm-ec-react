@@ -44,7 +44,7 @@ const SearchResult = () => {
 						<div className="row">
 							{products.map((item) => {
 								return (
-									<div className="col-md-4 col-6" key={item.id}>
+									<div className="col-sm-6 col-lg-4" key={item.id}>
 										<ProductCard item={item} />
 									</div>
 								)
