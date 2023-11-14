@@ -3,6 +3,7 @@ import { Modal } from 'bootstrap'
 import { getCoupons, deleteCoupon } from '../../api/admin'
 import CouponModal from '../../components/admin/CouponModal'
 import Pagination from '../../components/Pagination'
+import Spinner from '../../components/Spinner'
 import { DeleteConfirmation, Confirmation } from '../../utils/toast-helper'
 import { unixToDateString } from '../../utils/dayjs-helper'
 
@@ -11,12 +12,15 @@ const AdminCoupons = () => {
 	const [pagination, setPagination] = useState({})
 	const [modalAction, setModalAction] = useState('create') // or 'edit'
 	const [modalData, setModalData] = useState({})
+	const [isLoading, setIsLoading] = useState(false)
 	const couponModal = useRef(null)
 
 	const getCouponList = async (page = 1) => {
+		setIsLoading(true)
 		const data = await getCoupons(page)
 		setCoupons(data?.coupons)
 		setPagination(data?.pagination)
+		setIsLoading(false)
 	}
 	const handleShowModal = (modalAction, modalData) => {
 		setModalAction(modalAction)
@@ -48,6 +52,7 @@ const AdminCoupons = () => {
 
 	return (
 		<div className="p-3">
+			<Spinner isLoading={isLoading} />
 			<CouponModal
 				handleHideModal={handleHideModal}
 				getCouponList={getCouponList}

@@ -3,6 +3,7 @@ import { Link, Outlet, useNavigate } from 'react-router-dom'
 import Pagination from '../../components/Pagination'
 import { getStories, postStory, editStory, deleteStory } from '../../api/admin'
 import StoryTable from '../../components/admin/StoryTable'
+import Spinner from '../../components/Spinner'
 import {
 	Toast,
 	DeleteConfirmation,
@@ -12,12 +13,15 @@ import {
 const AdminStoriesIndex = () => {
 	const [stories, setStories] = useState([])
 	const [pagination, setPagination] = useState({})
+	const [isLoading, setIsLoading] = useState(false)
 	const navigate = useNavigate()
 
 	const getStroyList = async (page = 1) => {
+		setIsLoading(true)
 		const data = await getStories(page)
 		setStories(data?.articles)
 		setPagination(data?.pagination)
+		setIsLoading(false)
 	}
 
 	const handleSubmit = async (data) => {
@@ -53,11 +57,16 @@ const AdminStoriesIndex = () => {
 
 	return (
 		<div className="p-3">
+			<Spinner isLoading={isLoading} />
 			<h1 className="h3">文章列表</h1>
 			<hr />
 			<div className="row">
 				<div className="col-6">
-					<Link className="btn btn-primary btn-sm text-white" to="create" role="button">
+					<Link
+						className="btn btn-primary btn-sm text-white"
+						to="create"
+						role="button"
+					>
 						新增文章
 					</Link>
 					<StoryTable stories={stories} handleDeleteStory={handleDeleteStory} />

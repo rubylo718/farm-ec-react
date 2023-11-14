@@ -17,11 +17,15 @@ const StoryTable = ({ stories, handleDeleteStory }) => {
 					return (
 						<tr key={story.id}>
 							<td>{story.title}</td>
-							<td>{unixToDateString(story.create_at)}</td>
-							<td>{story.isPublic ? '公開' : '未公開'}</td>
-							<td className="">
+							<td className="text-nowrap">
+								{unixToDateString(story.create_at)}
+							</td>
+							<td className="text-nowrap">
+								{story.isPublic ? '公開' : '未公開'}
+							</td>
+							<td className="text-nowrap">
 								<Link
-									className="btn btn-primary btn-sm text-white"
+									className="btn btn-primary btn-sm text-white me-1"
 									to={story.id}
 									role="button"
 								>
@@ -29,7 +33,7 @@ const StoryTable = ({ stories, handleDeleteStory }) => {
 								</Link>
 								<button
 									type="button"
-									className="btn btn-outline-danger btn-sm ms-xl-1"
+									className="btn btn-outline-danger btn-sm"
 									onClick={() => handleDeleteStory(story.id)}
 								>
 									刪除

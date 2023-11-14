@@ -26,7 +26,7 @@ export const AuthProvider = ({ children }) => {
 				return
 			}
 			const result = await checkPermission(token)
-			if (result) {
+			if (result.success) {
 				setIsAuthenticated(true)
 				const tempPayload = jwt.decode(token)
 				setCurrentUser({ id: tempPayload.user_id, email: tempPayload.email })

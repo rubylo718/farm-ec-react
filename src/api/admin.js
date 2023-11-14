@@ -26,7 +26,7 @@ const getProducts = async (page) => {
 		return res.data
 	} catch (err) {
 		console.error('[Admin-getProducts Error]: ', err)
-		return err.response.data
+		return err.response
 	}
 }
 

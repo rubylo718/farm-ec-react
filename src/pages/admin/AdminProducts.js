@@ -3,6 +3,7 @@ import { Modal } from 'bootstrap'
 import { getProducts, deleteProduct } from '../../api/admin'
 import ProductModal from '../../components/admin/ProductModal'
 import Pagination from '../../components/Pagination'
+import Spinner from '../../components/Spinner'
 import { DeleteConfirmation, Confirmation } from '../../utils/toast-helper'
 import { useAuth } from '../../context/AuthContext'
 
@@ -11,15 +12,20 @@ const AdminProducts = () => {
 	const [pagination, setPagination] = useState({})
 	const [modalAction, setModalAction] = useState('create') // or 'edit'
 	const [modalData, setModalData] = useState({})
+	const [isLoading, setIsLoading] = useState(false)
 	const productModal = useRef(null)
 	const { logout } = useAuth()
 
 	const getProductList = async (page = 1) => {
+		setIsLoading(true)
 		const data = await getProducts(page)
-		if (data.success) {
+		if (data?.success) {
 			setProducts(data?.products)
 			setPagination(data?.pagination)
-		} else if (data.message.startsWith('禁止使用')) {
+			setIsLoading(false)
+		} else if (data?.status === 401) {
+			// api path unauthorized
+			setIsLoading(false)
 			logout()
 		}
 	}
@@ -55,6 +61,7 @@ const AdminProducts = () => {
 
 	return (
 		<div className="p-3">
+			<Spinner isLoading={isLoading} />
 			<ProductModal
 				handleHideProductModal={handleHideProductModal}
 				getProductList={getProductList}

@@ -3,6 +3,7 @@ import { Modal } from 'bootstrap'
 import { getOrders, deleteOrder } from '../../api/admin'
 import OrderModal from '../../components/admin/OrderModal'
 import Pagination from '../../components/Pagination'
+import Spinner from '../../components/Spinner'
 import { unixToDateString } from '../../utils/dayjs-helper'
 import { DeleteConfirmation, Confirmation } from '../../utils/toast-helper'
 
@@ -10,12 +11,15 @@ const AdminOrders = () => {
 	const [orders, setOrders] = useState([])
 	const [pagination, setPagination] = useState({})
 	const [modalData, setModalData] = useState({})
+	const [isLoading, setIsLoading] = useState(false)
 	const orderModal = useRef(null)
 
 	const getOrderList = async (page = 1) => {
+		setIsLoading(true)
 		const data = await getOrders(page)
 		setOrders(data?.orders)
 		setPagination(data?.pagination)
+		setIsLoading(false)
 	}
 	const handleShowModal = (modalData) => {
 		setModalData(modalData)
@@ -46,6 +50,7 @@ const AdminOrders = () => {
 
 	return (
 		<div className="p-3">
+			<Spinner isLoading={isLoading} />
 			<OrderModal
 				handleHideModal={handleHideModal}
 				getOrderList={getOrderList}

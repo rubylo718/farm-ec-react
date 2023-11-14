@@ -9,25 +9,27 @@ const Login = () => {
 	const navigate = useNavigate()
 	const { login, isAuthenticated } = useAuth()
 
-	const handleSubmit = async () => {
-		if (username.length === 0 || password.length === 0) {
-			return
-		}
-		const success = await login({ username, password })
-		if (success) {
-			Toast.fire({ icon: 'success', title: '登入成功' })
-			return
-		} else {
-			Toast.fire({ icon: 'error', title: '登入失敗' })
-			return
+	const handleSubmit = async (e) => {
+		if (e.key === 'Enter' || e.target.id === 'loginBtn') {
+			if (username.length === 0 || password.length === 0) {
+				return
+			}
+			const success = await login({ username, password })
+			if (success) {
+				Toast.fire({ icon: 'success', title: '登入成功' })
+				return
+			} else {
+				Toast.fire({ icon: 'error', title: '登入失敗' })
+				return
+			}
 		}
 	}
-	useEffect(()=> {
+	useEffect(() => {
 		if (isAuthenticated) {
 			navigate('/admin/products')
 		}
-	},[navigate, isAuthenticated])
-	
+	}, [navigate, isAuthenticated])
+
 	return (
 		<div className="container">
 			<div className="row justify-content-center align-items-center vh-100">
@@ -43,9 +45,11 @@ const Login = () => {
 								type="email"
 								placeholder="Email Address"
 								value={username}
+								autoComplete="on"
 								onChange={(e) => {
 									setUsername(e.target.value)
 								}}
+								onKeyDown={handleSubmit}
 							/>
 						</label>
 					</div>
@@ -62,10 +66,12 @@ const Login = () => {
 								onChange={(e) => {
 									setPassword(e.target.value)
 								}}
+								onKeyDown={handleSubmit}
 							/>
 						</label>
 					</div>
 					<button
+						id="loginBtn"
 						type="button"
 						className="btn btn-secondary w-100 mb-2"
 						onClick={handleSubmit}
