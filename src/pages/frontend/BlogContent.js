@@ -7,18 +7,22 @@ import {
 } from 'react-router-dom'
 import { faHandPointer } from '@fortawesome/free-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Spinner from '../../components/Spinner'
 import { getStoryFront } from '../../api/front'
 import { unixToDateString } from '../../utils/dayjs-helper'
 
 const BlogContent = () => {
 	const [story, setStory] = useState({})
+	const [isLoading, setIsLoading] = useState(false)
 	const { stories } = useOutletContext()
 	const { id } = useParams()
 	const navigate = useNavigate()
 
 	const getStory = async (id) => {
+		setIsLoading(true)
 		const result = await getStoryFront(id)
 		setStory(result.article)
+		setIsLoading(false)
 	}
 
 	useEffect(() => {
@@ -27,6 +31,7 @@ const BlogContent = () => {
 
 	return (
 		<div className="container mt-5">
+			<Spinner isLoading={isLoading} />
 			<div className="row justify-content-around">
 				<div className="col-lg-8">
 					<h2> {story?.title}</h2>

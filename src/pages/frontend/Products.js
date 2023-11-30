@@ -5,19 +5,23 @@ import productData from '../../assets/selectOptions.json'
 import Pagination from '../../components/Pagination'
 import Side from '../../components/frontend/products/Side'
 import ProductCard from '../../components/frontend/ProductCard'
+import Spinner from '../../components/Spinner'
 
 const Products = () => {
 	const { categoryId } = useParams()
 	const [products, setProducts] = useState([])
 	const [pagination, setPagination] = useState({})
+	const [isLoading, setIsLoading] = useState(false)
 
 	const getDataList = async (page) => {
+		setIsLoading(true)
 		const categoryTitle = productData.productCategories.find(
 			(item) => item.id === Number(categoryId)
 		)?.title
 		const res = await getProductsCat(page, categoryTitle)
 		setProducts(res.products)
 		setPagination(res.pagination)
+		setIsLoading(false)
 	}
 
 	useEffect(() => {
@@ -32,6 +36,7 @@ const Products = () => {
 	return (
 		<>
 			<div className="container mt-4">
+				<Spinner isLoading={isLoading} />
 				<div className="row">
 					<div className="col-md-3">
 						<Side />

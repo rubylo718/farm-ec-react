@@ -3,20 +3,24 @@ import { useSearchParams, useNavigate } from 'react-router-dom'
 import { getAllProducts } from '../../api/front'
 import Side from '../../components/frontend/products/Side'
 import ProductCard from '../../components/frontend/ProductCard'
+import Spinner from '../../components/Spinner'
 
 const SearchResult = () => {
 	const [searchParams] = useSearchParams()
 	const [products, setProducts] = useState([])
+	const [isLoading, setIsLoading] = useState(false)
 	const navigate = useNavigate()
 
 	const searchString = searchParams.get('query')
 
 	useEffect(() => {
 		const getFilteredProduct = async () => {
+			setIsLoading(true)
 			const res = await getAllProducts()
 			setProducts(
 				res.products.filter((item) => item.title.includes(searchString))
 			)
+			setIsLoading(false)
 		}
 		getFilteredProduct()
 	}, [searchString])
@@ -24,6 +28,7 @@ const SearchResult = () => {
 	return (
 		<>
 			<div className="container mt-4">
+				<Spinner isLoading={isLoading} />
 				<div className="row">
 					<div className="col-md-3">
 						<Side />

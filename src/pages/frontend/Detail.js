@@ -6,6 +6,7 @@ import ProductCarousel from '../../components/frontend/home/ProductCarousel'
 import SocialMedia from '../../components/frontend/home/SocialMedia'
 import { getProductDetail, getProductsCat, postCart } from '../../api/front'
 import AmountInput from '../../components/frontend/AmountInput'
+import Spinner from '../../components/Spinner'
 import productData from '../../assets/selectOptions.json'
 import { Toast } from '../../utils/toast-helper'
 import Instruction from '../../components/frontend/products/Instruction'
@@ -20,6 +21,7 @@ const Detail = () => {
 	const { getCurrentCart } = useOutletContext()
 
 	const getData = async (id) => {
+		setIsLoading(true)
 		const data = await getProductDetail(id)
 		const dataList = await getProductsCat(1, data.product.category)
 		setProduct(data.product)
@@ -29,6 +31,7 @@ const Detail = () => {
 				(item) => item.title === data.product.category
 			).id
 		)
+		setIsLoading(false)
 	}
 
 	const handleAddCart = async () => {
@@ -55,6 +58,7 @@ const Detail = () => {
 	return (
 		<>
 			<div className="container">
+				<Spinner isLoading={isLoading} />
 				<div className="row align-items-center mt-4">
 					<div className="col-md-7">
 						<img

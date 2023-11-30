@@ -4,10 +4,12 @@ import FeedbackCarousel from '../../components/frontend/home/FeedbackCarousel'
 import ProductCarouselCollection from '../../components/frontend/home/ProductCarouselCollection'
 import SocialMedia from '../../components/frontend/home/SocialMedia'
 import Story from '../../components/frontend/home/Story'
+import Spinner from '../../components/Spinner'
 import { getProductsCat, getStoriesFront } from '../../api/front'
 import feedback from '../../assets/feedback.json'
 
 const FrontHome = () => {
+	const [isLoading, setIsLoading] = useState(false)
 	const [allData, setAllData] = useState([
 		{ id: 1, products: [] },
 		{ id: 2, products: [] },
@@ -17,6 +19,7 @@ const FrontHome = () => {
 
 	const getAllProductList = async () => {
 		try {
+			setIsLoading(true)
 			const res1 = getProductsCat(1, '新鮮蔬菜')
 			const res2 = getProductsCat(1, '當季水果')
 			const res3 = getProductsCat(1, '乾貨')
@@ -27,16 +30,17 @@ const FrontHome = () => {
 				{ id: 2, products: [...results[1].products] },
 				{ id: 3, products: [...results[2].products] },
 			])
+			setIsLoading(false)
 		} catch (err) {
 			return err.response.data
 		}
 	}
 
-	const getStories = async() => {
+	const getStories = async () => {
 		try {
 			const result = await getStoriesFront(1)
-			setStories(result.articles.filter(item => item.isPublic).slice(0, 3))
-		} catch(err) {
+			setStories(result.articles.filter((item) => item.isPublic).slice(0, 3))
+		} catch (err) {
 			return err.response.data
 		}
 	}
@@ -48,6 +52,7 @@ const FrontHome = () => {
 
 	return (
 		<>
+			<Spinner isLoading={isLoading} />
 			<Banner />
 			<ProductCarouselCollection allData={allData} />
 			<div className="bg-light">
