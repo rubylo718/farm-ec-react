@@ -15,13 +15,14 @@ const Navbar = ({ cartData }) => {
 		setSearchInput(e.target.value)
 	}
 	const handleSearch = (e) => {
-		if (!searchInput.length) return
+		const searchString = searchInput.trim()
+		if (!searchString.length) return
 		if (
 			e.key === 'Enter' ||
 			e.target.id === 'searchNav' ||
 			e.target.id === 'searchNavIcon'
 		) {
-			navigate(`/products/keyword?query=${searchInput}`)
+			navigate(`/products/keyword?query=${searchString}`)
 		}
 	}
 
@@ -35,36 +36,72 @@ const Navbar = ({ cartData }) => {
 		>
 			<div className="container">
 				<nav className="navbar px-0 navbar-expand-lg navbar-light bg-white">
-					<div className="container-fluid position-relative px-0">
-						<button
-							className="navbar-toggler"
-							type="button"
-							data-bs-toggle="collapse"
-							data-bs-target="#navbarToggler"
-							aria-controls="navbarToggler"
-							aria-label="Toggle navigation"
+					<div className="container-fluid px-0">
+						<div className="d-flex flex-nowrap">
+							<button
+								className="navbar-toggler me-2 px-2"
+								type="button"
+								data-bs-toggle="collapse"
+								data-bs-target="#navbarToggler"
+								aria-controls="navbarToggler"
+								aria-label="Toggle navigation"
+							>
+								<span className="navbar-toggler-icon"></span>
+							</button>
+							<NavLink className="navbar-brand el-hover" to="/">
+								<FontAwesomeIcon
+									icon={faSeedling}
+									className="me-1 text-primary"
+								/>
+								安心小農
+							</NavLink>
+							<div className="input-group">
+								<input
+									type="search"
+									id="searchInputNav"
+									className="form-control"
+									placeholder="搜尋商品名稱"
+									value={searchInput}
+									onChange={handleChange}
+									onKeyDown={handleSearch}
+								/>
+								<button
+									className="btn btn-primary text-white"
+									type="submit"
+									id="searchNav"
+									onClick={handleSearch}
+								>
+									<FontAwesomeIcon
+										icon={faMagnifyingGlass}
+										className="text-white"
+										size="sm"
+										id="searchNavIcon"
+										onClick={handleSearch}
+									/>
+								</button>
+							</div>
+						</div>
+						<div
+							className="collapse navbar-collapse bg-white custom-header-md-open justify-content-end me-lg-5 mt-1 mt-lg-0"
+							id="navbarToggler"
 						>
-							<span className="navbar-toggler-icon"></span>
-						</button>
-						<NavLink
-							className="navbar-brand position-absolute fs-4 el-hover"
-							to="/"
-							style={{
-								top: '20px',
-								left: '50%',
-								transform: 'translate(-50%, -50%)',
-							}}
-						>
-							<FontAwesomeIcon
-								icon={faSeedling}
-								className="me-1 text-primary"
-							/>
-							安心小農
-						</NavLink>
+							<ul className="navbar-nav">
+								<li className="nav-item">
+									<NavLink className="nav-link" to="/products/1">
+										產品列表
+									</NavLink>
+								</li>
+								<li className="nav-item">
+									<NavLink className="nav-link" to="/blog">
+										部落格
+									</NavLink>
+								</li>
+							</ul>
+						</div>
 						<div
 							className="position-absolute el-hover"
 							style={{
-								top: '20px',
+								top: '28px',
 								right: '0%',
 								transform: 'translate(-50%, -50%)',
 							}}
@@ -79,48 +116,6 @@ const Navbar = ({ cartData }) => {
 									{cartData?.carts?.length}
 								</span>
 							</Link>
-						</div>
-						<div
-							className="collapse navbar-collapse bg-white custom-header-md-open mt-1"
-							id="navbarToggler"
-						>
-							<ul className="navbar-nav me-auto mb-2 mb-lg-0">
-								<li className="nav-item">
-									<NavLink className="nav-link ps-0" to="/products/1">
-										產品列表
-									</NavLink>
-								</li>
-								<li className="nav-item me-2">
-									<NavLink className="nav-link" to="/blog">
-										部落格
-									</NavLink>
-								</li>
-								<li className="nav-item input-group w-50">
-									<input
-										type="text"
-										id="searchInputNav"
-										className="form-control"
-										placeholder="搜尋商品名稱"
-										value={searchInput}
-										onChange={handleChange}
-										onKeyDown={handleSearch}
-									/>
-									<button
-										className="btn btn-primary text-white"
-										type="button"
-										id="searchNav"
-										onClick={handleSearch}
-									>
-										<FontAwesomeIcon
-											icon={faMagnifyingGlass}
-											className="text-white"
-											size="sm"
-											id="searchNavIcon"
-											onClick={handleSearch}
-										/>
-									</button>
-								</li>
-							</ul>
 						</div>
 					</div>
 				</nav>

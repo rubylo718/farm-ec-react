@@ -11,13 +11,14 @@ const Banner = () => {
 		setSearchInput(e.target.value)
 	}
 	const handleSearch = (e) => {
-		if (!searchInput.length) return
+		const searchString = searchInput.trim()
+		if (!searchString.length) return
 		if (
 			e.key === 'Enter' ||
 			e.target.id === 'search' ||
 			e.target.id === 'searchIcon'
 		) {
-			navigate(`/products/keyword?query=${searchInput}`)
+			navigate(`/products/keyword?query=${searchString}`)
 		}
 	}
 
@@ -36,9 +37,12 @@ const Banner = () => {
 					<h5 className="font-weight-normal text-muted mt-2">
 						陪您幸福料理好味道
 					</h5>
-					<div className="input-group mb-0 mt-4 w-75">
+					<div
+						className="input-group mt-4 mb-0 w-75"
+						style={{ height: '40px' }}
+					>
 						<input
-							type="text"
+							type="search"
 							id="searchInput"
 							className="form-control"
 							placeholder="搜尋商品名稱"
@@ -46,7 +50,6 @@ const Banner = () => {
 							onChange={handleChange}
 							onKeyDown={handleSearch}
 						/>
-
 						<button
 							className="btn btn-primary text-white"
 							type="button"
@@ -56,6 +59,7 @@ const Banner = () => {
 							<FontAwesomeIcon
 								icon={faMagnifyingGlass}
 								className="text-white"
+								size="sm"
 								id="searchIcon"
 								onClick={handleSearch}
 							/>
