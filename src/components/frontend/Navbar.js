@@ -1,5 +1,11 @@
-import { useState } from 'react'
-import { Link, NavLink, useNavigate } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import {
+	Link,
+	NavLink,
+	useNavigate,
+	useLocation,
+	useSearchParams,
+} from 'react-router-dom'
 import {
 	faSeedling,
 	faBasketShopping,
@@ -10,6 +16,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 const Navbar = ({ cartData }) => {
 	const [searchInput, setSearchInput] = useState('')
 	const navigate = useNavigate()
+	const { pathname } = useLocation()
+	const [searchParams] = useSearchParams()
+	const searchString = searchParams.get('query')
 
 	const handleChange = (e) => {
 		setSearchInput(e.target.value)
@@ -25,6 +34,13 @@ const Navbar = ({ cartData }) => {
 			navigate(`/products/keyword?query=${searchString}`)
 		}
 	}
+	useEffect(() => {
+		if (pathname.startsWith('/products/keyword')) {
+			setSearchInput(searchString)
+		} else {
+			setSearchInput('')
+		}
+	}, [pathname, searchString])
 
 	return (
 		<div
