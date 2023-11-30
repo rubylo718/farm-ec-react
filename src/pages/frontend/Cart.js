@@ -119,6 +119,7 @@ const Cart = () => {
 				<div className="mt-5 text-center">
 					<p className="fs-4">您的購物車內尚無商品喔！</p>
 					<button
+						type="button"
 						className="btn btn-primary mt-1 text-white"
 						onClick={() => navigation('/')}
 					>
@@ -135,6 +136,7 @@ const Cart = () => {
 							<div className="card-header">
 								商品資訊
 								<button
+									type="button"
 									className="btn btn-sm p-0 float-end text-decoration-underline"
 									onClick={handleDeleteCartAll}
 								>
@@ -153,7 +155,7 @@ const Cart = () => {
 													<img
 														className="el-hover"
 														src={item.product.imageUrl}
-														alt="product"
+														alt={item.product.title}
 														style={{
 															width: '100%',
 															maxWidth: '120px',
@@ -180,6 +182,7 @@ const Cart = () => {
 														style={{ maxWidth: '240px' }}
 													>
 														<button
+															type="button"
 															className="btn btn-outline-secondary rounded"
 															onClick={() => handleMinusQty(item)}
 														>
@@ -195,6 +198,7 @@ const Cart = () => {
 															readOnly
 														/>
 														<button
+															type="button"
 															className="btn btn-outline-secondary rounded"
 															onClick={() => handleAddQty(item)}
 														>
@@ -233,6 +237,7 @@ const Cart = () => {
 							/>
 
 							<button
+								type="button"
 								className="btn btn-primary text-white rounded-0"
 								id="setCoupon"
 								onClick={handleCoupon}
@@ -240,6 +245,7 @@ const Cart = () => {
 								套用
 							</button>
 							<button
+								type="button"
 								className="btn btn-secondary rounded-0"
 								id="reset"
 								onClick={handleCoupon}
@@ -265,6 +271,7 @@ const Cart = () => {
 										<td>{item.dueDate}</td>
 										<td>
 											<button
+												type="button"
 												className="btn btn-primary text-white btn-sm"
 												onClick={() => handleSelectCoupon(item.code)}
 											>
@@ -327,12 +334,14 @@ const Cart = () => {
 								</p>
 							</div>
 							<button
+								type="button"
 								className="btn btn-light w-100 mt-4"
 								onClick={() => navigation('/')}
 							>
 								繼續逛逛
 							</button>
 							<button
+								type="button"
 								className="btn btn-danger w-100 mt-3"
 								onClick={() => navigation('/checkout')}
 							>

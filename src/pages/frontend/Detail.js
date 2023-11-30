@@ -57,7 +57,11 @@ const Detail = () => {
 			<div className="container">
 				<div className="row align-items-center mt-4">
 					<div className="col-md-7">
-						<img src={product?.imageUrl} className="d-block w-100" alt="..." />
+						<img
+							src={product?.imageUrl}
+							className="d-block w-100"
+							alt={product.title}
+						/>
 					</div>
 					<div className="col-md-5">
 						<nav aria-label="breadcrumb">
@@ -92,6 +96,7 @@ const Detail = () => {
 							</div>
 							<div className="col-sm-6">
 								<button
+									type="button"
 									className="text-nowrap btn btn-outline-danger w-100 py-2"
 									onClick={handleAddCart}
 									disabled={isLoading}
@@ -123,7 +128,10 @@ const Detail = () => {
 				<hr />
 				<h4 className="mb-3">
 					同類商品推薦
-					<Link className="btn btn-outline-dark float-end" to={`/products/${categoryId}`}>
+					<Link
+						className="btn btn-outline-dark float-end"
+						to={`/products/${categoryId}`}
+					>
 						完整列表
 					</Link>
 				</h4>

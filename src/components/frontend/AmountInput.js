@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 const AmountInput = ({ qty, handleAdd, handleMinus }) => {
 	return (
 		<div className="input-group my-3 flex-nowrap">
-			<button className="btn btn-secondary" onClick={handleMinus}>
+			<button type="button" className="btn btn-secondary" onClick={handleMinus}>
 				<FontAwesomeIcon icon={faMinus} />
 			</button>
 			<input
@@ -15,7 +15,7 @@ const AmountInput = ({ qty, handleAdd, handleMinus }) => {
 				value={qty}
 				readOnly
 			/>
-			<button className="btn btn-secondary" onClick={handleAdd}>
+			<button type="button" className="btn btn-secondary" onClick={handleAdd}>
 				<FontAwesomeIcon icon={faPlus} />
 			</button>
 		</div>

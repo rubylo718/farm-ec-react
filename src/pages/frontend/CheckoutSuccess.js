@@ -30,6 +30,7 @@ const CheckoutSuccess = () => {
 					<p>感謝惠顧！</p>
 					<p>您的商品會在 3-5 個工作天送達，若有問題請洽安心小農Line客服。</p>
 					<button
+						type="button"
 						className="btn btn-primary text-white"
 						onClick={() => navigation('/')}
 					>
@@ -70,7 +71,7 @@ const CheckoutSuccess = () => {
 											>
 												<img
 													src={item.product.imageUrl}
-													alt="product"
+													alt={item.product.title}
 													className="w-100 object-fit-cover el-hover"
 												/>
 											</th>

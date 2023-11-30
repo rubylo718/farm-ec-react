@@ -131,7 +131,7 @@ const ProductModal = ({
 										<p className="mb-1">圖片預覽</p>
 										<img
 											src={inputData.imageUrl}
-											alt=""
+											alt={inputData.title}
 											className="img-fluid"
 										/>
 									</>

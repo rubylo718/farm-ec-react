@@ -13,7 +13,7 @@ const BlogCard = ({ story, size }) => {
 						maxHeight: size === 'big' ? '250px' : '150px',
 						objectFit: 'cover',
 					}}
-					alt="..."
+					alt={story.title}
 				/>
 			</Link>
 			<div className="card-body">

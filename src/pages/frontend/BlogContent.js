@@ -41,7 +41,7 @@ const BlogContent = () => {
 							maxHeight: '20rem',
 							objectFit: 'cover',
 						}}
-						alt="..."
+						alt={story.title}
 					/>
 					<p className="my-4 fs-5 text-secondary">{story.description}</p>
 					{story?.content?.split('\n').map((item, i) => (
@@ -50,6 +50,7 @@ const BlogContent = () => {
 						</p>
 					))}
 					<button
+						type="button"
 						className="btn btn-primary btn-lg text-white my-4"
 						onClick={() => navigate(`/products/keyword?query=${story.tag}`)}
 					>
@@ -58,6 +59,7 @@ const BlogContent = () => {
 					</button>
 					<br />
 					<button
+						type="button"
 						className="btn btn-outline-secondary"
 						onClick={() => navigate('/blog')}
 					>

@@ -29,7 +29,7 @@ const OrderInfo = () => {
 								<th scope="row" className="px-0 py-3 align-items-center">
 									<img
 										src={item.product.imageUrl}
-										alt="product"
+										alt={item.product.title}
 										className="w-100 object-fit-cover"
 									/>
 								</th>

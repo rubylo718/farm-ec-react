@@ -199,7 +199,11 @@ const CustomerInfoForm = () => {
 					/>
 				</div>
 				<div className="d-flex justify-content-end">
-					<button className="btn btn-light mt-4" onClick={() => navigation(-1)}>
+					<button
+						type="button"
+						className="btn btn-light mt-4"
+						onClick={() => navigation(-1)}
+					>
 						回上一頁
 					</button>
 					<button
