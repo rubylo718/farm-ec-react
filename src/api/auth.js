@@ -18,7 +18,6 @@ const login = async ({ username, password }) => {
 			return data
 		}
 	} catch (err) {
-		console.error('[Login Failed]: ', err)
 		return { success: false, ...err.response.data}
 	}
 }
@@ -29,7 +28,6 @@ const checkPermission = async (token) => {
 		const res = await axiosInstance.post('/v2/api/user/check')
 		return res.data
 	} catch (err) {
-		console.error('[Check Permission Failed]: ', err)
 		return err.response.data
 	}
 }

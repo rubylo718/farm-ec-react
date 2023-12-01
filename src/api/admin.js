@@ -16,7 +16,7 @@ axiosInstance.interceptors.request.use(
 		return config
 	},
 	(error) => {
-		return console.error(error)
+		return Promise.reject(error)
 	}
 )
 
@@ -25,7 +25,6 @@ const getProducts = async (page) => {
 		const res = await axiosInstance.get(`/products?page=${page}`)
 		return res.data
 	} catch (err) {
-		console.error('[Admin-getProducts Error]: ', err)
 		return err.response
 	}
 }
@@ -35,7 +34,6 @@ const postProduct = async (data) => {
 		const res = await axiosInstance.post(`/product`, { data })
 		return res.data
 	} catch (err) {
-		console.error('[Admin-postProduct Error]: ', err)
 		return err.response.data
 	}
 }
@@ -45,7 +43,6 @@ const editProduct = async (data, id) => {
 		const res = await axiosInstance.put(`/product/${id}`, { data })
 		return res.data
 	} catch (err) {
-		console.error('[Admin-editProduct Error]: ', err)
 		return err.response.data
 	}
 }
@@ -55,7 +52,6 @@ const deleteProduct = async (id) => {
 		const res = await axiosInstance.delete(`/product/${id}`)
 		return res.data
 	} catch (err) {
-		console.error('[Admin-deleteProduct Error]: ', err)
 		return err.response.data
 	}
 }
@@ -66,7 +62,6 @@ const getCoupons = async (page) => {
 		const res = await axiosInstance.get(`/coupons?page=${page}`)
 		return res.data
 	} catch (err) {
-		console.error('[Admin-getCoupons Error]: ', err)
 		return err.response.data
 	}
 }
@@ -76,7 +71,6 @@ const postCoupon = async (data) => {
 		const res = await axiosInstance.post(`/coupon`, { data })
 		return res.data
 	} catch (err) {
-		console.error('[Admin-postCoupon Error]: ', err)
 		return err.response.data
 	}
 }
@@ -86,7 +80,6 @@ const editCoupon = async (data, id) => {
 		const res = await axiosInstance.put(`/coupon/${id}`, { data })
 		return res.data
 	} catch (err) {
-		console.error('[Admin-editCoupon Error]: ', err)
 		return err.response.data
 	}
 }
@@ -96,7 +89,6 @@ const deleteCoupon = async (id) => {
 		const res = await axiosInstance.delete(`/coupon/${id}`)
 		return res.data
 	} catch (err) {
-		console.error('[Admin-deleteCoupon Error]: ', err)
 		return err.response.data
 	}
 }
@@ -107,7 +99,6 @@ const getOrders = async (page) => {
 		const res = await axiosInstance.get(`/orders?page=${page}`)
 		return res.data
 	} catch (err) {
-		console.error('[Admin-getOrders Error]: ', err)
 		return err.response.data
 	}
 }
@@ -117,7 +108,6 @@ const editOrder = async (data, id) => {
 		const res = await axiosInstance.put(`/order/${id}`, { data })
 		return res.data
 	} catch (err) {
-		console.error('[Admin-editOrder Error]: ', err)
 		return err.response.data
 	}
 }

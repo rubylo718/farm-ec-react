@@ -80,7 +80,14 @@ const CustomerInfoForm = () => {
 				Toast.fire({ icon: 'success', title: '已成功付款' })
 				getCurrentCart()
 				navigation(`/success/${orderId}`)
+			} else {
+				Toast.fire({ icon: 'error', title: '發生錯誤，付款失敗，請洽客服' })
 			}
+		} else {
+			Toast.fire({
+				icon: 'error',
+				title: '發生錯誤，訂單成立失敗，請重新整理再試一次',
+			})
 		}
 		setIsLoading(false)
 	}

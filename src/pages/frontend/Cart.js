@@ -21,13 +21,27 @@ const Cart = () => {
 	const [isLoading, setIsLoading] = useState(false)
 
 	const handleDeleteItem = async (id) => {
-		setIsLoading(true)
-		const result = await deleteCartItem(id)
-		if (result.success) {
-			Toast.fire({ icon: 'success', title: `${result.message}` })
-			getCurrentCart()
+		const { isConfirmed } = await DeleteConfirmation.fire({
+			title: '確定刪除此項商品？',
+			text: '',
+			icon: 'question',
+		})
+		if (isConfirmed) {
+			setIsLoading(true)
+			const result = await deleteCartItem(id)
+			if (result.success) {
+				Toast.fire({ icon: 'success', title: result.message })
+				getCurrentCart()
+			} else {
+				Toast.fire({
+					icon: 'error',
+					title: result.message || '發生錯誤，無法刪除，請重新整理再試一次',
+				})
+			}
+			setIsLoading(false)
+		} else {
+			return
 		}
-		setIsLoading(false)
 	}
 
 	const handleDeleteCartAll = async () => {
@@ -41,6 +55,11 @@ const Cart = () => {
 			const result = await deleteCartAll()
 			if (result?.success) {
 				getCurrentCart()
+			} else {
+				Toast.fire({
+					icon: 'error',
+					title: result.message || '發生錯誤，無法刪除，請重新整理再試一次',
+				})
 			}
 			setIsLoading(false)
 		} else {
@@ -54,6 +73,11 @@ const Cart = () => {
 		const result = await editCartItem(item, newQty)
 		if (result.success) {
 			getCurrentCart()
+		} else {
+			Toast.fire({
+				icon: 'error',
+				title: result.message || '發生錯誤，請重新整理再試一次',
+			})
 		}
 		setIsLoading(false)
 	}
@@ -65,6 +89,11 @@ const Cart = () => {
 			const result = await editCartItem(item, newQty)
 			if (result.success) {
 				getCurrentCart()
+			} else {
+				Toast.fire({
+					icon: 'error',
+					title: result.message || '發生錯誤，請重新整理再試一次',
+				})
 			}
 			setIsLoading(false)
 		}
@@ -87,12 +116,16 @@ const Cart = () => {
 			e.target.id === 'reset' &&
 			cartData.total !== cartData.final_total
 		) {
-			console.log(cartData)
 			const res = await postCouponFront('reset')
 			if (res?.success) {
 				Toast.fire({ icon: 'warning', title: '已取消使用優惠' })
 				setCouponCode('')
 				getCurrentCart()
+			} else {
+				Toast.fire({
+					icon: 'error',
+					title: res.message || '發生錯誤，請重新整理再試一次',
+				})
 			}
 		}
 	}
@@ -105,7 +138,10 @@ const Cart = () => {
 			Toast.fire({ icon: 'success', title: res.message })
 			getCurrentCart()
 		} else {
-			Toast.fire({ icon: 'error', title: res.message })
+			Toast.fire({
+				icon: 'error',
+				title: res.message || '發生錯誤，請重新整理再試一次',
+			})
 			setCouponCode('')
 		}
 		setIsLoading(false)

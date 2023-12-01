@@ -8,6 +8,11 @@ const ProductCard = ({ item }) => {
 		const res = await postCart({ data: { product_id: id, qty: 1 } })
 		if (res.success) {
 			Toast.fire({ icon: 'success', title: res.message })
+		} else {
+			Toast.fire({
+				icon: 'error',
+				title: res.message || '發生錯誤，請重新整理再試一次',
+			})
 		}
 		getCurrentCart()
 	}
