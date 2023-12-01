@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { Link, Outlet, useNavigate } from 'react-router-dom'
+import { NavLink, Link, Outlet, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
 import { Toast } from '../../utils/toast-helper'
 
@@ -47,7 +47,11 @@ const Admin = () => {
 									type="button"
 									className="btn btn-sm btn-outline-light me-3"
 								>
-									<Link to="/" target="_blank" className='text-reset text-decoration-none'>
+									<Link
+										to="/"
+										target="_blank"
+										className="text-reset text-decoration-none"
+									>
 										開啟前台
 									</Link>
 								</button>
@@ -66,34 +70,42 @@ const Admin = () => {
 				</div>
 			</nav>
 			<div className="d-flex" style={{ minHeight: 'calc(100vh - 56px)' }}>
-				<div className="bg-light" style={{ width: '200px' }}>
-					<ul className="list-group list-group-flush">
-						<Link
-							className="list-group-item list-group-item-action list-group-item-light py-3"
-							to="/admin/products"
-						>
-							產品列表
-						</Link>
-						<Link
-							className="list-group-item list-group-item-action list-group-item-light py-3"
-							to="/admin/coupons"
-						>
-							優惠券列表
-						</Link>
-						<Link
-							className="list-group-item list-group-item-action list-group-item-light py-3"
-							to="/admin/orders"
-						>
-							訂單列表
-						</Link>
-						<Link
-							className="list-group-item list-group-item-action list-group-item-light py-3"
-							to="/admin/stories"
-						>
-							文章列表
-						</Link>
+				<nav className="bg-light" style={{ width: '200px' }}>
+					<ul className="nav list-group list-group-flush">
+						<li className="nav-item">
+							<NavLink
+								className="nav-link list-group-item list-group-item-action list-group-item-light py-3"
+								to="/admin/products"
+							>
+								產品列表
+							</NavLink>
+						</li>
+						<li className="nav-item">
+							<NavLink
+								className="nav-link list-group-item list-group-item-action list-group-item-light py-3"
+								to="/admin/coupons"
+							>
+								優惠券列表
+							</NavLink>
+						</li>
+						<li className="nav-item">
+							<NavLink
+								className="nav-link list-group-item list-group-item-action list-group-item-light py-3"
+								to="/admin/orders"
+							>
+								訂單列表
+							</NavLink>
+						</li>
+						<li className="nav-item">
+							<NavLink
+								className="nav-link list-group-item list-group-item-action list-group-item-light py-3"
+								to="/admin/stories"
+							>
+								文章列表
+							</NavLink>
+						</li>
 					</ul>
-				</div>
+				</nav>
 				<div className="w-100">
 					<Outlet />
 				</div>
