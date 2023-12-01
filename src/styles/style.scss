@@ -32,6 +32,7 @@ $pagination-active-border-color: #4ba83a;
 $pagination-active-bg: #4ba83a;
 $pagination-hover-color: #4ba83a;
 $pagination-focus-color: #4ba83a;
+$pagination-focus-box-shadow: 0 0 0 0.2rem rgba(72, 166, 56, 0.25);
 
 @import 'bootstrap/scss/bootstrap';
 @import 'slick-carousel/slick/slick';

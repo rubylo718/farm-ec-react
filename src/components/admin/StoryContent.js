@@ -27,6 +27,7 @@ const StoryContent = ({ story }) => {
 		<div className="row">
 			<div className="col-md-12 mb-2">
 				<label className="w-100" htmlFor="title">
+					<span className="text-danger">*</span>
 					標題
 				</label>
 				<input
@@ -55,6 +56,7 @@ const StoryContent = ({ story }) => {
 			</div>
 			<div className="col-md-6 mb-2">
 				<label className="w-100" htmlFor="author">
+					<span className="text-danger">*</span>
 					作者
 				</label>
 				<input
@@ -122,6 +124,7 @@ const StoryContent = ({ story }) => {
 			</div>
 			<div className="col-md-12 mb-2">
 				<label className="w-100" htmlFor="content">
+					<span className="text-danger">*</span>
 					內容（按Enter分段）
 				</label>
 				<textarea

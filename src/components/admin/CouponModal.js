@@ -100,13 +100,14 @@ const CouponModal = ({
 							type="button"
 							className="btn-close"
 							aria-label="Close"
-							onClick={handleHideModal}
+							onClick={handleCancel}
 						/>
 					</div>
 					<div className="modal-body">
 						<div className="row">
 							<div className="col-md-6 mb-2">
 								<label className="w-100" htmlFor="title">
+									<span className="text-danger">*</span>
 									標題
 								</label>
 								<input
@@ -137,6 +138,7 @@ const CouponModal = ({
 							</div>
 							<div className="col-md-6 mb-2">
 								<label className="w-100" htmlFor="code">
+									<span className="text-danger">*</span>
 									優惠碼
 								</label>
 								<input

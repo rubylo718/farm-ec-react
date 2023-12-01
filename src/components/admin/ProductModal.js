@@ -106,7 +106,7 @@ const ProductModal = ({
 							type="button"
 							className="btn-close"
 							aria-label="Close"
-							onClick={handleHideProductModal}
+							onClick={handleCancel}
 						/>
 					</div>
 					<div className="modal-body">
@@ -123,7 +123,7 @@ const ProductModal = ({
 										className="form-control"
 										value={inputData.imageUrl}
 										onChange={handleChange}
-										rows={"2"}
+										rows={'2'}
 									/>
 								</div>
 								{inputData.imageUrl && (
@@ -140,6 +140,7 @@ const ProductModal = ({
 							<div className="col-sm-8">
 								<div className="form-group mb-2">
 									<label className="w-100" htmlFor="title">
+										<span className="text-danger">*</span>
 										標題
 									</label>
 									<input
@@ -155,6 +156,7 @@ const ProductModal = ({
 								<div className="row">
 									<div className="form-group mb-2 col-md-6">
 										<label className="w-100" htmlFor="category">
+											<span className="text-danger">*</span>
 											分類
 										</label>
 										<select
@@ -179,6 +181,7 @@ const ProductModal = ({
 									</div>
 									<div className="form-group mb-2 col-md-6">
 										<label className="w-100" htmlFor="unit">
+											<span className="text-danger">*</span>
 											單位
 										</label>
 										<select
@@ -261,7 +264,7 @@ const ProductModal = ({
 										className="form-control"
 										value={inputData.content}
 										onChange={handleChange}
-										rows={"8"}
+										rows={'8'}
 									/>
 								</div>
 								<div className="form-group mb-2">
@@ -289,7 +292,7 @@ const ProductModal = ({
 						<button
 							type="button"
 							className="btn btn-outline-secondary"
-							onClick={()=>handleCancel()}
+							onClick={() => handleCancel()}
 						>
 							取消
 						</button>

@@ -68,7 +68,7 @@ const OrderModal = ({ handleHideModal, getOrderList, modalData }) => {
 							type="button"
 							className="btn-close"
 							aria-label="Close"
-							onClick={handleHideModal}
+							onClick={handleCancel}
 						/>
 					</div>
 					<div className="modal-body">
