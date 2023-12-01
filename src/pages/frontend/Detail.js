@@ -61,13 +61,6 @@ const Detail = () => {
 				<Spinner isLoading={isLoading} />
 				<div className="row align-items-center mt-4">
 					<div className="col-md-7">
-						<img
-							src={product?.imageUrl}
-							className="d-block w-100"
-							alt={product.title}
-						/>
-					</div>
-					<div className="col-md-5">
 						<nav aria-label="breadcrumb">
 							<ol className="breadcrumb bg-white px-0 mb-0 py-3">
 								<li className="breadcrumb-item">
@@ -85,11 +78,18 @@ const Detail = () => {
 								</li>
 							</ol>
 						</nav>
-						<h2 className="fw-bold mb-1">{product?.title}</h2>
+						<img
+							src={product?.imageUrl}
+							className="d-block w-100"
+							alt={product.title}
+						/>
+					</div>
+					<div className="col-md-5">
+						<h2 className="fw-bold mb-2">{product?.title}</h2>
+						<p className="h4 fw-bold text-end">NT$ {product?.price}</p>
 						<p className="mb-0 text-muted text-end">
-							<del>NT${product?.origin_price}</del>
+							<del>NT$ {product?.origin_price}</del>
 						</p>
-						<p className="h4 fw-bold text-end">NT${product?.price}</p>
 						<div className="row align-items-center">
 							<div className="col-sm-6">
 								<AmountInput
@@ -101,7 +101,7 @@ const Detail = () => {
 							<div className="col-sm-6">
 								<button
 									type="button"
-									className="text-nowrap btn btn-outline-danger w-100 py-2"
+									className="text-nowrap btn btn-primary text-white w-100 py-2"
 									onClick={handleAddCart}
 									disabled={isLoading}
 								>
@@ -114,10 +114,10 @@ const Detail = () => {
 				</div>
 				<div className="row my-5">
 					<div className="col-md-7">
-						<h5 className="text-decoration-underline">商品簡介</h5>
+						<h5 className="fw-bold mb-3">商品簡介</h5>
 						<p>{product?.description}</p>
 						<br />
-						<h5 className="text-decoration-underline">商品說明</h5>
+						<h5 className="fw-bold mb-3">商品說明</h5>
 						{product?.content?.split('\n').map((item, i) => (
 							<p key={i} className="lh-lg">
 								{item}
@@ -125,11 +125,11 @@ const Detail = () => {
 						))}
 					</div>
 					<div className="col-md-5">
-						<h5 className="mb-3 text-decoration-underline">訂購須知</h5>
+						<h5 className="fw-bold mb-3">訂購須知</h5>
 						<Instruction />
 					</div>
 				</div>
-				<hr />
+				<hr className='my-4'/>
 				<h4 className="mb-3">
 					同類商品推薦
 					<Link

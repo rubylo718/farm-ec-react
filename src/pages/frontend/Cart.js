@@ -219,10 +219,14 @@ const Cart = () => {
 													>
 														<button
 															type="button"
-															className="btn btn-outline-secondary rounded"
+															className="btn btn-primary py-2 px-auto"
 															onClick={() => handleMinusQty(item)}
 														>
-															<FontAwesomeIcon icon={faMinus} size="2xs" />
+															<FontAwesomeIcon
+																icon={faMinus}
+																className="text-white"
+																size="2xs"
+															/>
 														</button>
 														<input
 															type="text"
@@ -235,10 +239,10 @@ const Cart = () => {
 														/>
 														<button
 															type="button"
-															className="btn btn-outline-secondary rounded"
+															className="btn btn-primary py-2 px-auto"
 															onClick={() => handleAddQty(item)}
 														>
-															<FontAwesomeIcon icon={faPlus} size="2xs" />
+															<FontAwesomeIcon icon={faPlus} className='text-white' size="2xs" />
 														</button>
 													</div>
 												</div>

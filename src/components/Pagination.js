@@ -20,18 +20,17 @@ const Pagination = ({ pagination, getDataList }) => {
 				{[...new Array(pagination.total_pages)].map((_, i) => {
 					return (
 						<li className="page-item" key={i}>
-							<a
+							<span
 								className={`page-link ${
 									pagination.current_page === i + 1 ? 'active' : ''
 								}`}
-								href="/"
 								onClick={(e) => {
 									e.preventDefault()
 									getDataList(i + 1)
 								}}
 							>
 								{i + 1}
-							</a>
+							</span>
 						</li>
 					)
 				})}
