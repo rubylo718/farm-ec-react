@@ -130,13 +130,13 @@ const Detail = () => {
 					</div>
 				</div>
 				<hr className='my-4'/>
-				<h4 className="mb-3">
+				<h4 className='pb-3'>
 					同類商品推薦
 					<Link
-						className="btn btn-outline-dark float-end"
+						className="btn float-end"
 						to={`/products/${categoryId}`}
 					>
-						完整列表
+						查看更多
 					</Link>
 				</h4>
 

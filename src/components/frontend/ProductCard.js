@@ -1,4 +1,6 @@
 import { Link, useOutletContext } from 'react-router-dom'
+import { faBasketShopping } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { postCart } from '../../api/front'
 import { Toast } from '../../utils/toast-helper'
 
@@ -18,11 +20,11 @@ const ProductCard = ({ item }) => {
 	}
 
 	return (
-		<div className="card border-0 mb-4 position-relative">
+		<div className="card border-0 mb-4 position-relative px-4">
 			<Link to={`/detail/${item?.id}`}>
 				<img
 					src={item?.imageUrl}
-					className="card-img-top rounded-0 el-hover"
+					className="card-img-top rounded-2 el-hover"
 					alt={item?.title}
 					style={{ height: '20vh', objectFit: 'cover' }}
 				/>
@@ -36,29 +38,24 @@ const ProductCard = ({ item }) => {
 						{item?.title}
 					</h4>
 				</Link>
-				<div className="d-flex justify-content-between mt-2">
+				<div className="d-block mt-2">
 					<div className="align-text-bottom">
 						<p className="card-text fs-5 mb-1 mb-lg-0 d-inline">
-							${`${item?.price} `}
+							NT$ {`${item?.price} `}
 						</p>
 						<small className="fs-6 text-decoration-line-through text-secondary d-inline">
-							${item?.origin_price}
+							NT$ {item?.origin_price}
 						</small>
 					</div>
 
 					<div className="text-end" style={{ minWidth: '120px' }}>
-						<Link
-							className="btn btn-primary text-nowrap text-white me-1"
-							to={`/detail/${item?.id}`}
-						>
-							介紹
-						</Link>
 						<button
 							type="button"
-							className="btn btn-outline-danger text-nowrap"
+							className="btn btn-primary text-white text-nowrap"
 							onClick={() => handleAddCart(item.id)}
 						>
-							購買
+							加入菜籃
+							<FontAwesomeIcon icon={faBasketShopping} className="ms-1" />
 						</button>
 					</div>
 				</div>

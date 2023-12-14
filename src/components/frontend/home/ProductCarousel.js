@@ -12,6 +12,8 @@ const ProductCarousel = ({ data }) => {
 				settings: {
 					slidesToShow: 1,
 					slidesToScroll: 1,
+					dots: true,
+					arrows: false,
 				},
 			},
 			{
@@ -25,17 +27,15 @@ const ProductCarousel = ({ data }) => {
 	}
 
 	return (
-		<>
-			<div className="container">
-				<Slider {...sliderSetting}>
-					{data?.products.map((item) => (
-						<div className="p-1" key={item.id}>
-							<ProductCard item={item} />
-						</div>
-					))}
-				</Slider>
-			</div>
-		</>
+		<div className="container px-0 w-100">
+			<Slider {...sliderSetting}>
+				{data?.products.map((item) => (
+					<div className="p-0" key={item.id}>
+						<ProductCard item={item} />
+					</div>
+				))}
+			</Slider>
+		</div>
 	)
 }
 

@@ -55,7 +55,12 @@ $input-focus-border-color: rgba(103, 181, 89, 0.5);
 	}
 }
 
+.slick-prev {
+	transform: translate(-100%, -50%);
+}
+
 .slick-prev:before,
 .slick-next:before {
 	color: #6c757d;
+	font-size: 40px;
 }

@@ -7,7 +7,7 @@ const ProductCarouselCollection = ({ allData }) => {
 		<>
 			{allData?.map((data) => {
 				return (
-					<div className="container mt-5" key={data.id}>
+					<div className="container mt-5 px-3" key={data.id}>
 						<h4 className="fs-4">
 							<Link
 								className="text-reset text-decoration-none el-hover"
@@ -16,10 +16,10 @@ const ProductCarouselCollection = ({ allData }) => {
 								{data?.products[0]?.category}
 							</Link>
 							<Link
-								className="float-end btn btn-outline-dark"
+								className="btn float-end justify-content-middle"
 								to={`/products/${data.id}`}
 							>
-								完整列表
+								查看更多
 							</Link>
 						</h4>
 						<hr />
