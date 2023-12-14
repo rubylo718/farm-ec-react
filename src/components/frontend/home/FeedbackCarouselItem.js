@@ -8,7 +8,7 @@ const FeedbackCarouselItem = ({ feedback }) => {
 						key={item.id}
 					>
 						<div className="row justify-content-center py-5">
-							<div className="col-md-8 d-flex">
+							<div className="col-md-8 d-flex"  style={{ minHeight: '200px' }}>
 								<img
 									src={item.photoUrl}
 									alt={item.last_name + item.title}
@@ -19,9 +19,9 @@ const FeedbackCarouselItem = ({ feedback }) => {
 										objectFit: 'cover',
 									}}
 								/>
-								<div className="d-flex flex-column">
+								<div className="d-flex flex-column justify-content-evenly">
 									<p className="h5 el-hover">“{item.content}”</p>
-									<p className="mt-auto text-muted">
+									<p className="text-muted">
 										{item.city} {item.last_name + item.title} {item.job}
 									</p>
 								</div>

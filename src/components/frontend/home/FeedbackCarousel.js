@@ -12,6 +12,10 @@ const FeedbackCarousel = ({ feedback }) => {
 		feedbackCarousel.current.prev()
 	}
 
+	const handleTo = (i) => {
+		feedbackCarousel.current.to(i)
+	}
+
 	useEffect(() => {
 		feedbackCarousel.current = new Carousel('#feedbackCarouselControls')
 	})
@@ -23,6 +27,31 @@ const FeedbackCarousel = ({ feedback }) => {
 				className="carousel slide"
 				data-ride="carousel"
 			>
+				<div className="carousel-indicators">
+					<button
+						type="button"
+						data-bs-target="#carouselExampleIndicators"
+						data-bs-slide-to="0"
+						className="active"
+						aria-current="true"
+						aria-label="Slide 1"
+						onClick={() => handleTo(0)}
+					></button>
+					<button
+						type="button"
+						data-bs-target="#carouselExampleIndicators"
+						data-bs-slide-to="1"
+						aria-label="Slide 2"
+						onClick={() => handleTo(1)}
+					></button>
+					<button
+						type="button"
+						data-bs-target="#carouselExampleIndicators"
+						data-bs-slide-to="2"
+						aria-label="Slide 3"
+						onClick={() => handleTo(2)}
+					></button>
+				</div>
 				<div className="carousel-inner">
 					<FeedbackCarouselItem feedback={feedback} />
 				</div>
