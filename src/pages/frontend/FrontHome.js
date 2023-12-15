@@ -39,7 +39,7 @@ const FrontHome = () => {
 	const getStories = async () => {
 		try {
 			const result = await getStoriesFront(1)
-			setStories(result.articles.filter((item) => item.isPublic).slice(0, 3))
+			setStories(result.articles.filter((item) => item.isPublic).slice(0, 6))
 		} catch (err) {
 			return err.response.data
 		}

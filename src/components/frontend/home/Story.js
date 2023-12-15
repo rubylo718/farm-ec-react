@@ -12,6 +12,8 @@ const Story = ({ stories }) => {
 				settings: {
 					slidesToShow: 1,
 					slidesToScroll: 1,
+					dots: true,
+					arrows: false,
 				},
 			},
 			{
@@ -24,43 +26,50 @@ const Story = ({ stories }) => {
 		],
 	}
 	return (
-		<div className="container my-5">
+		<div className="container mt-5">
 			<h4>
 				<Link className="text-reset text-decoration-none el-hover" to="blog">
 					產地故事
 				</Link>
-				<Link className="float-end btn btn-outline-dark" to="blog">
-					看更多
+				<Link className="float-end btn" to="blog">
+					查看更多
 				</Link>
 			</h4>
 			<hr />
-			<div className="container">
+
+			<div className="container px-0">
 				<Slider {...sliderSetting}>
 					{stories.map((item) => {
 						return (
-							<div className="p-1" key={item?.id}>
-								<div className="card border-0 mb-4 position-relative">
-									<Link to={`blog/${item?.id}`}>
-										<img
-											src={item?.image}
-											className="card-img-top rounded-0 el-hover"
-											alt={item?.title}
-											style={{ height: '20vh', objectFit: 'cover' }}
-										/>
+							<div
+								className="card border-0 mb-4 position-relative px-4"
+								key={item?.id}
+							>
+								<Link to={`blog/${item?.id}`}>
+									<img
+										src={item?.image}
+										className="card-img-top rounded-2 el-hover"
+										alt={item?.title}
+										style={{ height: '20vh', objectFit: 'cover' }}
+									/>
+								</Link>
+								<div className="card-body p-0">
+									<Link
+										className="text-reset text-decoration-none el-hover"
+										to={`blog/${item?.id}`}
+									>
+										<h5 className="mb-0 mt-4" style={{ minHeight: '48px' }}>
+											{item?.title}
+										</h5>
 									</Link>
-									<div className="card-body p-0">
-										<Link
-											className="text-reset text-decoration-none el-hover"
-											to={`blog/${item?.id}`}
+									<div className="d-block mt-2">
+										<p
+											className="card-text text-muted mb-0 me-1"
+											style={{ minHeight: '48px' }}
 										>
-											<h5 className="mb-0 mt-4" style={{ minHeight: '48px' }}>
-												{item?.title}
-											</h5>
-										</Link>
-										<div className="d-flex justify-content-between align-items-start mt-3">
-											<p className="card-text text-muted mb-0 me-1">
-												{item?.description}
-											</p>
+											{item?.description}
+										</p>
+										<div className="text-end" style={{ minWidth: '120px' }}>
 											<Link
 												className="btn btn-primary text-white text-nowrap"
 												to={`blog/${item?.id}`}

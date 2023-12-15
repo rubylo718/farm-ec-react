@@ -10,7 +10,7 @@ const BlogList = () => {
 	return (
 		<>
 			<h3 className="mb-3 el-hover">產地故事</h3>
-			<div className="row mb-3">
+			<div className="row g-3">
 				{topTwoStory.map((story) => (
 					<div className="col-sm-6" key={story.id}>
 						<BlogCard story={story} size="big" />
@@ -22,7 +22,7 @@ const BlogList = () => {
 					</div>
 				))}
 			</div>
-			<div className="d-flex justify-content-center">
+			<div className="d-flex justify-content-center mt-3">
 				<Pagination pagination={pagination} getDataList={getData} />
 			</div>
 		</>
