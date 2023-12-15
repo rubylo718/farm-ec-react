@@ -2,6 +2,8 @@ import { faCheck } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const CheckoutProgress = ({ step }) => {
+	const valueNow = (step - 1) * 50
+
 	return (
 		<div
 			className="container w-50 my-4"
@@ -12,35 +14,37 @@ const CheckoutProgress = ({ step }) => {
 					className="progress"
 					role="progressbar"
 					aria-label="Progress"
-					aria-valuenow={step === 1 ? '50' : '100'}
+					aria-valuenow={valueNow}
 					aria-valuemin="0"
 					aria-valuemax="100"
 					style={{ height: '2px' }}
 				>
 					<div
 						className="progress-bar bg-primary"
-						style={{ width: `${step === 1 ? '50' : '100'}%` }}
+						style={{ width: `${valueNow}%` }}
 					></div>
 				</div>
 				<button
 					type="button"
-					className="position-absolute top-0 start-0 translate-middle btn btn-sm btn-primary text-white rounded-pill"
+					className={`position-absolute top-0 start-0 translate-middle btn btn-sm ${
+						step >= 1 ? 'btn-primary text-white' : 'btn-light text-secondary'
+					} rounded-pill`}
 					style={{ width: '2rem', height: '2rem' }}
 				>
-					{step === 1 ? (
-						'1'
-					) : (
+					{step > 1 ? (
 						<FontAwesomeIcon icon={faCheck} className="text-reset" />
+					) : (
+						'1'
 					)}
 				</button>
 				<button
 					type="button"
 					className={`position-absolute top-0 start-50 translate-middle btn btn-sm ${
-						step !== 1 ? 'btn-primary text-white' : 'btn-light text-secondary'
+						step >= 2 ? 'btn-primary text-white' : 'btn-light text-secondary'
 					} rounded-pill`}
 					style={{ width: '2rem', height: '2rem' }}
 				>
-					{step === 3 ? (
+					{step > 2 ? (
 						<FontAwesomeIcon icon={faCheck} className="text-reset" />
 					) : (
 						'2'
@@ -49,11 +53,11 @@ const CheckoutProgress = ({ step }) => {
 				<button
 					type="button"
 					className={`position-absolute top-0 start-100 translate-middle btn btn-sm ${
-						step === 3 ? 'btn-primary text-white' : 'btn-light text-secondary'
+						step >= 3 ? 'btn-primary text-white' : 'btn-light text-secondary'
 					} rounded-pill`}
 					style={{ width: '2rem', height: '2rem' }}
 				>
-					{step === 3 ? (
+					{step > 3 ? (
 						<FontAwesomeIcon icon={faCheck} className="text-reset" />
 					) : (
 						'3'
@@ -63,10 +67,10 @@ const CheckoutProgress = ({ step }) => {
 					購物車
 				</span>
 				<span className="position-absolute start-50 translate-middle-x mt-3">
-					收件資訊
+					填寫收件資訊
 				</span>
 				<span className="position-absolute start-100 translate-middle-x mt-3 text-nowrap">
-					完成結帳
+					填寫付款資訊
 				</span>
 			</div>
 		</div>

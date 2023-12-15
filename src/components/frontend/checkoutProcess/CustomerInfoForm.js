@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate, useOutletContext } from 'react-router-dom'
 import { useForm, useWatch } from 'react-hook-form'
 import taiwanData from '../../../assets/taiwan.json'
-import { postOrder, postPay } from '../../../api/front'
+import { postOrder } from '../../../api/front'
 import { Toast } from '../../../utils/toast-helper'
 import Spinner from '../../Spinner'
 
@@ -75,14 +75,9 @@ const CustomerInfoForm = () => {
 		const result = await postOrder(user, data.message)
 		if (result?.success) {
 			const orderId = result.orderId
-			const payResult = await postPay(orderId)
-			if (payResult.success) {
-				Toast.fire({ icon: 'success', title: '已成功付款' })
-				getCurrentCart()
-				navigation(`/success/${orderId}`)
-			} else {
-				Toast.fire({ icon: 'error', title: '發生錯誤，付款失敗，請洽客服' })
-			}
+			Toast.fire({ icon: 'success', title: '訂單成立' })
+			getCurrentCart()
+			navigation(`/payment/${orderId}`)
 		} else {
 			Toast.fire({
 				icon: 'error',
@@ -102,7 +97,7 @@ const CustomerInfoForm = () => {
 		<>
 			<Spinner isLoading={isLoading} />
 			<form className="row" onSubmit={handleSubmit(onSubmit)}>
-				<h4 className="fw-semibold">收件資訊</h4>
+				<h4 className="fw-semibold">填寫收件資訊</h4>
 				<Input
 					register={register}
 					errors={errors}
@@ -217,7 +212,7 @@ const CustomerInfoForm = () => {
 						type="submit"
 						className="btn btn-primary mt-4 ms-4 text-white"
 					>
-						確認結帳
+						下一步
 					</button>
 				</div>
 			</form>

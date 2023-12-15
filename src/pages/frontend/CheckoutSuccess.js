@@ -1,10 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { getOrder } from '../../api/front'
-import { unixToDateString } from '../../utils/dayjs-helper'
+import OrderInfo from '../../components/frontend/checkoutProcess/OrderInfo'
 import CheckoutProgress from '../../components/frontend/checkoutProcess/CheckoutProgress'
-import { faCheck } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const CheckoutSuccess = () => {
 	const { orderId } = useParams()
@@ -23,90 +21,16 @@ const CheckoutSuccess = () => {
 
 	return (
 		<div className="container my-5">
-			<CheckoutProgress step={3} />
-			<div className="row">
-				<h3 className="mb-4 fw-bold">付款成功</h3>
-				<div className="col-lg-6 mb-4">
-					<div className="border p-4 mb-4">
-						<h4 className="fw-bold mb-3 ">訂單內容</h4>
-						<p className="mb-1 fw-bold">訂單編號：{orderData?.id}</p>
-						<p className="fw-bold">
-							購買日期：{unixToDateString(orderData?.create_at)}
-						</p>
-						<h5>商品明細</h5>
-						<table className="table table-sm align-middle">
-							<thead>
-								<tr className="border-bottom">
-									<th
-										scope="col"
-										className="text-center"
-										style={{ width: '15%' }}
-									>
-										商品
-									</th>
-									<th scope="col"></th>
-									<th scope="col" className="border-0 w-25 text-center">
-										數量
-									</th>
-								</tr>
-							</thead>
-							<tbody>
-								{Object.values(orderData?.products || {}).map((item) => {
-									return (
-										<tr className="border-bottom" key={item.id}>
-											<th scope="row" className="px-0 py-4 align-items-center">
-												<img
-													src={item.product.imageUrl}
-													alt={item.product.title}
-													className="el-hover w-100 object-fit-cover rounded-2"
-												/>
-											</th>
-											<td>
-												<p className="my-0 px-2">{item.product.title}</p>
-											</td>
-											<td className="border-0">
-												<p className="mb-0 ms-auto align-middle text-center">
-													{item.qty}
-												</p>
-											</td>
-										</tr>
-									)
-								})}
-							</tbody>
-							<tfoot>
-								<tr>
-									<td colSpan={2} className="border-0">
-										{Object.values(orderData?.products || {})[0]?.coupon &&
-											Object.values(orderData?.products || {})[0]?.coupon
-												.percent !== 100 && (
-												<>
-													<FontAwesomeIcon
-														icon={faCheck}
-														className="text-primary d-inline"
-													/>
-													<p className="d-inline ms-2">
-														{
-															Object.values(orderData?.products || {})[0]
-																?.coupon?.title
-														}
-													</p>
-												</>
-											)}
-									</td>
-								</tr>
-							</tfoot>
-						</table>
-						<div className="d-flex justify-content-between mt-4">
-							<p className="mb-0 h4 fw-bold">訂單總金額</p>
-							<p className="mb-0 h4 fw-bold">
-								NT${Math.round(orderData?.total)}
-							</p>
-						</div>
-					</div>
-				</div>
-				<div className="col-lg-6">
-					<p>感謝惠顧！</p>
-					<p>您的商品會在 3-5 個工作天送達，若有問題請洽安心小農Line客服。</p>
+			<CheckoutProgress step={4} />
+			<div className="row justify-content-center">
+				<div className="col-lg-10">
+					<h3 className="mb-4 fw-bold">訂購完成</h3>
+					<p className="mb-1">感謝惠顧！</p>
+					<p>
+						您的商品會在付款日後 3-5
+						個工作天送達，若有問題請洽安心小農Line客服。
+					</p>
+					<OrderInfo orderData={orderData} />
 					<button
 						type="button"
 						className="btn btn-primary text-white"
