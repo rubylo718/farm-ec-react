@@ -80,7 +80,7 @@ const Detail = () => {
 						</nav>
 						<img
 							src={product?.imageUrl}
-							className="d-block w-100"
+							className="d-block w-100 rounded-2"
 							alt={product.title}
 						/>
 					</div>

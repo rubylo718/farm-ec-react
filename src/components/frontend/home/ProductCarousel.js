@@ -4,14 +4,14 @@ import Slider from 'react-slick'
 const ProductCarousel = ({ data }) => {
 	const sliderSetting = {
 		infinite: true,
-		slidesToShow: 3,
-		slidesToScroll: 3,
+		slidesToShow: 4,
+		slidesToScroll: 4,
 		responsive: [
 			{
 				breakpoint: 576,
 				settings: {
-					slidesToShow: 1,
-					slidesToScroll: 1,
+					slidesToShow: 2,
+					slidesToScroll: 2,
 					dots: true,
 					arrows: false,
 				},
@@ -19,8 +19,9 @@ const ProductCarousel = ({ data }) => {
 			{
 				breakpoint: 992,
 				settings: {
-					slidesToShow: 2,
-					slidesToScroll: 2,
+					slidesToShow: 3,
+					slidesToScroll: 3,
+					dots: true,
 				},
 			},
 		],

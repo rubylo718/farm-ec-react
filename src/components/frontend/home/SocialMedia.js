@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom'
 const SocialMedia = () => {
 	const GITHUB_URL = 'https://github.com/rubylo718/farm-ec-react'
 	return (
-		<div className="container">
+		<div className="container mt-5">
 			<div className="row py-4">
-				<div className="col-sm-6 mb-3 mb-sm-0 d-flex justify-content-center">
+				<div className="col-sm-6 my-2 mb-sm-0 d-flex justify-content-center">
 					<div className="card text-center">
 						<div className="card-body">
 							<h3 className="card-title fs-4">輕鬆加 Line 訂購水果</h3>
@@ -23,7 +23,7 @@ const SocialMedia = () => {
 						</div>
 					</div>
 				</div>
-				<div className="col-sm-6 mb-3 mb-sm-0 d-flex justify-content-center">
+				<div className="col-sm-6 my-2 mb-sm-0 d-flex justify-content-center">
 					<div className="card text-center">
 						<div className="card-body">
 							<h3 className="card-title fs-4">作伙來 FB 小農粉絲團</h3>

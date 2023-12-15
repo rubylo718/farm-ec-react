@@ -4,8 +4,8 @@ import Slider from 'react-slick'
 const Story = ({ stories }) => {
 	const sliderSetting = {
 		infinite: true,
-		slidesToShow: 3,
-		slidesToScroll: 3,
+		slidesToShow: 4,
+		slidesToScroll: 4,
 		responsive: [
 			{
 				breakpoint: 576,
@@ -20,7 +20,8 @@ const Story = ({ stories }) => {
 				breakpoint: 992,
 				settings: {
 					slidesToShow: 2,
-					slidesToScroll: 1,
+					slidesToScroll: 2,
+					dots: true,
 				},
 			},
 		],
@@ -42,7 +43,7 @@ const Story = ({ stories }) => {
 					{stories.map((item) => {
 						return (
 							<div
-								className="card border-0 mb-4 position-relative px-4"
+								className="card border-0 mb-4 position-relative px-3"
 								key={item?.id}
 							>
 								<Link to={`blog/${item?.id}`}>
@@ -50,7 +51,7 @@ const Story = ({ stories }) => {
 										src={item?.image}
 										className="card-img-top rounded-2 el-hover"
 										alt={item?.title}
-										style={{ height: '20vh', objectFit: 'cover' }}
+										style={{ height: '15vh', objectFit: 'cover' }}
 									/>
 								</Link>
 								<div className="card-body p-0">

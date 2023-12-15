@@ -20,13 +20,13 @@ const ProductCard = ({ item }) => {
 	}
 
 	return (
-		<div className="card border-0 mb-4 position-relative px-4">
+		<div className="card border-0 mb-4 position-relative px-3">
 			<Link to={`/detail/${item?.id}`}>
 				<img
 					src={item?.imageUrl}
 					className="card-img-top rounded-2 el-hover"
 					alt={item?.title}
-					style={{ height: '20vh', objectFit: 'cover' }}
+					style={{ height: '15vh', objectFit: 'cover' }}
 				/>
 			</Link>
 			<div className="card-body p-0">
