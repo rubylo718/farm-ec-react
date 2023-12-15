@@ -30,7 +30,7 @@ const OrderInfo = () => {
 									<img
 										src={item.product.imageUrl}
 										alt={item.product.title}
-										className="w-100 object-fit-cover"
+										className="w-100 object-fit-cover rounded-2"
 									/>
 								</th>
 								<td>

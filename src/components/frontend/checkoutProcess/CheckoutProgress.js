@@ -27,7 +27,11 @@ const CheckoutProgress = ({ step }) => {
 					className="position-absolute top-0 start-0 translate-middle btn btn-sm btn-primary text-white rounded-pill"
 					style={{ width: '2rem', height: '2rem' }}
 				>
-					1
+					{step === 1 ? (
+						'1'
+					) : (
+						<FontAwesomeIcon icon={faCheck} className="text-reset" />
+					)}
 				</button>
 				<button
 					type="button"
@@ -36,7 +40,11 @@ const CheckoutProgress = ({ step }) => {
 					} rounded-pill`}
 					style={{ width: '2rem', height: '2rem' }}
 				>
-					2
+					{step === 3 ? (
+						<FontAwesomeIcon icon={faCheck} className="text-reset" />
+					) : (
+						'2'
+					)}
 				</button>
 				<button
 					type="button"
@@ -45,7 +53,11 @@ const CheckoutProgress = ({ step }) => {
 					} rounded-pill`}
 					style={{ width: '2rem', height: '2rem' }}
 				>
-					<FontAwesomeIcon icon={faCheck} className='text-reset'/>
+					{step === 3 ? (
+						<FontAwesomeIcon icon={faCheck} className="text-reset" />
+					) : (
+						'3'
+					)}
 				</button>
 				<span className="position-absolute start-0 translate-middle-x mt-3">
 					購物車

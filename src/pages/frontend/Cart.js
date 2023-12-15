@@ -189,7 +189,7 @@ const Cart = () => {
 											<div className="col-4">
 												<Link to={`/detail/${item.product.id}`}>
 													<img
-														className="el-hover"
+														className="el-hover rounded-2"
 														src={item.product.imageUrl}
 														alt={item.product.title}
 														style={{
@@ -242,7 +242,11 @@ const Cart = () => {
 															className="btn btn-primary py-2 px-auto"
 															onClick={() => handleAddQty(item)}
 														>
-															<FontAwesomeIcon icon={faPlus} className='text-white' size="2xs" />
+															<FontAwesomeIcon
+																icon={faPlus}
+																className="text-white"
+																size="2xs"
+															/>
 														</button>
 													</div>
 												</div>
@@ -264,11 +268,11 @@ const Cart = () => {
 								))}
 							</ul>
 						</div>
-						<div className="input-group w-75 mb-3">
+						<div className="input-group mb-3" style={{ width: '300px' }}>
 							<input
 								type="text"
 								id="couponCode"
-								className="form-control border-bottom border-top-0 border-start-0 "
+								className="form-control"
 								placeholder="輸入welcome打95折"
 								aria-label="coupon code"
 								value={couponCode}
@@ -278,7 +282,7 @@ const Cart = () => {
 
 							<button
 								type="button"
-								className="btn btn-primary text-white rounded-0"
+								className="btn btn-primary text-white"
 								id="setCoupon"
 								onClick={handleCoupon}
 							>
@@ -286,19 +290,19 @@ const Cart = () => {
 							</button>
 							<button
 								type="button"
-								className="btn btn-secondary rounded-0"
+								className="btn btn-secondary"
 								id="reset"
 								onClick={handleCoupon}
 							>
 								取消
 							</button>
 						</div>
-						<h5 className="mt-4">選擇優惠碼</h5>
+						<h5 className="mt-4">您目前可使用優惠券</h5>
 						<table className="table table-sm align-middle">
 							<thead className="table-light">
 								<tr>
 									<th scope="col">名稱</th>
-									<th scope="col">優惠碼</th>
+									{/* <th scope="col">優惠碼</th> */}
 									<th scope="col">到期日</th>
 									<th scope="col">選擇</th>
 								</tr>
@@ -307,12 +311,12 @@ const Cart = () => {
 								{couponList.map((item) => (
 									<tr key={item.id}>
 										<th scope="row">{item.title}</th>
-										<td>{item.code}</td>
+										{/* <td>{item.code}</td> */}
 										<td>{item.dueDate}</td>
 										<td>
 											<button
 												type="button"
-												className="btn btn-primary text-white btn-sm"
+												className="btn btn-primary text-white text-nowrap btn-sm"
 												onClick={() => handleSelectCoupon(item.code)}
 											>
 												使用

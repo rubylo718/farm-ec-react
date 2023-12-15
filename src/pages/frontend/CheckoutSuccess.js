@@ -25,19 +25,8 @@ const CheckoutSuccess = () => {
 		<div className="container my-5">
 			<CheckoutProgress step={3} />
 			<div className="row">
+				<h3 className="mb-4 fw-bold">付款成功</h3>
 				<div className="col-lg-6 mb-4">
-					<h3 className="mb-4 fw-bold">付款成功</h3>
-					<p>感謝惠顧！</p>
-					<p>您的商品會在 3-5 個工作天送達，若有問題請洽安心小農Line客服。</p>
-					<button
-						type="button"
-						className="btn btn-primary text-white"
-						onClick={() => navigation('/')}
-					>
-						回到首頁
-					</button>
-				</div>
-				<div className="col-lg-6">
 					<div className="border p-4 mb-4">
 						<h4 className="fw-bold mb-3 ">訂單內容</h4>
 						<p className="mb-1 fw-bold">訂單編號：{orderData?.id}</p>
@@ -50,7 +39,7 @@ const CheckoutSuccess = () => {
 								<tr className="border-bottom">
 									<th
 										scope="col"
-										className="border-0 ps-0 text-center"
+										className="text-center"
 										style={{ width: '15%' }}
 									>
 										商品
@@ -65,14 +54,11 @@ const CheckoutSuccess = () => {
 								{Object.values(orderData?.products || {}).map((item) => {
 									return (
 										<tr className="border-bottom" key={item.id}>
-											<th
-												scope="row"
-												className="row border-0 px-0 py-4 align-items-center"
-											>
+											<th scope="row" className="px-0 py-4 align-items-center">
 												<img
 													src={item.product.imageUrl}
 													alt={item.product.title}
-													className="w-100 object-fit-cover el-hover"
+													className="el-hover w-100 object-fit-cover rounded-2"
 												/>
 											</th>
 											<td>
@@ -117,6 +103,17 @@ const CheckoutSuccess = () => {
 							</p>
 						</div>
 					</div>
+				</div>
+				<div className="col-lg-6">
+					<p>感謝惠顧！</p>
+					<p>您的商品會在 3-5 個工作天送達，若有問題請洽安心小農Line客服。</p>
+					<button
+						type="button"
+						className="btn btn-primary text-white"
+						onClick={() => navigation('/')}
+					>
+						回到首頁
+					</button>
 				</div>
 			</div>
 		</div>
