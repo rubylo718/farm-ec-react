@@ -298,7 +298,7 @@ const Cart = () => {
 							</button>
 						</div>
 						<h5 className="mt-4">您目前可使用優惠券</h5>
-						<table className="table table-sm align-middle">
+						<table className="table table-sm align-middle rounded-2">
 							<thead className="table-light">
 								<tr>
 									<th scope="col">名稱</th>
@@ -328,7 +328,7 @@ const Cart = () => {
 						</table>
 					</div>
 					<div className="col-lg-4">
-						<div className="border p-4 mb-4">
+						<div className="border rounded-2 p-4 mb-4">
 							<h4 className="fw-bold mb-2">訂單資訊</h4>
 							<table className="table text-muted border-bottom">
 								<tbody>

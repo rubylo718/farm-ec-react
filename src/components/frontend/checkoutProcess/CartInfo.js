@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 const CartInfo = () => {
 	const { cartData } = useOutletContext()
 	return (
-		<div className="border p-4 mb-4">
+		<div className="border rounded-2 p-4 mb-4">
 			<h4 className="fw-bold mb-2">訂單資訊</h4>
 			<table className="table table-responsive table-sm table-borderless align-middle">
 				<thead>

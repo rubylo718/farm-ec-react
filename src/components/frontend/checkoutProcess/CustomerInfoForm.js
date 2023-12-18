@@ -3,7 +3,7 @@ import { useNavigate, useOutletContext } from 'react-router-dom'
 import { useForm, useWatch } from 'react-hook-form'
 import taiwanData from '../../../assets/taiwan.json'
 import { postOrder } from '../../../api/front'
-import { Toast } from '../../../utils/toast-helper'
+import { Toast, InputConfirmation } from '../../../utils/toast-helper'
 import Spinner from '../../Spinner'
 
 const Input = ({ register, errors, id, type, labelText, rules }) => {
@@ -71,20 +71,33 @@ const CustomerInfoForm = () => {
 			tel: data.tel,
 			address: data.city + data.district + data.road + data.add,
 		}
-		setIsLoading(true)
-		const result = await postOrder(user, data.message)
-		if (result?.success) {
-			const orderId = result.orderId
-			Toast.fire({ icon: 'success', title: '訂單成立' })
-			getCurrentCart()
-			navigation(`/payment/${orderId}`)
+		const { isConfirmed } = await InputConfirmation.fire({
+			title: '請確認以下收件資訊正確',
+			html: `
+					<p class="mb-1">收件人姓名：${user.name}</p>
+					<p class="mb-1">電子信箱：${user.email}</p>
+					<p class="mb-1">收件人聯絡電話：${user.tel}</p>
+					<p class="mb-1">收件地址：${user.address}</p>
+			`,
+		})
+		if (isConfirmed) {
+			setIsLoading(true)
+			const result = await postOrder(user, data.message)
+			if (result?.success) {
+				const orderId = result.orderId
+				Toast.fire({ icon: 'success', title: '訂單成立' })
+				getCurrentCart()
+				navigation(`/payment/${orderId}`)
+			} else {
+				Toast.fire({
+					icon: 'error',
+					title: '發生錯誤，訂單成立失敗，請重新整理再試一次',
+				})
+			}
+			setIsLoading(false)
 		} else {
-			Toast.fire({
-				icon: 'error',
-				title: '發生錯誤，訂單成立失敗，請重新整理再試一次',
-			})
+			return
 		}
-		setIsLoading(false)
 	}
 
 	useEffect(() => {

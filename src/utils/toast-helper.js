@@ -29,3 +29,16 @@ export const Confirmation = Swal.mixin({
 	},
 	buttonsStyling: false,
 })
+
+export const InputConfirmation = Swal.mixin({
+	icon: 'question',
+	customClass: {
+		confirmButton: 'btn btn-primary text-white me-1',
+		cancelButton: 'btn btn-light ms-1',
+		title: 'fs-4',
+	},
+	buttonsStyling: false,
+	showCancelButton: true,
+	confirmButtonText: '確認',
+	cancelButtonText: '取消',
+})

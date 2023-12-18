@@ -77,7 +77,7 @@ const PayForm = ({ orderData }) => {
 	}
 
 	return (
-		<>
+		<div className='mb-4'>
 			<Spinner isLoading={isLoading} />
 			<h4 className="fw-semibold mb-2">付款方式</h4>
 			<form className="" onSubmit={handleSubmit(onSubmit)}>
@@ -117,7 +117,7 @@ const PayForm = ({ orderData }) => {
 					確認結帳
 				</button>
 			</form>
-		</>
+		</div>
 	)
 }
 

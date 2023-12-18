@@ -4,6 +4,7 @@ import { getOrder } from '../../api/front'
 import CheckoutProgress from '../../components/frontend/checkoutProcess/CheckoutProgress'
 import OrderInfo from '../../components/frontend/checkoutProcess/OrderInfo'
 import PaymentInfo from '../../components/frontend/checkoutProcess/PaymentInfo'
+import DeliveryInfo from '../../components/frontend/checkoutProcess/DeliveryInfo'
 
 const Payment = () => {
 	const { orderId } = useParams()
@@ -23,10 +24,11 @@ const Payment = () => {
 		<div className="container my-5">
 			<CheckoutProgress step={3} />
 			<div className="row">
-				<div className="col-lg-6 mb-4">
+				<div className="col-lg-6">
 					<PaymentInfo orderData={orderData} />
 				</div>
 				<div className="col-lg-6">
+					<DeliveryInfo deliveryData={orderData.user} />
 					<OrderInfo orderData={orderData} />
 				</div>
 			</div>

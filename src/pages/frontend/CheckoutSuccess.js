@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { getOrder } from '../../api/front'
 import OrderInfo from '../../components/frontend/checkoutProcess/OrderInfo'
+import DeliveryInfo from '../../components/frontend/checkoutProcess/DeliveryInfo'
 import CheckoutProgress from '../../components/frontend/checkoutProcess/CheckoutProgress'
 
 const CheckoutSuccess = () => {
@@ -30,6 +31,7 @@ const CheckoutSuccess = () => {
 						您的商品會在付款日後 3-5
 						個工作天送達，若有問題請洽安心小農Line客服。
 					</p>
+					<DeliveryInfo deliveryData={orderData.user}/>
 					<OrderInfo orderData={orderData} />
 					<button
 						type="button"
