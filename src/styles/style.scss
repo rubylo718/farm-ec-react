@@ -40,6 +40,9 @@ $pagination-padding-x: 0.9rem;
 $input-focus-box-shadow: 0 0 0 0.2rem rgba(103, 181, 89, 0.25);
 $input-focus-border-color: rgba(103, 181, 89, 0.5);
 
+$form-check-input-checked-bg-color: #4ba83a;
+$form-check-input-focus-box-shadow: 0 0 0 0.2rem rgba(103, 181, 89, 0.25);
+
 @import 'bootstrap/scss/bootstrap';
 @import 'slick-carousel/slick/slick';
 @import 'slick-carousel/slick/slick-theme';

@@ -4,6 +4,31 @@ import { useForm } from 'react-hook-form'
 import { postPay } from '../../../api/front'
 import { Toast } from '../../../utils/toast-helper'
 import Spinner from '../../Spinner'
+import { faGooglePay, faApplePay } from '@fortawesome/free-brands-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
+const Radio = ({ register, name, id, labelText, value, defaultChecked }) => {
+	return (
+		<div className="form-check my-3">
+			<input
+				className="form-check-input"
+				type="radio"
+				name={name}
+				id={id}
+				value={value}
+				defaultChecked={defaultChecked}
+				{...register(name)}
+			/>
+			<label
+				className="form-check-label"
+				style={{ height: '32px' }}
+				htmlFor={id}
+			>
+				{labelText}
+			</label>
+		</div>
+	)
+}
 
 const Paid = () => {
 	const navigation = useNavigate()
@@ -27,10 +52,10 @@ const Paid = () => {
 const PayForm = ({ orderData }) => {
 	const [isLoading, setIsLoading] = useState(false)
 	const navigation = useNavigate()
-	const { handleSubmit } = useForm({ mode: 'onSubmit' })
+	const { register, handleSubmit } = useForm({ mode: 'onSubmit' })
 	const { getCurrentCart } = useOutletContext()
 
-	const onSubmit = async () => {
+	const onSubmit = async (data) => {
 		setIsLoading(true)
 		const orderId = orderData.id
 		if (!orderId) {
@@ -39,7 +64,10 @@ const PayForm = ({ orderData }) => {
 		}
 		const result = await postPay(orderId)
 		if (result.success) {
-			Toast.fire({ icon: 'success', title: '付款成功！' })
+			Toast.fire({
+				icon: 'success',
+				title: `使用 ${data.paymentMethod} 付款成功！`,
+			})
 			getCurrentCart()
 			navigation(`/success/${orderId}`)
 		} else {
@@ -51,16 +79,43 @@ const PayForm = ({ orderData }) => {
 	return (
 		<>
 			<Spinner isLoading={isLoading} />
-			<h4 className="fw-semibold">填寫付款資訊</h4>
-			<form className="row" onSubmit={handleSubmit(onSubmit)}>
-				<div className="d-flex justify-content-end">
-					<button
-						type="submit"
-						className="btn btn-primary mt-4 ms-4 text-white"
-					>
-						確認結帳
-					</button>
-				</div>
+			<h4 className="fw-semibold mb-2">付款方式</h4>
+			<form className="" onSubmit={handleSubmit(onSubmit)}>
+				<Radio
+					register={register}
+					name="paymentMethod"
+					id="1"
+					value="信用卡"
+					labelText="信用卡"
+					defaultChecked={true}
+				/>
+				<Radio
+					register={register}
+					name="paymentMethod"
+					id="2"
+					value="Line Pay"
+					labelText="Line Pay"
+					defaultChecked={false}
+				/>
+				<Radio
+					register={register}
+					name="paymentMethod"
+					id="3"
+					value="Google Pay"
+					labelText={<FontAwesomeIcon icon={faGooglePay} size="2xl" />}
+					defaultChecked={false}
+				/>
+				<Radio
+					register={register}
+					name="paymentMethod"
+					id="4"
+					value="Apple Pay"
+					labelText={<FontAwesomeIcon icon={faApplePay} size="2xl" />}
+					defaultChecked={false}
+				/>
+				<button type="submit" className="btn btn-primary text-white">
+					確認結帳
+				</button>
 			</form>
 		</>
 	)

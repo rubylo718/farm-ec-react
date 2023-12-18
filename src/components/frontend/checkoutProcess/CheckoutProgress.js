@@ -70,7 +70,7 @@ const CheckoutProgress = ({ step }) => {
 					填寫收件資訊
 				</span>
 				<span className="position-absolute start-100 translate-middle-x mt-3 text-nowrap">
-					填寫付款資訊
+					選擇付款方式
 				</span>
 			</div>
 		</div>
