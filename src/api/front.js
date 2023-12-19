@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-const baseURL = 'https://ec-course-api.hexschool.io'
-const apiPath = 'rubylo718'
+const baseURL = process.env.REACT_APP_BASE_URL
+const apiPath = process.env.REACT_APP_API_PATH
 
 const axiosInstance = axios.create({
 	baseURL: `${baseURL}/v2/api/${apiPath}/`,
