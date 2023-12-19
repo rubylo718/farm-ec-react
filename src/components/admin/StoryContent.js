@@ -87,9 +87,8 @@ const StoryContent = ({ story }) => {
 						<p className="my-1">圖片預覽</p>
 						<img
 							src={data.image}
-							className="card-img-top rounded-0"
+							className="card-img-top rounded-0 admin-story-img object-fit-cover"
 							alt="圖片預覽處"
-							style={{ height: '150px', objectFit: 'cover' }}
 						/>
 					</>
 				)}

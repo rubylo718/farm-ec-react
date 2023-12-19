@@ -7,12 +7,9 @@ const BlogCard = ({ story, size }) => {
 			<Link to={story.id}>
 				<img
 					src={story.image}
-					className="card-img-top el-hover"
-					style={{
-						height: size === 'big' ? '30vw' : '20vw',
-						maxHeight: size === 'big' ? '250px' : '150px',
-						objectFit: 'cover',
-					}}
+					className={`card-img-top el-hover object-fit-cover ${
+						size === `big` ? `blog-card-img-lg` : `blog-card-img`
+					}`}
 					alt={story.title}
 				/>
 			</Link>

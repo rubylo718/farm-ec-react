@@ -189,14 +189,9 @@ const Cart = () => {
 											<div className="col-4">
 												<Link to={`/detail/${item.product.id}`}>
 													<img
-														className="el-hover rounded-2"
+														className="el-hover rounded-2 w-100 object-fit-cover cart-list-img"
 														src={item.product.imageUrl}
 														alt={item.product.title}
-														style={{
-															width: '100%',
-															maxWidth: '120px',
-															objectFit: 'cover',
-														}}
 													/>
 												</Link>
 											</div>
@@ -213,10 +208,7 @@ const Cart = () => {
 												</div>
 												<div className="my-1">${item.product.price}</div>
 												<div className="row">
-													<div
-														className="input-group flex-nowrap"
-														style={{ maxWidth: '240px' }}
-													>
+													<div className="input-group flex-nowrap amount-input-max-width">
 														<button
 															type="button"
 															className="btn btn-primary py-2 px-auto"
@@ -231,8 +223,7 @@ const Cart = () => {
 														<input
 															type="text"
 															name="itemQty"
-															className="form-control border-0 text-center bg-light px-1"
-															style={{ minWidth: '24px' }}
+															className="form-control border-0 text-center bg-light px-1 amount-input-min-width"
 															aria-label="amount"
 															value={item.qty}
 															readOnly
@@ -268,7 +259,7 @@ const Cart = () => {
 								))}
 							</ul>
 						</div>
-						<div className="input-group mb-3" style={{ width: '300px' }}>
+						<div className="input-group mb-3 input-h40 coupon-input-max-width">
 							<input
 								type="text"
 								id="couponCode"

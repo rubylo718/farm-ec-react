@@ -43,13 +43,7 @@ const Navbar = ({ cartData }) => {
 	}, [pathname, searchString])
 
 	return (
-		<div
-			className="bg-white sticky-top"
-			style={{
-				borderBottom: '1px solid rgba(211,211,211,.74)',
-				boxShadow: '1px 0 5px rgba(0,0,0,.15)',
-			}}
-		>
+		<div className="bg-white sticky-top nav-border">
 			<div className="container">
 				<nav className="navbar px-0 navbar-expand-lg navbar-light bg-white">
 					<div className="container-fluid px-0">
@@ -114,14 +108,7 @@ const Navbar = ({ cartData }) => {
 								</li>
 							</ul>
 						</div>
-						<div
-							className="position-absolute el-hover"
-							style={{
-								top: '28px',
-								right: '0%',
-								transform: 'translate(-50%, -50%)',
-							}}
-						>
+						<div className="position-absolute el-hover cart-icon">
 							<Link to="/cart" className="position-relative">
 								<FontAwesomeIcon
 									icon={faBasketShopping}

@@ -40,12 +40,7 @@ const BlogContent = () => {
 					</p>
 					<img
 						src={story.image}
-						className="card-img-top"
-						style={{
-							width: '100%',
-							maxHeight: '20rem',
-							objectFit: 'cover',
-						}}
+						className="card-img-top w-100 object-fit-cover blog-img"
 						alt={story.title}
 					/>
 					<p className="my-4 fs-5 text-secondary">{story.description}</p>
@@ -81,8 +76,7 @@ const BlogContent = () => {
 									<Link to={'/blog/' + item.id}>
 										<img
 											src={item.image}
-											className="card-img-top el-hover"
-											style={{ height: '150px', objectFit: 'cover' }}
+											className="card-img-top el-hover object-fit-cover blog-promote-img"
 											alt={item.title}
 										/>
 									</Link>

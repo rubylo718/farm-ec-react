@@ -69,8 +69,8 @@ const Admin = () => {
 					</div>
 				</div>
 			</nav>
-			<div className="d-flex" style={{ minHeight: 'calc(100vh - 56px)' }}>
-				<nav className="bg-light" style={{ width: '200px' }}>
+			<div className="d-flex admin-page">
+				<nav className="bg-light admin-right-nav">
 					<ul className="nav list-group list-group-flush">
 						<li className="nav-item">
 							<NavLink

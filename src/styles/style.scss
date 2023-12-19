@@ -28,7 +28,6 @@ $nav-pills-link-active-color: #4ba83a;
 $nav-pills-link-active-bg: none;
 
 $pagination-color: black;
-// $pagination-border-color: #4ba83a;
 $pagination-active-border-color: #4ba83a;
 $pagination-active-bg: #4ba83a;
 $pagination-hover-color: #4ba83a;
@@ -37,7 +36,6 @@ $pagination-focus-box-shadow: 0 0 0 0.2rem rgba(72, 166, 56, 0.25);
 $pagination-padding-y: 0.5rem;
 $pagination-padding-x: 0.9rem;
 
-$input-bg: #ffffff;
 $input-focus-box-shadow: 0 0 0 0.2rem rgba(103, 181, 89, 0.25);
 $input-focus-border-color: rgba(103, 181, 89, 0.5);
 
@@ -54,12 +52,143 @@ $form-check-input-focus-box-shadow: 0 0 0 0.2rem rgba(103, 181, 89, 0.25);
 }
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap');
 
+// general
+.w-15 {
+	width: 15%;
+}
+
 .el-hover {
 	&:hover {
 		opacity: 0.7;
 	}
 }
 
+.input-h40 {
+	height: 40px;
+}
+
+// nav and footer on front homepage
+.nav-border {
+	border-bottom: 1px solid rgba(211, 211, 211, 0.74);
+	box-shadow: 1px 0 5px rgba(0, 0, 0, 0.15);
+}
+
+.footer-border {
+	border-top: 1px solid rgba(211, 211, 211, 0.74);
+	box-shadow: 1px 0 5px rgba(0, 0, 0, 0.15);
+}
+
+// cart icon on nav
+.cart-icon {
+	top: 28px;
+	right: 0%;
+	transform: translate(-50%, -50%);
+}
+
+// feedback section on front homepage
+.feedback-min-h {
+	min-height: 200px;
+}
+
+.feedback-img {
+	width: 160px;
+	height: 160px;
+}
+
+// product and story cards
+.card-img-height {
+	height: 15vh;
+}
+
+.card-text-min-height {
+	min-height: 48px;
+}
+
+.card-button-container {
+	min-width: 120px;
+}
+
+// amount input
+.amount-input-min-width {
+	min-width: 36px;
+}
+
+.amount-input-max-width {
+	max-width: 240px;
+}
+
+// cart page
+.coupon-input-max-width {
+	max-width: 300px;
+}
+
+.cart-list-img {
+	max-width: 120px;
+}
+
+// blog card
+.blog-card-img-lg {
+	height: 30vw;
+	max-height: 250px;
+}
+
+.blog-card-img {
+	height: 20vw;
+	max-height: 150px;
+}
+
+// blog content
+.blog-img {
+	max-height: 20rem;
+}
+
+.blog-promote-img {
+	height: 150px;
+}
+
+// admin
+.admin-page {
+	min-height: calc(100vh - 56px);
+}
+
+.admin-right-nav {
+	width: 200px;
+}
+
+.admin-story-img {
+	height: 150px;
+}
+
+// checkout progress bar component
+.bar-container {
+	height: 50px;
+	min-width: 200px;
+}
+
+.bar-line {
+	height: 2px;
+}
+
+.bar-btn {
+	width: 2rem;
+	height: 2rem;
+}
+
+// spinner component
+.spinner-bg {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background-color: rgba(255, 255, 255, 0.15);
+	backdrop-filter: blur(3px);
+	z-index: 999;
+	justify-content: center;
+	align-items: center;
+}
+
+// react-slick carousels on the front homepage
 .slick-prev {
 	transform: translate(-100%, -50%);
 }
@@ -73,8 +202,4 @@ $form-check-input-focus-box-shadow: 0 0 0 0.2rem rgba(103, 181, 89, 0.25);
 .slick-slider {
 	margin-right: -1rem;
 	margin-left: -1rem;
-}
-
-.format-pop p {
-	margin-bottom: 0.25rem;
 }

@@ -19,9 +19,7 @@ const FrontLayout = () => {
 	}, [])
 
 	return (
-		<div className="d-flex flex-column min-vh-100"
-		style={{ maxWidth: `100%`, width: `100%` }}
-		>
+		<div className="d-flex flex-column w-100 mw-100 min-vh-100">
 			<Navbar cartData={cartData} />
 			<main className="flex-grow-1">
 				<Outlet context={{ getCurrentCart, cartData }} />

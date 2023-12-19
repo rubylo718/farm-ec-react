@@ -38,8 +38,7 @@ const Banner = () => {
 						陪您幸福料理好味道
 					</h5>
 					<div
-						className="input-group mt-4 mb-0 w-75"
-						style={{ height: '40px' }}
+						className="input-group mt-4 mb-0 w-75 input-h40"
 					>
 						<input
 							type="search"

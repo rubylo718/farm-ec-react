@@ -16,7 +16,7 @@ const Input = ({ register, errors, id, type, labelText, rules }) => {
 			<input
 				id={id}
 				type={type}
-				className={`form-control ${errors[id] ? 'is-invalid' : ''}`}
+				className={`form-control input-h40 ${errors[id] ? 'is-invalid' : ''}`}
 				autoComplete="on"
 				{...register(id, rules)}
 			/>
@@ -36,7 +36,7 @@ const Selection = ({ register, errors, id, labelText, children, rules }) => {
 			</label>
 			<select
 				id={id}
-				className={`form-select ${errors[id] ? 'is-invalid' : ''} `}
+				className={`form-select input-h40 ${errors[id] ? 'is-invalid' : ''} `}
 				{...register(id, rules)}
 			>
 				{children}

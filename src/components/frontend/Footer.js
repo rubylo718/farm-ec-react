@@ -13,7 +13,7 @@ const Footer = () => {
 	const GITHUB_URL = 'https://github.com/rubylo718/farm-ec-react'
 
 	return (
-		<footer className="bg-light border-top">
+		<footer className="bg-light footer-border">
 			<div className="container py-4">
 				<div className="row py-2">
 					<div className="col-4">

@@ -49,9 +49,8 @@ const Story = ({ stories }) => {
 								<Link to={`blog/${item?.id}`}>
 									<img
 										src={item?.image}
-										className="card-img-top rounded-2 el-hover"
+										className="card-img-top rounded-2 el-hover object-fit-cover card-img-height"
 										alt={item?.title}
-										style={{ height: '15vh', objectFit: 'cover' }}
 									/>
 								</Link>
 								<div className="card-body p-0">
@@ -59,18 +58,15 @@ const Story = ({ stories }) => {
 										className="text-reset text-decoration-none el-hover"
 										to={`blog/${item?.id}`}
 									>
-										<h5 className="mb-0 mt-4" style={{ minHeight: '48px' }}>
+										<h5 className="mb-0 mt-4 card-text-min-height ">
 											{item?.title}
 										</h5>
 									</Link>
 									<div className="d-block mt-2">
-										<p
-											className="card-text text-muted mb-0 me-1"
-											style={{ minHeight: '48px' }}
-										>
+										<p className="card-text text-muted mb-0 me-1 card-text-min-height">
 											{item?.description}
 										</p>
-										<div className="text-end" style={{ minWidth: '120px' }}>
+										<div className="text-end card-button-container">
 											<Link
 												className="btn btn-primary text-white text-nowrap"
 												to={`blog/${item?.id}`}

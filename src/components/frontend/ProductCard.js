@@ -24,9 +24,8 @@ const ProductCard = ({ item }) => {
 			<Link to={`/detail/${item?.id}`}>
 				<img
 					src={item?.imageUrl}
-					className="card-img-top rounded-2 el-hover"
+					className="card-img-top rounded-2 el-hover object-fit-cover card-img-height"
 					alt={item?.title}
-					style={{ height: '15vh', objectFit: 'cover' }}
 				/>
 			</Link>
 			<div className="card-body p-0">
@@ -34,9 +33,7 @@ const ProductCard = ({ item }) => {
 					className="text-reset text-decoration-none el-hover"
 					to={`/detail/${item?.id}`}
 				>
-					<h4 className="mb-0 mt-4 fs-5" style={{ minHeight: '48px' }}>
-						{item?.title}
-					</h4>
+					<h4 className="mb-0 mt-4 fs-5 card-text-min-height">{item?.title}</h4>
 				</Link>
 				<div className="d-block mt-2">
 					<div className="align-text-bottom">
@@ -48,7 +45,7 @@ const ProductCard = ({ item }) => {
 						</small>
 					</div>
 
-					<div className="text-end" style={{ minWidth: '120px' }}>
+					<div className="text-end card-button-container">
 						<button
 							type="button"
 							className="btn btn-primary text-white text-nowrap"

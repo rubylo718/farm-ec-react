@@ -20,11 +20,11 @@ const OrderInfo = ({ orderData }) => {
 			<table className="table table-responsive table-sm table-borderless align-middle">
 				<thead>
 					<tr className="border-bottom ">
-						<th scope="col" style={{ width: '15%' }} className="text-center">
+						<th scope="col" className="text-center w-15">
 							商品
 						</th>
 						<th scope="col"></th>
-						<th scope="col" style={{ width: '15%' }} className="text-center">
+						<th scope="col" className="text-center w-15">
 							數量
 						</th>
 					</tr>

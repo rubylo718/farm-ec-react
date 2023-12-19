@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const Radio = ({ register, name, id, labelText, value, defaultChecked }) => {
 	return (
-		<div className="form-check my-3">
+		<div className="form-check">
 			<input
 				className="form-check-input"
 				type="radio"
@@ -20,8 +20,7 @@ const Radio = ({ register, name, id, labelText, value, defaultChecked }) => {
 				{...register(name)}
 			/>
 			<label
-				className="form-check-label"
-				style={{ height: '32px' }}
+				className="form-check-label input-h40"
 				htmlFor={id}
 			>
 				{labelText}
@@ -79,8 +78,8 @@ const PayForm = ({ orderData }) => {
 	return (
 		<div className='mb-4'>
 			<Spinner isLoading={isLoading} />
-			<h4 className="fw-semibold mb-2">付款方式</h4>
-			<form className="" onSubmit={handleSubmit(onSubmit)}>
+			<h4 className="fw-semibold mb-3">付款方式</h4>
+			<form onSubmit={handleSubmit(onSubmit)}>
 				<Radio
 					register={register}
 					name="paymentMethod"
