@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { useParams } from 'react-router-dom'
 import { getProductsCat } from '../../api/front'
 import productData from '../../assets/selectOptions.json'
@@ -13,21 +13,23 @@ const Products = () => {
 	const [pagination, setPagination] = useState({})
 	const [isLoading, setIsLoading] = useState(false)
 
-	const getDataList = async (page) => {
-		setIsLoading(true)
-		const categoryTitle = productData.productCategories.find(
-			(item) => item.id === Number(categoryId)
-		)?.title
-		const res = await getProductsCat(page, categoryTitle)
-		setProducts(res.products)
-		setPagination(res.pagination)
-		setIsLoading(false)
-	}
+	const getDataList = useCallback(
+		async (page) => {
+			setIsLoading(true)
+			const categoryTitle = productData.productCategories.find(
+				(item) => item.id === Number(categoryId)
+			)?.title
+			const res = await getProductsCat(page, categoryTitle)
+			setProducts(res.products)
+			setPagination(res.pagination)
+			setIsLoading(false)
+		},
+		[categoryId]
+	)
 
 	useEffect(() => {
 		getDataList()
-		// eslint-disable-next-line
-	}, [categoryId])
+	}, [categoryId, getDataList])
 
 	useEffect(() => {
 		window.scrollTo(0, 0)

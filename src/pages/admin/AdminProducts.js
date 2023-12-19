@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState, useRef, useCallback } from 'react'
 import { Modal } from 'bootstrap'
 import { getProducts, deleteProduct } from '../../api/admin'
 import ProductModal from '../../components/admin/ProductModal'
@@ -16,19 +16,22 @@ const AdminProducts = () => {
 	const productModal = useRef(null)
 	const { logout } = useAuth()
 
-	const getProductList = async (page = 1) => {
-		setIsLoading(true)
-		const data = await getProducts(page)
-		if (data?.success) {
-			setProducts(data?.products)
-			setPagination(data?.pagination)
-			setIsLoading(false)
-		} else if (data?.status === 401) {
-			// api path unauthorized
-			setIsLoading(false)
-			logout()
-		}
-	}
+	const getProductList = useCallback(
+		async (page = 1) => {
+			setIsLoading(true)
+			const data = await getProducts(page)
+			if (data?.success) {
+				setProducts(data?.products)
+				setPagination(data?.pagination)
+				setIsLoading(false)
+			} else if (data?.status === 401) {
+				// api path unauthorized
+				setIsLoading(false)
+				logout()
+			}
+		},
+		[logout]
+	)
 
 	const handleShowProductModal = (modalAction, modalData) => {
 		setModalAction(modalAction)
@@ -56,8 +59,7 @@ const AdminProducts = () => {
 			keyboard: false,
 		})
 		getProductList()
-		// eslint-disable-next-line
-	}, [])
+	}, [getProductList])
 
 	return (
 		<div className="p-3">
