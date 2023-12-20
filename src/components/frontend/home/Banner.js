@@ -29,7 +29,7 @@ const Banner = () => {
 					<img
 						src="https://images.unsplash.com/photo-1498579397066-22750a3cb424?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2670&q=80"
 						alt="Safe and peace agricultural products supplier"
-						className="img-fluid"
+						className="img-fluid rounded-2"
 					/>
 				</div>
 				<div className="col-md-6 d-flex flex-column justify-content-center mt-md-0 mt-3">

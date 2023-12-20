@@ -7,7 +7,7 @@ const Page404 = () => {
 			<h2>找不到頁面</h2>
 			<br />
 
-			<Link className="btn btn-info text-white" role="button" to={'/'}>
+			<Link className="btn btn-primary text-white" role="button" to={'/'}>
 				回首頁
 			</Link>
 		</div>

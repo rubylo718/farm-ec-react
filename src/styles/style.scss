@@ -59,7 +59,7 @@ $form-check-input-focus-box-shadow: 0 0 0 0.2rem rgba(103, 181, 89, 0.25);
 
 .el-hover {
 	&:hover {
-		opacity: 0.7;
+		opacity: 0.75;
 	}
 }
 
@@ -76,6 +76,10 @@ $form-check-input-focus-box-shadow: 0 0 0 0.2rem rgba(103, 181, 89, 0.25);
 .footer-border {
 	border-top: 1px solid rgba(211, 211, 211, 0.74);
 	box-shadow: 1px 0 5px rgba(0, 0, 0, 0.15);
+}
+
+.nav-search-input {
+	width: 250px;
 }
 
 // cart icon on nav
@@ -162,7 +166,7 @@ $form-check-input-focus-box-shadow: 0 0 0 0.2rem rgba(103, 181, 89, 0.25);
 // checkout progress bar component
 .bar-container {
 	height: 50px;
-	min-width: 200px;
+	min-width: 250px;
 }
 
 .bar-line {

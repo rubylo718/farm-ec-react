@@ -49,7 +49,7 @@ const SearchResult = () => {
 						<div className="row">
 							{products.map((item) => {
 								return (
-									<div className="col-sm-6 col-lg-4" key={item.id}>
+									<div className="col-6 col-lg-4" key={item.id}>
 										<ProductCard item={item} />
 									</div>
 								)
@@ -57,7 +57,7 @@ const SearchResult = () => {
 						</div>
 						<button
 							type="button"
-							className="btn btn-info mb-4 text-white"
+							className="btn btn-primary mb-4 text-white"
 							onClick={() => navigate('/')}
 						>
 							回首頁

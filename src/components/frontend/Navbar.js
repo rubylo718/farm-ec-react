@@ -65,7 +65,12 @@ const Navbar = ({ cartData }) => {
 								/>
 								安心小農
 							</NavLink>
-							<div className="input-group">
+						</div>
+						<div
+							className="collapse navbar-collapse bg-white justify-content-between custom-header-md-open me-lg-5 mt-2 mt-lg-0"
+							id="navbarToggler"
+						>
+							<div className="input-group input-h40 nav-search-input">
 								<input
 									type="search"
 									id="searchInputNav"
@@ -90,11 +95,6 @@ const Navbar = ({ cartData }) => {
 									/>
 								</button>
 							</div>
-						</div>
-						<div
-							className="collapse navbar-collapse bg-white custom-header-md-open justify-content-end me-lg-5 mt-1 mt-lg-0"
-							id="navbarToggler"
-						>
 							<ul className="navbar-nav">
 								<li className="nav-item">
 									<NavLink className="nav-link" to="/products/1">

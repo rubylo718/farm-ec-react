@@ -16,13 +16,15 @@ const Footer = () => {
 		<footer className="bg-light footer-border">
 			<div className="container py-4">
 				<div className="row py-2">
-					<div className="col-4">
-						<h3 className="fs-4">
-							<FontAwesomeIcon
-								icon={faSeedling}
-								className="me-1 text-primary"
-							/>
-							安心小農
+					<div className="col-5 col-sm-4">
+						<h3>
+							<Link to="/" className="fs-4 text-decoration-none text-reset">
+								<FontAwesomeIcon
+									icon={faSeedling}
+									className="me-1 text-primary"
+								/>
+								安心小農
+							</Link>
 						</h3>
 						<ul className="nav nav-pills">
 							<li className="nav-item">
@@ -68,7 +70,7 @@ const Footer = () => {
 						<ul className="nav nav-pills nav-stacked flex-column">
 							{productData.productCategories.map((item, index) => {
 								return (
-									<li key={item.id}>
+									<li key={item.id} className='nav-item input-h40'>
 										<Link
 											to={`/products/${index + 1}`}
 											className="text-secondary text-decoration-none"
@@ -80,7 +82,7 @@ const Footer = () => {
 							})}
 						</ul>
 					</div>
-					<div className="col-4">
+					<div className="col-3 col-sm-4">
 						<h3 className="fs-4">部落格</h3>
 						<ul className="nav nav-pills nav-stacked flex-column">
 							<li>

@@ -40,7 +40,7 @@ const BlogContent = () => {
 					</p>
 					<img
 						src={story.image}
-						className="card-img-top w-100 object-fit-cover blog-img"
+						className="card-img-top w-100 object-fit-cover blog-img rounded-2"
 						alt={story.title}
 					/>
 					<p className="my-4 fs-5 text-secondary">{story.description}</p>
