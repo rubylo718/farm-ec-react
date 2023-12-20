@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useOutletContext, useNavigate, Link } from 'react-router-dom'
-import { faPlus, faMinus, faCheck } from '@fortawesome/free-solid-svg-icons'
+import { faCheck } from '@fortawesome/free-solid-svg-icons'
 import { faTrashCan } from '@fortawesome/free-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -10,6 +10,7 @@ import {
 	postCouponFront,
 } from '../../api/front'
 import { Toast, DeleteConfirmation } from '../../utils/toast-helper'
+import AmountInput from '../../components/frontend/AmountInput'
 import Spinner from '../../components/Spinner'
 import couponList from '../../assets/couponList.json'
 import CheckoutProgress from '../../components/frontend/checkoutProcess/CheckoutProgress'
@@ -208,47 +209,19 @@ const Cart = () => {
 												</div>
 												<div className="my-1">${item.product.price}</div>
 												<div className="row">
-													<div className="input-group flex-nowrap amount-input-max-width">
-														<button
-															type="button"
-															className="btn btn-primary py-2 px-auto"
-															onClick={() => handleMinusQty(item)}
-														>
-															<FontAwesomeIcon
-																icon={faMinus}
-																className="text-white"
-																size="2xs"
-															/>
-														</button>
-														<input
-															type="text"
-															name="itemQty"
-															className="form-control border-0 text-center bg-light px-1 amount-input-min-width"
-															aria-label="amount"
-															value={item.qty}
-															readOnly
-														/>
-														<button
-															type="button"
-															className="btn btn-primary py-2 px-auto"
-															onClick={() => handleAddQty(item)}
-														>
-															<FontAwesomeIcon
-																icon={faPlus}
-																className="text-white"
-																size="2xs"
-															/>
-														</button>
-													</div>
+													<AmountInput
+														qty={item.qty}
+														handleAdd={() => handleAddQty(item)}
+														handleMinus={() => handleMinusQty(item)}
+													/>
 												</div>
 											</div>
-
 											<div className="col-2 text-center p-0">
 												<div>${item.total}</div>
 											</div>
 										</div>
-										<div className="position-absolute top-0 end-0">
-											<button type="button" className="btn el-hove">
+										<div className="position-absolute top-0 end-0 me-1">
+											<button type="button" className="btn border-0 el-hover input-h40">
 												<FontAwesomeIcon
 													icon={faTrashCan}
 													onClick={() => handleDeleteItem(item.id)}
@@ -289,11 +262,10 @@ const Cart = () => {
 							</button>
 						</div>
 						<h5 className="mt-4">您目前可使用優惠券</h5>
-						<table className="table table-sm align-middle rounded-2">
+						<table className="table align-middle rounded-2">
 							<thead className="table-light">
 								<tr>
 									<th scope="col">名稱</th>
-									{/* <th scope="col">優惠碼</th> */}
 									<th scope="col">到期日</th>
 									<th scope="col">選擇</th>
 								</tr>
@@ -302,7 +274,6 @@ const Cart = () => {
 								{couponList.map((item) => (
 									<tr key={item.id}>
 										<th scope="row">{item.title}</th>
-										{/* <td>{item.code}</td> */}
 										<td>{item.dueDate}</td>
 										<td>
 											<button

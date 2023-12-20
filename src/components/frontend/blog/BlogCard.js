@@ -21,7 +21,7 @@ const BlogCard = ({ story, size }) => {
 				<small className="mb-1 ">{unixToDateString(story.create_at)}</small>
 				<br />
 				<small className="mb-0">作者：{story.author}</small>
-				<Link to={story.id} className="stretched-link"></Link>
+				<Link to={`/blog/${story.id}`} className="stretched-link"></Link>
 			</div>
 		</div>
 	)

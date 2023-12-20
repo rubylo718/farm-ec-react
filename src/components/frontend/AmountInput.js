@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const AmountInput = ({ qty, handleAdd, handleMinus }) => {
 	return (
-		<div className="input-group my-3 flex-nowrap">
+		<div className="input-group my-3 flex-nowrap amount-input-max-width">
 			<button
 				type="button"
 				className="btn btn-primary py-2"

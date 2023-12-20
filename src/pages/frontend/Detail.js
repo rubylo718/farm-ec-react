@@ -60,7 +60,7 @@ const Detail = () => {
 			<div className="container">
 				<Spinner isLoading={isLoading} />
 				<div className="row align-items-center mt-4">
-					<div className="col-md-7">
+					<div className="col-md-7 mb-3">
 						<nav aria-label="breadcrumb">
 							<ol className="breadcrumb bg-white px-0 mb-0 py-3">
 								<li className="breadcrumb-item">
@@ -91,14 +91,14 @@ const Detail = () => {
 							<del>NT$ {product?.origin_price}</del>
 						</p>
 						<div className="row align-items-center">
-							<div className="col-sm-6">
+							<div className="col-6">
 								<AmountInput
 									qty={qty}
 									handleAdd={handleAdd}
 									handleMinus={handleMinus}
 								/>
 							</div>
-							<div className="col-sm-6">
+							<div className="col-6">
 								<button
 									type="button"
 									className="text-nowrap btn btn-primary text-white w-100 py-2"

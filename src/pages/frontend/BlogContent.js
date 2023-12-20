@@ -1,13 +1,9 @@
 import { useState, useEffect } from 'react'
-import {
-	Link,
-	useParams,
-	useOutletContext,
-	useNavigate,
-} from 'react-router-dom'
+import { useParams, useOutletContext, useNavigate } from 'react-router-dom'
 import { faHandPointer } from '@fortawesome/free-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Spinner from '../../components/Spinner'
+import BlogCard from '../../components/frontend/blog/BlogCard'
 import { getStoryFront } from '../../api/front'
 import { unixToDateString } from '../../utils/dayjs-helper'
 
@@ -71,29 +67,8 @@ const BlogContent = () => {
 					<hr className="mb-4" />
 					<div className="row">
 						{stories.slice(-4).map((item) => (
-							<div className="col-6 col-lg-12" key={item.id}>
-								<div className="card mb-3 text-center">
-									<Link to={'/blog/' + item.id}>
-										<img
-											src={item.image}
-											className="card-img-top el-hover object-fit-cover blog-promote-img"
-											alt={item.title}
-										/>
-									</Link>
-									<div className="card-body">
-										<Link
-											to={'/blog/' + item.id}
-											className="text-reset text-decoration-none el-hover"
-										>
-											<h5 className="card-title">{item.title}</h5>
-										</Link>
-										<small className="text-mute text-secondary">
-											{unixToDateString(item.create_at)}
-											<br />
-											作者：{item.author}
-										</small>
-									</div>
-								</div>
+							<div className="col-6 col-lg-12 mb-3" key={item.id}>
+								<BlogCard story={item} size="small" />
 							</div>
 						))}
 					</div>
