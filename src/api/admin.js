@@ -9,7 +9,10 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
 	(config) => {
-		const token = localStorage.getItem('authToken')
+		const token = document.cookie
+			?.split(';')
+			?.find((row) => row.startsWith('authToken'))
+			?.split('=')[1]
 		if (token) {
 			config.headers.Authorization = token
 		}

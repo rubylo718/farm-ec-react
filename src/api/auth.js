@@ -10,15 +10,15 @@ const login = async ({ username, password }) => {
 			username,
 			password,
 		})
-		const { token } = data
+		const { token, expired } = data
 		if (token) {
-			localStorage.setItem('authToken', token)
+			document.cookie = `authToken=${token}; expires=${new Date(expired)}`
 			return { success: true, ...data }
 		} else {
 			return data
 		}
 	} catch (err) {
-		return { success: false, ...err.response.data}
+		return { success: false, ...err.response.data }
 	}
 }
 
