@@ -19,7 +19,10 @@ export const AuthProvider = ({ children }) => {
 
 	useEffect(() => {
 		const checkTokenIsValid = async () => {
-			const token = localStorage.getItem('authToken')
+			const token = document.cookie
+				?.split(';')
+				?.find((row) => row.startsWith('authToken'))
+				?.split('=')[1]
 			if (!token) {
 				setIsAuthenticated(false)
 				setCurrentUser(null)
@@ -57,7 +60,6 @@ export const AuthProvider = ({ children }) => {
 							email: tempPayload.email,
 						})
 						setIsAuthenticated(true)
-						localStorage.setItem('authToken', token)
 					} else {
 						setCurrentUser(null)
 						setIsAuthenticated(false)
@@ -65,7 +67,7 @@ export const AuthProvider = ({ children }) => {
 					return success
 				},
 				logout: () => {
-					localStorage.removeItem('authToken')
+					document.cookie='authToken=;'
 					setCurrentUser(null)
 					setIsAuthenticated(false)
 				},
