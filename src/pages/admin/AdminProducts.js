@@ -10,7 +10,6 @@ import { useAuth } from '../../context/AuthContext'
 const AdminProducts = () => {
 	const [products, setProducts] = useState([])
 	const [pagination, setPagination] = useState({})
-	const [modalAction, setModalAction] = useState('create') // or 'edit'
 	const [modalData, setModalData] = useState({})
 	const [isLoading, setIsLoading] = useState(false)
 	const productModal = useRef(null)
@@ -33,11 +32,11 @@ const AdminProducts = () => {
 		[logout]
 	)
 
-	const handleShowProductModal = (modalAction, modalData) => {
-		setModalAction(modalAction)
+	const handleShowProductModal = (modalData) => {
 		setModalData(modalData)
 		productModal.current.show()
 	}
+
 	const handleHideProductModal = () => {
 		productModal.current.hide()
 	}
@@ -67,7 +66,6 @@ const AdminProducts = () => {
 			<ProductModal
 				handleHideProductModal={handleHideProductModal}
 				getProductList={getProductList}
-				modalAction={modalAction}
 				modalData={modalData}
 			/>
 			<h1 className="h3">產品列表</h1>
@@ -76,7 +74,20 @@ const AdminProducts = () => {
 				<button
 					type="button"
 					className="btn btn-primary btn-sm text-white"
-					onClick={() => handleShowProductModal('create', {})}
+					onClick={() =>
+						handleShowProductModal({
+							title: '',
+							category: '',
+							origin_price: 0,
+							price: 0,
+							unit: '',
+							description: '',
+							content: '',
+							is_enabled: 0,
+							imageUrl: '',
+							action: 'create',
+						})
+					}
 				>
 					建立新商品
 				</button>
@@ -105,7 +116,9 @@ const AdminProducts = () => {
 									<button
 										type="button"
 										className="btn btn-primary btn-sm text-white me-2"
-										onClick={() => handleShowProductModal('edit', product)}
+										onClick={() =>
+											handleShowProductModal({ ...product, action: 'edit' })
+										}
 									>
 										編輯
 									</button>

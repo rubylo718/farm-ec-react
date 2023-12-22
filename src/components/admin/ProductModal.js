@@ -1,43 +1,41 @@
-import { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
 import productData from '../../assets/selectOptions.json'
 import { postProduct, editProduct } from '../../api/admin'
 import { Toast } from '../../utils/toast-helper'
+import Input from '../form/Input'
+import Selection from '../form/Selection'
+import Textarea from '../form/Textarea'
+import Checkbox from '../form/Checkbox'
+import Spinner from '../Spinner'
 
 const ProductModal = ({
 	handleHideProductModal,
 	getProductList,
-	modalAction,
 	modalData,
 }) => {
-	const [inputData, setInputData] = useState({
-		title: '',
-		category: '',
-		origin_price: 0,
-		price: 0,
-		unit: '',
-		description: '',
-		content: '',
-		is_enabled: 0,
-		imageUrl: '',
+	const {
+		register,
+		handleSubmit,
+		reset,
+		formState: { isDirty, dirtyFields, errors, isSubmitting },
+	} = useForm({
+		mode: 'onSubmit',
+		values: modalData,
 	})
 
-	const handleChange = (e) => {
-		const { name, value } = e.target
-		if (['price', 'origin_price'].includes(name)) {
-			setInputData({ ...inputData, [name]: Number(value) })
-		} else if (name === 'is_enabled') {
-			setInputData({ ...inputData, [name]: +e.target.checked })
-		} else {
-			setInputData({ ...inputData, [name]: value })
+	const onSubmit = async (data) => {
+		if (!isDirty) {
+			handleHideProductModal()
+			return
 		}
-	}
-
-	const handleSubmit = async (modalAction, id) => {
+		if (dirtyFields.is_enabled) {
+			data = { ...data, is_enabled: +data.is_enabled }
+		}
 		let result
-		if (modalAction === 'create') {
-			result = await postProduct(inputData)
-		} else if (modalAction === 'edit') {
-			result = await editProduct(inputData, id)
+		if (data.action === 'create') {
+			result = await postProduct(data)
+		} else if (data.action === 'edit') {
+			result = await editProduct(data, data.id)
 		}
 		if (result.success) {
 			Toast.fire({ icon: 'success', title: `${result.message}` })
@@ -52,41 +50,9 @@ const ProductModal = ({
 	}
 
 	const handleCancel = () => {
-		if (modalAction === 'create') {
-			setInputData({
-				title: '',
-				category: '',
-				origin_price: 0,
-				price: 0,
-				unit: '',
-				description: '',
-				content: '',
-				is_enabled: 0,
-				imageUrl: '',
-			})
-		} else if (modalAction === 'edit') {
-			setInputData(modalData)
-		}
+		reset()
 		handleHideProductModal()
 	}
-
-	useEffect(() => {
-		if (modalAction === 'create') {
-			setInputData({
-				title: '',
-				category: '',
-				origin_price: 0,
-				price: 0,
-				unit: '',
-				description: '',
-				content: '',
-				is_enabled: 0,
-				imageUrl: '',
-			})
-		} else if (modalAction === 'edit') {
-			setInputData(modalData)
-		}
-	}, [modalAction, modalData])
 
 	return (
 		<div
@@ -96,11 +62,12 @@ const ProductModal = ({
 			aria-hidden="true"
 			id="productModal"
 		>
+			<Spinner isLoading={isSubmitting} />
 			<div className="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
 				<div className="modal-content">
 					<div className="modal-header">
 						<h1 className="modal-title fs-5">
-							{modalAction === 'create' ? '建立新商品' : '編輯商品'}
+							{modalData.action === 'create' ? '建立新商品' : '編輯商品'}
 						</h1>
 						<button
 							type="button"
@@ -109,201 +76,153 @@ const ProductModal = ({
 							onClick={handleCancel}
 						/>
 					</div>
-					<div className="modal-body">
-						<div className="row">
-							<div className="col-sm-4">
-								<div className="form-group mb-2">
-									<label className="w-100" htmlFor="image">
-										輸入圖片網址
-									</label>
-									<textarea
-										name="imageUrl"
-										id="image"
-										placeholder="請輸入圖片網址"
-										className="form-control"
-										value={inputData.imageUrl}
-										onChange={handleChange}
-										rows={'2'}
-									/>
-								</div>
-								{inputData.imageUrl && (
-									<>
-										<p className="mb-1">圖片預覽</p>
-										<img
-											src={inputData.imageUrl}
-											alt={inputData.title}
-											className="img-fluid"
-										/>
-									</>
-								)}
-							</div>
-							<div className="col-sm-8">
-								<div className="form-group mb-2">
-									<label className="w-100" htmlFor="title">
-										<span className="text-danger">*</span>
-										標題
-									</label>
-									<input
-										type="text"
-										id="title"
-										name="title"
-										placeholder="請輸入標題"
-										className="form-control"
-										onChange={handleChange}
-										value={inputData.title}
-									/>
-								</div>
-								<div className="row">
-									<div className="form-group mb-2 col-md-6">
-										<label className="w-100" htmlFor="category">
-											<span className="text-danger">*</span>
-											分類
-										</label>
-										<select
-											className="form-select"
-											id="category"
-											name="category"
-											aria-label="product category select"
-											value={inputData.category}
-											onChange={handleChange}
-										>
-											<option value="" disabled>
-												請選擇分類
-											</option>
-											{productData.productCategories.map((item) => {
-												return (
-													<option key={item.id} value={item.title}>
-														{item.title}
-													</option>
-												)
-											})}
-										</select>
-									</div>
-									<div className="form-group mb-2 col-md-6">
-										<label className="w-100" htmlFor="unit">
-											<span className="text-danger">*</span>
-											單位
-										</label>
-										<select
-											className="form-select"
-											id="unit"
-											name="unit"
-											aria-label="product unit select"
-											value={inputData.unit}
-											onChange={handleChange}
-										>
-											<option value="" disabled>
-												請選擇單位
-											</option>
-											{productData.productUnit.map((item) => {
-												return (
-													<option key={item.id} value={item.title}>
-														{item.title}
-													</option>
-												)
-											})}
-										</select>
-									</div>
-								</div>
-								<div className="row">
-									<div className="form-group mb-2 col-md-6">
-										<label className="w-100" htmlFor="origin_price">
-											原價
-										</label>
-										<input
-											type="number"
-											id="origin_price"
-											name="origin_price"
-											placeholder="請輸入原價"
-											className="form-control"
-											min="0"
-											value={inputData.origin_price}
-											onChange={handleChange}
+					<form onSubmit={handleSubmit(onSubmit)}>
+						<div className="modal-body">
+							<div className="row">
+								<div className="col-sm-4">
+									<div className="form-group mb-2">
+										<Textarea
+											register={register}
+											errors={errors}
+											id="imageUrl"
+											rows="2"
+											labelText="圖片網址"
 										/>
 									</div>
-									<div className="form-group mb-2 col-md-6">
-										<label className="w-100" htmlFor="price">
-											售價
-										</label>
-										<input
-											type="number"
-											id="price"
-											name="price"
-											placeholder="請輸入售價"
-											className="form-control"
-											min="0"
-											value={inputData.price}
-											onChange={handleChange}
+									{modalData.imageUrl && (
+										<>
+											<p className="mb-1">圖片預覽</p>
+											<img
+												src={modalData.imageUrl}
+												alt={modalData.title}
+												className="img-fluid"
+											/>
+										</>
+									)}
+								</div>
+								<div className="col-sm-8">
+									<div className="form-group mb-2">
+										<Input
+											register={register}
+											errors={errors}
+											id="title"
+											type="text"
+											labelText="標題"
+											rules={{ required: '請輸入標題' }}
 										/>
 									</div>
-								</div>
-								<hr />
-								<div className="form-group mb-2">
-									<label className="w-100" htmlFor="description">
-										商品簡介
-									</label>
-									<textarea
-										type="text"
-										id="description"
-										name="description"
-										placeholder="請輸入商品簡介"
-										className="form-control"
-										value={inputData.description}
-										onChange={handleChange}
-									/>
-								</div>
-								<div className="form-group mb-2">
-									<label className="w-100" htmlFor="content">
-										商品說明（按Enter分段）
-									</label>
-									<textarea
-										type="text"
-										id="content"
-										name="content"
-										placeholder="請輸入商品說明"
-										className="form-control"
-										value={inputData.content}
-										onChange={handleChange}
-										rows={'8'}
-									/>
-								</div>
-								<div className="form-group mb-2">
-									<div className="form-check">
-										<label
-											className="w-100 form-check-label"
-											htmlFor="is_enabled"
-										>
-											上架
-										</label>
-										<input
-											type="checkbox"
+									<div className="row">
+										<div className="form-group mb-2 col-md-6">
+											<Selection
+												register={register}
+												errors={errors}
+												id="category"
+												labelText="分類"
+												rules={{ required: '請選擇分類' }}
+											>
+												<option value="">請選擇分類</option>
+												{productData.productCategories.map((item) => {
+													return (
+														<option key={item.id} value={item.title}>
+															{item.title}
+														</option>
+													)
+												})}
+											</Selection>
+										</div>
+										<div className="form-group mb-2 col-md-6">
+											<Selection
+												register={register}
+												errors={errors}
+												id="unit"
+												labelText="單位"
+												rules={{ required: '請選擇單位' }}
+											>
+												<option value="">請選擇分類</option>
+												{productData.productUnit.map((item) => {
+													return (
+														<option key={item.id} value={item.title}>
+															{item.title}
+														</option>
+													)
+												})}
+											</Selection>
+										</div>
+									</div>
+									<div className="row">
+										<div className="form-group mb-2 col-md-6">
+											<Input
+												register={register}
+												errors={errors}
+												id="origin_price"
+												type="number"
+												labelText="原價"
+												rules={{
+													required: '請輸入原價',
+													valueAsNumber: true,
+													min: {value: 1, message: '原價不得為零'},
+												}}
+											/>
+										</div>
+										<div className="form-group mb-2 col-md-6">
+											<Input
+												register={register}
+												errors={errors}
+												id="price"
+												type="number"
+												labelText="售價"
+												rules={{
+													required: '請輸入售價',
+													valueAsNumber: true,
+													min: {value: 1, message: '售價不得為零'}
+												}}
+											/>
+										</div>
+									</div>
+									<hr />
+									<div className="form-group mb-2">
+										<Textarea
+											register={register}
+											errors={errors}
+											id="description"
+											rows="2"
+											labelText="商品簡介"
+										/>
+									</div>
+									<div className="form-group mb-2">
+										<Textarea
+											register={register}
+											errors={errors}
+											id="content"
+											rows="8"
+											labelText="商品說明（按Enter分段）"
+										/>
+									</div>
+									<div className="form-group mb-2">
+										<Checkbox
+											register={register}
+											errors={errors}
 											id="is_enabled"
-											name="is_enabled"
-											className="form-check-input"
-											checked={Boolean(inputData.is_enabled)}
-											onChange={handleChange}
+											checked={Boolean(modalData.is_enabled)}
+											labelText="上架"
 										/>
 									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-					<div className="modal-footer">
-						<button
-							type="button"
-							className="btn btn-outline-secondary"
-							onClick={() => handleCancel()}
-						>
-							取消
-						</button>
-						<button
-							type="button"
-							className="btn btn-primary text-white"
-							onClick={() => handleSubmit(modalAction, modalData.id)}
-						>
-							儲存
-						</button>
-					</div>
+						<div className="modal-footer">
+							<button
+								type="button"
+								className="btn btn-outline-secondary"
+								onClick={handleCancel}
+							>
+								取消
+							</button>
+							<button type="submit" className="btn btn-primary text-white">
+								儲存
+							</button>
+						</div>
+					</form>
 				</div>
 			</div>
 		</div>
