@@ -1,45 +1,42 @@
-import { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
 import { postCoupon, editCoupon } from '../../api/admin'
 import { Toast } from '../../utils/toast-helper'
-import {
-	dateStringToUnix,
-	unixToDateString,
-	todayUnix,
-} from '../../utils/dayjs-helper'
+import { dateStringToUnix, unixToDateString } from '../../utils/dayjs-helper'
+import Input from '../form/Input'
+import Checkbox from '../form/Checkbox'
+import Spinner from '../Spinner'
 
-const CouponModal = ({
-	handleHideModal,
-	getCouponList,
-	modalAction,
-	modalData,
-}) => {
-	const [inputData, setInputData] = useState({
-		title: '',
-		percent: 100,
-		code: '',
-		due_date: todayUnix(),
-		is_enabled: 0,
+const CouponModal = ({ handleHideModal, getCouponList, modalData }) => {
+	const {
+		register,
+		handleSubmit,
+		reset,
+		formState: { isDirty, dirtyFields, errors, isSubmitting },
+	} = useForm({
+		mode: 'onSubmit',
+		values: {
+			...modalData,
+			due_date_string: unixToDateString(modalData.due_date),
+		},
 	})
 
-	const handleChange = (e) => {
-		const { name, value } = e.target
-		if (['percent'].includes(name)) {
-			setInputData({ ...inputData, [name]: Number(value) })
-		} else if (name === 'is_enabled') {
-			setInputData({ ...inputData, [name]: +e.target.checked })
-		} else if (name === 'due_date_string') {
-			setInputData({ ...inputData, due_date: dateStringToUnix(value) })
-		} else {
-			setInputData({ ...inputData, [name]: value })
+	const onSubmit = async (data) => {
+		if (!isDirty) {
+			handleHideModal()
+			return
 		}
-	}
+		if (dirtyFields.is_enabled) {
+			data = { ...data, is_enabled: +data.is_enabled }
+		}
 
-	const handleSubmit = async (modalAction, id) => {
+		if (dirtyFields.due_date_string) {
+			data = { ...data, due_date: dateStringToUnix(data.due_date_string) }
+		}
 		let result
-		if (modalAction === 'create') {
-			result = await postCoupon(inputData)
-		} else if (modalAction === 'edit') {
-			result = await editCoupon(inputData, id)
+		if (data.action === 'create') {
+			result = await postCoupon(data)
+		} else if (data.action === 'edit') {
+			result = await editCoupon(data, data.id)
 		}
 		if (result?.success) {
 			Toast.fire({ icon: 'success', title: `${result.message}` })
@@ -54,33 +51,9 @@ const CouponModal = ({
 	}
 
 	const handleCancel = () => {
-		if (modalAction === 'create') {
-			setInputData({
-				title: '',
-				percent: 100,
-				code: '',
-				due_date: todayUnix(),
-				is_enabled: 0,
-			})
-		} else if (modalAction === 'edit') {
-			setInputData(modalData)
-		}
+		reset()
 		handleHideModal()
 	}
-
-	useEffect(() => {
-		if (modalAction === 'create') {
-			setInputData({
-				title: '',
-				percent: 100,
-				code: '',
-				due_date: todayUnix(),
-				is_enabled: 0,
-			})
-		} else if (modalAction === 'edit') {
-			setInputData(modalData)
-		}
-	}, [modalAction, modalData])
 
 	return (
 		<div
@@ -90,11 +63,12 @@ const CouponModal = ({
 			aria-hidden="true"
 			id="couponModal"
 		>
+			<Spinner isLoading={isSubmitting} />
 			<div className="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
 				<div className="modal-content">
 					<div className="modal-header">
 						<h1 className="modal-title fs-5">
-							{modalAction === 'create' ? '建立新優惠券' : '編輯優惠券'}
+							{modalData.action === 'create' ? '建立新優惠券' : '編輯優惠券'}
 						</h1>
 						<button
 							type="button"
@@ -103,97 +77,76 @@ const CouponModal = ({
 							onClick={handleCancel}
 						/>
 					</div>
-					<div className="modal-body">
-						<div className="row">
-							<div className="col-md-6 mb-2">
-								<label className="w-100" htmlFor="title">
-									<span className="text-danger">*</span>
-									標題
-								</label>
-								<input
-									type="text"
-									id="title"
-									placeholder="請輸入標題"
-									name="title"
-									className="form-control mt-1"
-									onChange={handleChange}
-									value={inputData.title}
-								/>
+					<form onSubmit={handleSubmit(onSubmit)}>
+						<div className="modal-body">
+							<div className="row">
+								<div className="form-group col-md-6 mb-2">
+									<Input
+										register={register}
+										errors={errors}
+										id="title"
+										type="text"
+										labelText="標題"
+										rules={{ required: '請輸入標題' }}
+									/>
+								</div>
+								<div className="form-group col-md-6 mb-2">
+									<Input
+										register={register}
+										errors={errors}
+										id="percent"
+										type="number"
+										labelText="折扣（%）"
+										rules={{
+											valueAsNumber: true,
+											min: { value: 1, message: '折扣不得為零' },
+											max: { value: 99, message: '折扣不大於99' },
+										}}
+									/>
+								</div>
+								<div className="form-group col-md-6 mb-2">
+									<Input
+										register={register}
+										errors={errors}
+										id="code"
+										type="text"
+										labelText="優惠碼"
+										rules={{ required: '請輸入優惠碼' }}
+									/>
+								</div>
+								<div className="form-group col-md-6 mb-2">
+									<Input
+										register={register}
+										errors={errors}
+										id="due_date_string"
+										type="date"
+										labelText="到期日"
+									/>
+								</div>
 							</div>
-							<div className="col-md-6 mb-2">
-								<label className="w-100" htmlFor="percent">
-									折扣（%）
-								</label>
-								<input
-									type="number"
-									name="percent"
-									id="percent"
-									placeholder="請輸入折扣（%）"
-									className="form-control mt-1"
-									max={100}
-									min={0}
-									onChange={handleChange}
-									value={inputData.percent}
-								/>
-							</div>
-							<div className="col-md-6 mb-2">
-								<label className="w-100" htmlFor="code">
-									<span className="text-danger">*</span>
-									優惠碼
-								</label>
-								<input
-									type="text"
-									id="code"
-									name="code"
-									placeholder="請輸入優惠碼"
-									className="form-control mt-1"
-									onChange={handleChange}
-									value={inputData.code}
-								/>
-							</div>
-							<div className="col-md-6 mb-2">
-								<label className="w-100" htmlFor="due_date_string">
-									到期日
-								</label>
-								<input
-									type="date"
-									id="due_date_string"
-									name="due_date_string"
-									placeholder="請輸入到期日"
-									className="form-control mt-1"
-									onChange={handleChange}
-									value={unixToDateString(inputData.due_date)}
+							<div className="form-group mb-2">
+								<Checkbox
+									register={register}
+									errors={errors}
+									id="is_enabled"
+									checked={Boolean(modalData.is_enabled)}
+									labelText="啟用"
 								/>
 							</div>
 						</div>
-						<input
-							className="form-check-input me-2"
-							type="checkbox"
-							id="is_enabled"
-							name="is_enabled"
-							onChange={handleChange}
-							checked={Boolean(inputData.is_enabled)}
-						/>
-						<label className="form-check-label" htmlFor="is_enabled">
-							啟用
-						</label>
-					</div>
-					<div className="modal-footer">
-						<button
-							type="button"
-							className="btn btn-outline-secondary"
-							onClick={() => handleCancel()}
-						>
-							取消
-						</button>
-						<button
-							type="button"
-							className="btn btn-primary text-white"
-							onClick={() => handleSubmit(modalAction, modalData.id)}
-						>
-							儲存
-						</button>
-					</div>
+						<div className="modal-footer">
+							<button
+								type="button"
+								className="btn btn-outline-secondary"
+								onClick={handleCancel}
+							>
+								取消
+							</button>
+							<button type="submit" className="btn btn-primary text-white">
+								儲存
+							</button>
+						</div>
+					</form>
 				</div>
 			</div>
 		</div>

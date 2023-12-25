@@ -5,12 +5,11 @@ import CouponModal from '../../components/admin/CouponModal'
 import Pagination from '../../components/Pagination'
 import Spinner from '../../components/Spinner'
 import { DeleteConfirmation, Confirmation } from '../../utils/toast-helper'
-import { unixToDateString } from '../../utils/dayjs-helper'
+import { todayUnix, unixToDateString } from '../../utils/dayjs-helper'
 
 const AdminCoupons = () => {
 	const [coupons, setCoupons] = useState([])
 	const [pagination, setPagination] = useState({})
-	const [modalAction, setModalAction] = useState('create') // or 'edit'
 	const [modalData, setModalData] = useState({})
 	const [isLoading, setIsLoading] = useState(false)
 	const couponModal = useRef(null)
@@ -22,8 +21,8 @@ const AdminCoupons = () => {
 		setPagination(data?.pagination)
 		setIsLoading(false)
 	}
-	const handleShowModal = (modalAction, modalData) => {
-		setModalAction(modalAction)
+
+	const handleShowModal = (modalData) => {
 		setModalData(modalData)
 		couponModal.current.show()
 	}
@@ -56,7 +55,6 @@ const AdminCoupons = () => {
 			<CouponModal
 				handleHideModal={handleHideModal}
 				getCouponList={getCouponList}
-				modalAction={modalAction}
 				modalData={modalData}
 			/>
 			<h1 className="h3">優惠券列表</h1>
@@ -65,7 +63,16 @@ const AdminCoupons = () => {
 				<button
 					type="button"
 					className="btn btn-primary btn-sm text-white"
-					onClick={() => handleShowModal('create', {})}
+					onClick={() =>
+						handleShowModal({
+							title: '',
+							percent: 100,
+							code: '',
+							due_date: todayUnix(),
+							is_enabled: 0,
+							action: 'create',
+						})
+					}
 				>
 					建立優惠券
 				</button>
@@ -94,7 +101,9 @@ const AdminCoupons = () => {
 									<button
 										type="button"
 										className="btn btn-primary btn-sm text-white me-2"
-										onClick={() => handleShowModal('edit', coupon)}
+										onClick={() =>
+											handleShowModal({ ...coupon, action: 'edit' })
+										}
 									>
 										編輯
 									</button>
