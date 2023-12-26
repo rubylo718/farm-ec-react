@@ -17,10 +17,10 @@ const ProductModal = ({
 		register,
 		handleSubmit,
 		reset,
-		formState: { isDirty, dirtyFields, errors, isSubmitting },
+		formState: { isDirty, errors, isSubmitting },
 	} = useForm({
 		mode: 'onSubmit',
-		values: modalData,
+		values: { ...modalData, is_enabled: Boolean(modalData.is_enabled) },
 	})
 
 	const onSubmit = async (data) => {
@@ -28,9 +28,7 @@ const ProductModal = ({
 			handleHideProductModal()
 			return
 		}
-		if (dirtyFields.is_enabled) {
-			data = { ...data, is_enabled: +data.is_enabled }
-		}
+		data = { ...data, is_enabled: +data.is_enabled }
 		let result
 		if (data.action === 'create') {
 			result = await postProduct(data)
@@ -160,7 +158,7 @@ const ProductModal = ({
 												rules={{
 													required: '請輸入原價',
 													valueAsNumber: true,
-													min: {value: 1, message: '原價不得為零'},
+													min: { value: 1, message: '原價不得為零' },
 												}}
 											/>
 										</div>
@@ -174,7 +172,7 @@ const ProductModal = ({
 												rules={{
 													required: '請輸入售價',
 													valueAsNumber: true,
-													min: {value: 1, message: '售價不得為零'}
+													min: { value: 1, message: '售價不得為零' },
 												}}
 											/>
 										</div>
@@ -203,7 +201,6 @@ const ProductModal = ({
 											register={register}
 											errors={errors}
 											id="is_enabled"
-											checked={Boolean(modalData.is_enabled)}
 											labelText="上架"
 										/>
 									</div>

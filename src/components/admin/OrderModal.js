@@ -13,12 +13,12 @@ const OrderModal = ({ handleHideModal, getOrderList, modalData }) => {
 		handleSubmit,
 		reset,
 		control,
-		formState: { isDirty, dirtyFields, errors, isSubmitting },
+		formState: { isDirty, errors, isSubmitting },
 	} = useForm({
 		mode: 'onSubmit',
 		values: {
 			...modalData,
-			paid_date_string: unixToDateString(modalData.paid_date || 0),
+			paid_date: unixToDateString(modalData.paid_date || 0),
 		},
 	})
 
@@ -34,11 +34,11 @@ const OrderModal = ({ handleHideModal, getOrderList, modalData }) => {
 			return
 		}
 		if (!data.is_paid) {
-			data = { ...data, paid_date: 0, paid_date_string: '1970-01-01' }
+			data = { ...data, paid_date: 0 }
+		} else {
+			data = { ...data, paid_date: dateStringToUnix(data.paid_date) }
 		}
-		if (dirtyFields.paid_date_string) {
-			data = { ...data, paid_date: dateStringToUnix(data.paid_date_string) }
-		}
+
 		const result = await editOrder(data, data.id)
 		if (result?.success) {
 			Toast.fire({ icon: 'success', title: `${result.message}` })
@@ -173,7 +173,6 @@ const OrderModal = ({ handleHideModal, getOrderList, modalData }) => {
 									register={register}
 									errors={errors}
 									id="is_paid"
-									checked={modalData.is_paid}
 									labelText="完成"
 								/>
 							</div>
@@ -182,7 +181,7 @@ const OrderModal = ({ handleHideModal, getOrderList, modalData }) => {
 									<Input
 										register={register}
 										errors={errors}
-										id="paid_date_string"
+										id="paid_date"
 										type="date"
 										labelText="付款日期"
 										rules={{

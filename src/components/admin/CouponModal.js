@@ -11,12 +11,13 @@ const CouponModal = ({ handleHideModal, getCouponList, modalData }) => {
 		register,
 		handleSubmit,
 		reset,
-		formState: { isDirty, dirtyFields, errors, isSubmitting },
+		formState: { isDirty, errors, isSubmitting },
 	} = useForm({
 		mode: 'onSubmit',
 		values: {
 			...modalData,
-			due_date_string: unixToDateString(modalData.due_date),
+			is_enabled: Boolean(modalData.is_enabled),
+			due_date: unixToDateString(modalData.due_date),
 		},
 	})
 
@@ -25,12 +26,10 @@ const CouponModal = ({ handleHideModal, getCouponList, modalData }) => {
 			handleHideModal()
 			return
 		}
-		if (dirtyFields.is_enabled) {
-			data = { ...data, is_enabled: +data.is_enabled }
-		}
-
-		if (dirtyFields.due_date_string) {
-			data = { ...data, due_date: dateStringToUnix(data.due_date_string) }
+		data = {
+			...data,
+			is_enabled: +data.is_enabled,
+			due_date: dateStringToUnix(data.due_date),
 		}
 		let result
 		if (data.action === 'create') {
@@ -118,7 +117,7 @@ const CouponModal = ({ handleHideModal, getCouponList, modalData }) => {
 									<Input
 										register={register}
 										errors={errors}
-										id="due_date_string"
+										id="due_date"
 										type="date"
 										labelText="到期日"
 									/>
@@ -129,7 +128,6 @@ const CouponModal = ({ handleHideModal, getCouponList, modalData }) => {
 									register={register}
 									errors={errors}
 									id="is_enabled"
-									checked={Boolean(modalData.is_enabled)}
 									labelText="啟用"
 								/>
 							</div>
