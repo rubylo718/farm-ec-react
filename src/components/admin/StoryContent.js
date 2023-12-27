@@ -1,5 +1,4 @@
-import { useForm } from 'react-hook-form'
-import { useEffect } from 'react'
+import { useForm, useWatch } from 'react-hook-form'
 import { useOutletContext } from 'react-router-dom'
 import { dateStringToUnix, unixToDateString } from '../../utils/dayjs-helper'
 import Input from '../form/Input'
@@ -12,7 +11,7 @@ const StoryContent = ({ story }) => {
 		register,
 		handleSubmit,
 		reset,
-		watch,
+		control,
 		setValue,
 		formState: { isDirty, errors },
 	} = useForm({
@@ -24,8 +23,12 @@ const StoryContent = ({ story }) => {
 		},
 	})
 
-	const watchIsEditMode = watch('isEditMode', false)
-	const watchImgUrl = watch('image', '')
+	const watchIsEditMode = useWatch({
+		control,
+		name: 'isEditMode',
+		defaultValue: false,
+	})
+	const watchImgUrl = useWatch({ control, name: 'image', defaultValue: '' })
 
 	const onSubmit = async (data) => {
 		if (!data.isEditMode) {
@@ -49,8 +52,6 @@ const StoryContent = ({ story }) => {
 		reset()
 		navigate('')
 	}
-
-	useEffect(() => {}, [watchIsEditMode, watchImgUrl])
 
 	return (
 		<form onSubmit={handleSubmit(onSubmit)}>

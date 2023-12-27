@@ -1,4 +1,4 @@
-import { useForm } from 'react-hook-form'
+import { useForm, useWatch } from 'react-hook-form'
 import productData from '../../assets/selectOptions.json'
 import { postProduct, editProduct } from '../../api/admin'
 import { Toast } from '../../utils/toast-helper'
@@ -17,11 +17,14 @@ const ProductModal = ({
 		register,
 		handleSubmit,
 		reset,
+		control,
 		formState: { isDirty, errors, isSubmitting },
 	} = useForm({
 		mode: 'onSubmit',
 		values: { ...modalData, is_enabled: Boolean(modalData.is_enabled) },
 	})
+
+	const watchImgUrl = useWatch({ control, name: 'imageUrl', defaultValue: '' })
 
 	const onSubmit = async (data) => {
 		if (!isDirty) {
@@ -87,12 +90,12 @@ const ProductModal = ({
 											labelText="圖片網址"
 										/>
 									</div>
-									{modalData.imageUrl && (
+									{watchImgUrl && (
 										<>
 											<p className="mb-1">圖片預覽</p>
 											<img
-												src={modalData.imageUrl}
-												alt={modalData.title}
+												src={watchImgUrl}
+												alt="圖片預覽處"
 												className="img-fluid"
 											/>
 										</>

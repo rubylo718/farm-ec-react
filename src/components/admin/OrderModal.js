@@ -1,5 +1,4 @@
 import { useForm, useWatch } from 'react-hook-form'
-import { useEffect } from 'react'
 import { editOrder } from '../../api/admin'
 import { Toast } from '../../utils/toast-helper'
 import { unixToDateString, dateStringToUnix } from '../../utils/dayjs-helper'
@@ -56,8 +55,6 @@ const OrderModal = ({ handleHideModal, getOrderList, modalData }) => {
 		reset()
 		handleHideModal()
 	}
-
-	useEffect(() => {}, [watchIsPaid])
 
 	return (
 		<div

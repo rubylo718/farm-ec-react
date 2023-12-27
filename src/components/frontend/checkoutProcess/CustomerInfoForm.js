@@ -13,14 +13,17 @@ const CustomerInfoForm = () => {
 	const {
 		register,
 		handleSubmit,
-		getValues,
 		control,
 		formState: { errors },
 	} = useForm({ mode: 'onSubmit' })
 
 	const [addressData, setAddressData] = useState([])
-	const watchCity = useWatch({ control, name: 'city' })
-	const watchDistrict = useWatch({ control, name: 'district' })
+	const watchCity = useWatch({ control, name: 'city', defaultValue: '' })
+	const watchDistrict = useWatch({
+		control,
+		name: 'district',
+		defaultValue: '',
+	})
 	const [isLoading, setIsLoading] = useState(false)
 	const { getCurrentCart } = useOutletContext()
 
@@ -63,8 +66,6 @@ const CustomerInfoForm = () => {
 	useEffect(() => {
 		setAddressData(taiwanData)
 	}, [])
-
-	useEffect(() => {}, [watchCity, watchDistrict])
 
 	return (
 		<>
@@ -133,7 +134,7 @@ const CustomerInfoForm = () => {
 					>
 						<option value="">請選擇鄉鎮市區</option>
 						{addressData
-							.find((city) => city.CityName === getValues().city)
+							.find((city) => city.CityName === watchCity)
 							?.AreaList?.map((area) => {
 								return (
 									<option value={area.AreaName} key={area.AreaEngName}>
@@ -153,8 +154,8 @@ const CustomerInfoForm = () => {
 					>
 						<option value="">請選擇路名</option>
 						{addressData
-							.find((city) => city.CityName === getValues().city)
-							?.AreaList?.find((area) => area.AreaName === getValues().district)
+							.find((city) => city.CityName === watchCity)
+							?.AreaList?.find((area) => area.AreaName === watchDistrict)
 							?.RoadList.map((road) => {
 								return (
 									<option value={road.RoadName} key={road.RoadName}>
