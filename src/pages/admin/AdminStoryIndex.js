@@ -24,7 +24,7 @@ const AdminStoriesIndex = () => {
 		setIsLoading(false)
 	}
 
-	const handleSubmit = async (data) => {
+	const handleSubmitStory = async (data) => {
 		let result
 		if (data.id === 'create') {
 			result = await postStory(data)
@@ -73,7 +73,7 @@ const AdminStoriesIndex = () => {
 					<Pagination pagination={pagination} getDataList={getStroyList} />
 				</div>
 				<div className="col-6">
-					<Outlet context={{ handleSubmit, navigate }} />
+					<Outlet context={{ handleSubmitStory, navigate }} />
 				</div>
 			</div>
 		</div>

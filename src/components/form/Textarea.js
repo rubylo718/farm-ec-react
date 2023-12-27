@@ -1,4 +1,12 @@
-const Textarea = ({ register, errors, id, rows, labelText, rules }) => {
+const Textarea = ({
+	register,
+	errors,
+	id,
+	rows,
+	labelText,
+	rules,
+	readOnly,
+}) => {
 	return (
 		<>
 			<label htmlFor={id} className="form-label">
@@ -11,6 +19,7 @@ const Textarea = ({ register, errors, id, rows, labelText, rules }) => {
 				className={`form-control ${errors[id] ? 'is-invalid' : ''}`}
 				autoComplete="off"
 				rows={rows}
+				readOnly={readOnly || false}
 				{...register(id, rules)}
 			/>
 			{errors[id] && (

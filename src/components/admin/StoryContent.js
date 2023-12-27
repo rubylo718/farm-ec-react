@@ -1,179 +1,185 @@
-import { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { useEffect } from 'react'
 import { useOutletContext } from 'react-router-dom'
 import { dateStringToUnix, unixToDateString } from '../../utils/dayjs-helper'
+import Input from '../form/Input'
+import Textarea from '../form/Textarea'
+import Checkbox from '../form/Checkbox'
 
 const StoryContent = ({ story }) => {
-	const [data, setData] = useState({ ...story, tag: story.tag })
-	const { handleSubmit, navigate } = useOutletContext()
+	const { handleSubmitStory, navigate } = useOutletContext()
+	const {
+		register,
+		handleSubmit,
+		reset,
+		watch,
+		setValue,
+		formState: { isDirty, errors },
+	} = useForm({
+		mode: 'onSubmit',
+		values: {
+			...story,
+			create_at: unixToDateString(story.create_at),
+			tag: Array.isArray(story.tag) ? story.tag[0] : story.tag,
+		},
+	})
 
-	const handleChange = (e) => {
-		const { name, value } = e.target
-		if (name === 'isPublic') {
-			setData({ ...data, [name]: e.target.checked })
-		} else if (name === 'create_date_string') {
-			setData({ ...data, create_at: dateStringToUnix(value) })
-		} else if (name === 'tag') {
-			setData({ ...data, tag: [value.trim()] })
-		} else {
-			setData({ ...data, [name]: value })
+	const watchIsEditMode = watch('isEditMode', false)
+	const watchImgUrl = watch('image', '')
+
+	const onSubmit = async (data) => {
+		if (!data.isEditMode) {
+			setValue('isEditMode', true)
+			return
 		}
+		if (!isDirty) {
+			navigate('')
+			return
+		}
+		data = {
+			...data,
+			tag: [data.tag.trim()],
+			create_at: dateStringToUnix(data.create_at),
+			isEditMode: false,
+		}
+		await handleSubmitStory(data)
 	}
 
-	useEffect(() => {
-		setData({ ...story, tag: story?.tag })
-	}, [story])
+	const handleCancel = () => {
+		reset()
+		navigate('')
+	}
+
+	useEffect(() => {}, [watchIsEditMode, watchImgUrl])
 
 	return (
-		<div className="row">
-			<div className="col-md-12 mb-2">
-				<label className="w-100" htmlFor="title">
-					<span className="text-danger">*</span>
-					標題
-				</label>
-				<input
-					type="text"
-					id="title"
-					name="title"
-					className="form-control mt-1"
-					onChange={handleChange}
-					value={data.title}
-					readOnly={!data.isEditMode}
-				/>
-			</div>
-			<div className="col-md-6 mb-2">
-				<label className="w-100" htmlFor="create_date_string">
-					建立日期
-				</label>
-				<input
-					type="date"
-					id="create_date_string"
-					name="create_date_string"
-					className="form-control mt-1"
-					onChange={handleChange}
-					value={unixToDateString(data.create_at)}
-					readOnly={!data.isEditMode}
-				/>
-			</div>
-			<div className="col-md-6 mb-2">
-				<label className="w-100" htmlFor="author">
-					<span className="text-danger">*</span>
-					作者
-				</label>
-				<input
-					type="text"
-					id="author"
-					name="author"
-					className="form-control mt-1"
-					onChange={handleChange}
-					value={data.author}
-					readOnly={!data.isEditMode}
-				/>
-			</div>
-			<div className="col-md-12 mb-2">
-				<label className="w-100" htmlFor="image">
-					圖片網址
-				</label>
-				<textarea
-					id="image"
-					name="image"
-					className="form-control mt-1"
-					value={data.image}
-					onChange={handleChange}
-					rows={1}
-					readOnly={!data.isEditMode}
-				/>
-				{data.image && (
-					<>
-						<p className="my-1">圖片預覽</p>
-						<img
-							src={data.image}
-							className="card-img-top rounded-0 admin-story-img object-fit-cover"
-							alt="圖片預覽處"
-						/>
-					</>
-				)}
-			</div>
-			<div className="col-md-12 mb-2">
-				<label className="w-100" htmlFor="tag">
-					關鍵詞
-				</label>
-				<input
-					type="text"
-					id="tag"
-					name="tag"
-					className="form-control mt-1"
-					onChange={handleChange}
-					value={data?.tag || ''}
-					readOnly={!data.isEditMode}
-				/>
-			</div>
-			<div className="col-md-12 mb-2">
-				<label className="w-100" htmlFor="description">
-					簡短描述
-				</label>
-				<textarea
-					id="description"
-					name="description"
-					className="form-control mt-1"
-					value={data.description}
-					onChange={handleChange}
-					rows={1}
-					readOnly={!data.isEditMode}
-				/>
-			</div>
-			<div className="col-md-12 mb-2">
-				<label className="w-100" htmlFor="content">
-					<span className="text-danger">*</span>
-					內容（按Enter分段）
-				</label>
-				<textarea
-					id="content"
-					name="content"
-					className="form-control mt-1"
-					value={data.content}
-					onChange={handleChange}
-					rows={10}
-					readOnly={!data.isEditMode}
-				/>
-			</div>
-			<div className="col-md-8 mb-2 form-check">
-				<input
-					className="form-check-input me-2"
-					type="checkbox"
-					id="isPublic"
-					name="isPublic"
-					onChange={handleChange}
-					checked={data.isPublic}
-					disabled={!data.isEditMode}
-				/>
-				<label className="form-check-label" htmlFor="isPublic">
-					公開
-				</label>
-			</div>
-			<div className="col-md-4 text-end">
-				<button
-					className="btn btn-outline-secondary btn-sm me-2"
-					onClick={() => navigate('')}
-				>
-					取消
-				</button>
-				{data.isEditMode ? (
+		<form onSubmit={handleSubmit(onSubmit)}>
+			<div className="row">
+				<div className="col-md-12 mb-2">
+					<Input
+						register={register}
+						errors={errors}
+						id="title"
+						type="text"
+						labelText="標題"
+						rules={{ required: '請輸入標題' }}
+						readOnly={!watchIsEditMode}
+					/>
+				</div>
+				<div className="col-md-6 mb-2">
+					<Input
+						register={register}
+						errors={errors}
+						id="create_at"
+						type="date"
+						labelText="建立日期"
+						rules={{}}
+						readOnly={!watchIsEditMode}
+					/>
+				</div>
+				<div className="col-md-6 mb-2">
+					<Input
+						register={register}
+						errors={errors}
+						id="author"
+						type="text"
+						labelText="作者"
+						rules={{ required: '請輸入作者' }}
+						readOnly={!watchIsEditMode}
+					/>
+				</div>
+				<div className="col-md-12 mb-2">
+					<Textarea
+						register={register}
+						errors={errors}
+						id="image"
+						rows="2"
+						labelText="圖片網址"
+						readOnly={!watchIsEditMode}
+					/>
+					{watchImgUrl && (
+						<>
+							<p className="my-1">圖片預覽</p>
+							<img
+								src={watchImgUrl}
+								className="card-img-top rounded-0 admin-story-img object-fit-cover"
+								alt="圖片預覽處"
+							/>
+						</>
+					)}
+				</div>
+				<div className="col-md-12 mb-2">
+					<Input
+						register={register}
+						errors={errors}
+						id="tag"
+						type="text"
+						labelText="產品搜尋關鍵字/詞"
+						rules={{
+							required: '請輸入關鍵字/詞',
+							validate: (str) => str.trim() !== '' || '請勿輸入空字串',
+						}}
+						readOnly={!watchIsEditMode}
+					/>
+				</div>
+				<div className="col-md-12 mb-2">
+					<Textarea
+						register={register}
+						errors={errors}
+						id="description"
+						rows="1"
+						labelText="簡短描述"
+						readOnly={!watchIsEditMode}
+					/>
+				</div>
+				<div className="col-md-12 mb-2">
+					<Textarea
+						register={register}
+						errors={errors}
+						id="content"
+						rows="10"
+						labelText="內容（按Enter分段）"
+						rules={{ required: '請輸入內容' }}
+						readOnly={!watchIsEditMode}
+					/>
+				</div>
+				<div className="col-md-8 mb-2 form-group">
+					<Checkbox
+						register={register}
+						errors={errors}
+						id="isPublic"
+						labelText="公開"
+						disabled={!watchIsEditMode}
+					/>
+				</div>
+				<div className="col-md-4 text-end">
 					<button
-						className="btn btn-primary btn-sm text-white"
-						onClick={() => handleSubmit({ ...data, isEditMode: false })}
+						type="button"
+						className="btn btn-outline-secondary btn-sm me-2"
+						onClick={handleCancel}
 					>
-						儲存
+						取消
 					</button>
-				) : (
-					<button
-						className="btn btn-warning btn-sm"
-						onClick={() => setData({ ...data, isEditMode: true })}
-					>
-						編輯
-					</button>
-				)}
+					{watchIsEditMode ? (
+						<button
+							key="storySubmit"
+							type="submit"
+							className="btn btn-primary btn-sm text-white"
+						>
+							儲存
+						</button>
+					) : (
+						<button
+							key="storyChangeMode"
+							type="submit"
+							className="btn btn-warning btn-sm"
+						>
+							編輯
+						</button>
+					)}
+				</div>
 			</div>
-		</div>
+		</form>
 	)
 }
 

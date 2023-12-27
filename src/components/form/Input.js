@@ -1,4 +1,4 @@
-const Input = ({ register, errors, id, type, labelText, rules }) => {
+const Input = ({ register, errors, id, type, labelText, rules, readOnly }) => {
 	return (
 		<>
 			<label htmlFor={id} className="form-label">
@@ -10,6 +10,7 @@ const Input = ({ register, errors, id, type, labelText, rules }) => {
 				type={type}
 				className={`form-control input-h40 ${errors[id] ? 'is-invalid' : ''}`}
 				autoComplete="on"
+				readOnly={readOnly || false}
 				{...register(id, rules)}
 			/>
 			{errors[id] && (
