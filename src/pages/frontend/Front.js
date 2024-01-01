@@ -1,22 +1,15 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { Outlet } from 'react-router-dom'
 import Footer from '../../components/frontend/Footer'
 import Navbar from '../../components/frontend/Navbar'
-import { getCart } from '../../api/front'
+import CartContext from '../../context/CartContext'
 
 const FrontLayout = () => {
-	const [cartData, setCartData] = useState({
-		carts: [],
-		total: 0,
-		final_total: 0,
-	})
-	const getCurrentCart = async () => {
-		const { carts, total, final_total } = await getCart()
-		setCartData({ carts, total, final_total })
-	}
+	const { cartData, getCurrentCart } = CartContext()
+
 	useEffect(() => {
 		getCurrentCart()
-	}, [])
+	}, [getCurrentCart])
 
 	return (
 		<div className="d-flex flex-column w-100 mw-100 min-vh-100">
