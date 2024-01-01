@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 import { getCart } from '../api/front'
 
 const CartContext = () => {
@@ -7,10 +7,10 @@ const CartContext = () => {
 		total: 0,
 		final_total: 0,
 	})
-	const getCurrentCart = async () => {
+	const getCurrentCart = useCallback(async () => {
 		const { carts, total, final_total } = await getCart()
 		setCartData({ carts, total, final_total })
-	}
+	}, [])
 
 	return { cartData, getCurrentCart }
 }
