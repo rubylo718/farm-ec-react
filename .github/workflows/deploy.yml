@@ -38,4 +38,4 @@ jobs:
           github_token: ${{ secrets.DEPLOY_SECRET }}
           repository: ${{ github.repository }}
           REACT_APP_API_PATH: ${{secrets.REACT_APP_API_PATH}}
-          REACT_APP_BASE_URL: $${{secrets.REACT_APP_BASE_URL}}
+          REACT_APP_BASE_URL: ${{secrets.REACT_APP_BASE_URL}}
