@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import {
 	Link,
 	NavLink,
@@ -12,6 +12,7 @@ import {
 	faMagnifyingGlass,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Collapse } from 'bootstrap'
 
 const Navbar = ({ cartData }) => {
 	const [searchInput, setSearchInput] = useState('')
@@ -19,6 +20,7 @@ const Navbar = ({ cartData }) => {
 	const { pathname } = useLocation()
 	const [searchParams] = useSearchParams()
 	const searchString = searchParams.get('query')
+	const navCollapse = useRef(null)
 
 	const handleChange = (e) => {
 		setSearchInput(e.target.value)
@@ -34,12 +36,18 @@ const Navbar = ({ cartData }) => {
 			navigate(`/products/keyword?query=${searchString}`)
 		}
 	}
+
+	useEffect(() => {
+		navCollapse.current = new Collapse('#navbarToggler', { toggle: false })
+	}, [])
+
 	useEffect(() => {
 		if (pathname.startsWith('/products/keyword')) {
 			setSearchInput(searchString)
 		} else {
 			setSearchInput('')
 		}
+		navCollapse.current.hide()
 	}, [pathname, searchString])
 
 	return (
