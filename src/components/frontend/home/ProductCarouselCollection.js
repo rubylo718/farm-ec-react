@@ -7,7 +7,7 @@ const ProductCarouselCollection = ({ allData }) => {
 		<>
 			{allData?.map((data) => {
 				return (
-					<div className="container mt-5 px-3" key={data.id}>
+					<div className="container mt-5" key={data.id}>
 						<h4 className="fs-4">
 							<Link
 								className="text-reset text-decoration-none el-hover"

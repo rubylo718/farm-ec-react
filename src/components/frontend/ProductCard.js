@@ -20,7 +20,7 @@ const ProductCard = ({ item }) => {
 	}
 
 	return (
-		<div className="card border-0 mb-4 position-relative px-3">
+		<div className="card border-0 mb-4 position-relative px-2">
 			<Link to={`/detail/${item?.id}`}>
 				<img
 					src={item?.imageUrl}

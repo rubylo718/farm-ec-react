@@ -43,7 +43,7 @@ const Story = ({ stories }) => {
 					{stories.map((item) => {
 						return (
 							<div
-								className="card border-0 mb-4 position-relative px-3"
+								className="card border-0 mb-4 position-relative px-2"
 								key={item?.id}
 							>
 								<Link to={`blog/${item?.id}`}>
