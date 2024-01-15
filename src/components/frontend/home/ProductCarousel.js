@@ -6,13 +6,13 @@ const ProductCarousel = ({ data }) => {
 		infinite: true,
 		slidesToShow: 4,
 		slidesToScroll: 4,
+		dots: true,
 		responsive: [
 			{
 				breakpoint: 576,
 				settings: {
 					slidesToShow: 2,
 					slidesToScroll: 2,
-					dots: true,
 					arrows: false,
 				},
 			},
@@ -21,7 +21,6 @@ const ProductCarousel = ({ data }) => {
 				settings: {
 					slidesToShow: 3,
 					slidesToScroll: 3,
-					dots: true,
 				},
 			},
 		],

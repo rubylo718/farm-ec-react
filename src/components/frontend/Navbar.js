@@ -123,9 +123,11 @@ const Navbar = ({ cartData }) => {
 									size="lg"
 									className="text-primary"
 								/>
-								<span className="position-absolute top-0 start-100 translate-middle badge rounded-pill text-bg-danger">
-									{cartData?.carts?.length}
-								</span>
+								{cartData?.carts?.length ? (
+									<span className="position-absolute top-0 start-100 translate-middle badge rounded-pill text-bg-danger cart-badge">
+										{cartData?.carts?.length}
+									</span>
+								) : null}
 							</Link>
 						</div>
 					</div>

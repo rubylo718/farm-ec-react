@@ -86,7 +86,6 @@ $form-check-input-focus-box-shadow: 0 0 0 0.2rem rgba(103, 181, 89, 0.25);
 
 .footer-border {
 	border-top: 1px solid rgba(211, 211, 211, 0.74);
-	box-shadow: 1px 0 5px rgba(0, 0, 0, 0.15);
 }
 
 .nav-search-input {
@@ -98,6 +97,10 @@ $form-check-input-focus-box-shadow: 0 0 0 0.2rem rgba(103, 181, 89, 0.25);
 	top: 28px;
 	right: 0%;
 	transform: translate(-50%, -50%);
+}
+
+.cart-badge {
+	padding-top: 0.24em;
 }
 
 // feedback section on front homepage
@@ -204,12 +207,9 @@ $form-check-input-focus-box-shadow: 0 0 0 0.2rem rgba(103, 181, 89, 0.25);
 }
 
 // react-slick carousels on the front homepage
-.slick-prev {
-	transform: translate(-100%, -50%);
+.slick-next::before {
+	content: url('../../public/chevron-right-solid.svg');
 }
-
-.slick-prev:before,
-.slick-next:before {
-	color: #6c757d;
-	font-size: 40px;
+.slick-prev::before {
+	content: url('../../public/chevron-left-solid.svg');
 }
