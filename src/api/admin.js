@@ -23,6 +23,15 @@ axiosInstance.interceptors.request.use(
 	}
 )
 
+axios.interceptors.response.use(
+	(res) => {
+		return res
+	},
+	(error) => {
+		return Promise.reject(error)
+	}
+)
+
 const getProducts = async (page) => {
 	try {
 		const res = await axiosInstance.get(`/products?page=${page}`)

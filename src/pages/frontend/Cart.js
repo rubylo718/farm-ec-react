@@ -40,8 +40,6 @@ const Cart = () => {
 				})
 			}
 			setIsLoading(false)
-		} else {
-			return
 		}
 	}
 
@@ -63,8 +61,6 @@ const Cart = () => {
 				})
 			}
 			setIsLoading(false)
-		} else {
-			return
 		}
 	}
 
@@ -221,7 +217,10 @@ const Cart = () => {
 											</div>
 										</div>
 										<div className="position-absolute top-0 end-0 me-1">
-											<button type="button" className="btn border-0 el-hover input-h40">
+											<button
+												type="button"
+												className="btn border-0 el-hover input-h40"
+											>
 												<FontAwesomeIcon
 													icon={faTrashCan}
 													onClick={() => handleDeleteItem(item.id)}

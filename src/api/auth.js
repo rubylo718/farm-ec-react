@@ -4,6 +4,15 @@ const baseURL = process.env.REACT_APP_BASE_URL
 
 const axiosInstance = axios.create({ baseURL })
 
+axios.interceptors.response.use(
+	(res) => {
+		return res
+	},
+	(error) => {
+		return Promise.reject(error)
+	}
+)
+
 const login = async ({ username, password }) => {
 	try {
 		const { data } = await axiosInstance.post(`/v2/admin/signin`, {

@@ -7,6 +7,15 @@ const axiosInstance = axios.create({
 	baseURL: `${baseURL}/v2/api/${apiPath}/`,
 })
 
+axios.interceptors.response.use(
+	(res) => {
+		return res
+	},
+	(error) => {
+		return Promise.reject(error)
+	}
+)
+
 const getProductsCat = async (page, category) => {
 	try {
 		const res = await axiosInstance.get(

@@ -58,8 +58,6 @@ const CustomerInfoForm = () => {
 				})
 			}
 			setIsLoading(false)
-		} else {
-			return
 		}
 	}
 
