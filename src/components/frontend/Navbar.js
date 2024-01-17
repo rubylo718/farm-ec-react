@@ -42,7 +42,7 @@ const Navbar = ({ cartData }) => {
 	}, [])
 
 	useEffect(() => {
-		if (pathname.startsWith('/products/keyword')) {
+		if (pathname.startsWith('/products/keyword') && searchString) {
 			setSearchInput(searchString)
 		} else {
 			setSearchInput('')

@@ -11,7 +11,7 @@ const SearchResult = () => {
 	const [isLoading, setIsLoading] = useState(false)
 	const navigate = useNavigate()
 
-	const searchString = searchParams.get('query')
+	const searchString = searchParams?.get('query')
 
 	useEffect(() => {
 		const getFilteredProduct = async () => {
@@ -22,7 +22,9 @@ const SearchResult = () => {
 			)
 			setIsLoading(false)
 		}
-		getFilteredProduct()
+		if (searchString) {
+			getFilteredProduct()
+		}
 	}, [searchString])
 
 	return (
@@ -34,15 +36,20 @@ const SearchResult = () => {
 						<Side />
 					</div>
 					<div className="col-md-9">
-						<p className="mb-2">
-							關鍵字 {searchString} ，找到 {products.length} 筆商品
-						</p>
+						{searchString ? (
+							<p className="mb-2">
+								關鍵字 {searchString} ，找到 {products.length} 筆商品{' '}
+							</p>
+						) : (
+							<p className="mb-2">請輸入搜尋關鍵字</p>
+						)}
+
 						<hr />
 						{products?.length ? (
 							''
 						) : (
 							<p>
-								很抱歉，查無 {searchString} 的相關商品，您可以調整關鍵字再試試看
+								很抱歉，查無{searchString}相關商品，您可以調整關鍵字再試試看
 							</p>
 						)}
 
