@@ -76,8 +76,8 @@ const OrderModal = ({ handleHideModal, getOrderList, modalData }) => {
 							onClick={handleCancel}
 						/>
 					</div>
-					<form onSubmit={handleSubmit(onSubmit)}>
-						<div className="modal-body">
+					<div className="modal-body">
+						<form onSubmit={handleSubmit(onSubmit)} id="orderModalForm">
 							<table className="table table-borderless">
 								<tbody>
 									<tr>
@@ -190,20 +190,25 @@ const OrderModal = ({ handleHideModal, getOrderList, modalData }) => {
 							) : (
 								''
 							)}
-						</div>
-						<div className="modal-footer">
-							<button
-								type="button"
-								className="btn btn-outline-secondary"
-								onClick={handleCancel}
-							>
-								取消
-							</button>
-							<button type="submit" className="btn btn-primary text-white">
-								儲存
-							</button>
-						</div>
-					</form>
+						</form>
+					</div>
+					<div className="modal-footer">
+						<button
+							type="button"
+							className="btn btn-outline-secondary"
+							onClick={handleCancel}
+							form="orderModalForm"
+						>
+							取消
+						</button>
+						<button
+							type="submit"
+							className="btn btn-primary text-white"
+							form="orderModalForm"
+						>
+							儲存
+						</button>
+					</div>
 				</div>
 			</div>
 		</div>

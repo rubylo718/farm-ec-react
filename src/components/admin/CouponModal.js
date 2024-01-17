@@ -76,8 +76,8 @@ const CouponModal = ({ handleHideModal, getCouponList, modalData }) => {
 							onClick={handleCancel}
 						/>
 					</div>
-					<form onSubmit={handleSubmit(onSubmit)}>
-						<div className="modal-body">
+					<div className="modal-body">
+						<form onSubmit={handleSubmit(onSubmit)} id="couponModalForm">
 							<div className="row">
 								<div className="form-group col-md-6 mb-2">
 									<Input
@@ -131,20 +131,25 @@ const CouponModal = ({ handleHideModal, getCouponList, modalData }) => {
 									labelText="啟用"
 								/>
 							</div>
-						</div>
-						<div className="modal-footer">
-							<button
-								type="button"
-								className="btn btn-outline-secondary"
-								onClick={handleCancel}
-							>
-								取消
-							</button>
-							<button type="submit" className="btn btn-primary text-white">
-								儲存
-							</button>
-						</div>
-					</form>
+						</form>
+					</div>
+					<div className="modal-footer">
+						<button
+							type="button"
+							className="btn btn-outline-secondary"
+							onClick={handleCancel}
+							form="couponModalForm"
+						>
+							取消
+						</button>
+						<button
+							type="submit"
+							className="btn btn-primary text-white"
+							form="couponModalForm"
+						>
+							儲存
+						</button>
+					</div>
 				</div>
 			</div>
 		</div>

@@ -64,7 +64,7 @@ const ProductModal = ({
 			id="productModal"
 		>
 			<Spinner isLoading={isSubmitting} />
-			<div className="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+			<div className="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
 				<div className="modal-content">
 					<div className="modal-header">
 						<h1 className="modal-title fs-5">
@@ -77,8 +77,8 @@ const ProductModal = ({
 							onClick={handleCancel}
 						/>
 					</div>
-					<form onSubmit={handleSubmit(onSubmit)}>
-						<div className="modal-body">
+					<div className="modal-body">
+						<form onSubmit={handleSubmit(onSubmit)} id="productModalForm">
 							<div className="row">
 								<div className="col-sm-4">
 									<div className="form-group mb-2">
@@ -209,20 +209,25 @@ const ProductModal = ({
 									</div>
 								</div>
 							</div>
-						</div>
-						<div className="modal-footer">
-							<button
-								type="button"
-								className="btn btn-outline-secondary"
-								onClick={handleCancel}
-							>
-								取消
-							</button>
-							<button type="submit" className="btn btn-primary text-white">
-								儲存
-							</button>
-						</div>
-					</form>
+						</form>
+					</div>
+					<div className="modal-footer">
+						<button
+							type="button"
+							className="btn btn-outline-secondary"
+							onClick={handleCancel}
+							form="productModalForm"
+						>
+							取消
+						</button>
+						<button
+							type="submit"
+							className="btn btn-primary text-white"
+							form="productModalForm"
+						>
+							儲存
+						</button>
+					</div>
 				</div>
 			</div>
 		</div>
