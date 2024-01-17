@@ -20,8 +20,8 @@ export const AuthProvider = ({ children }) => {
 	useEffect(() => {
 		const checkTokenIsValid = async () => {
 			const token = document.cookie
-				?.split(';')
-				?.find((row) => row.startsWith('authToken'))
+				?.split('; ')
+				?.find((row) => row.startsWith('authToken='))
 				?.split('=')[1]
 			if (!token) {
 				setIsAuthenticated(false)
@@ -67,7 +67,7 @@ export const AuthProvider = ({ children }) => {
 					return success
 				},
 				logout: () => {
-					document.cookie='authToken=;'
+					document.cookie = 'authToken=; expires=Thu, 01 Jan 1970 00:00:00 GMT'
 					setCurrentUser(null)
 					setIsAuthenticated(false)
 				},
