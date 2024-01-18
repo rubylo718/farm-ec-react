@@ -39,13 +39,12 @@ const StoryContent = ({ story }) => {
 			navigate('')
 			return
 		}
-		data = {
+		await handleSubmitStory({
 			...data,
 			tag: [data.tag.trim()],
 			create_at: dateStringToUnix(data.create_at),
 			isEditMode: false,
-		}
-		await handleSubmitStory(data)
+		})
 	}
 
 	const handleCancel = () => {

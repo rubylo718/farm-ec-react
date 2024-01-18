@@ -32,13 +32,14 @@ const OrderModal = ({ handleHideModal, getOrderList, modalData }) => {
 			handleHideModal()
 			return
 		}
+		let newData
 		if (!data.is_paid) {
-			data = { ...data, paid_date: 0 }
+			newData = { ...data, paid_date: 0 }
 		} else {
-			data = { ...data, paid_date: dateStringToUnix(data.paid_date) }
+			newData = { ...data, paid_date: dateStringToUnix(data.paid_date) }
 		}
 
-		const result = await editOrder(data, data.id)
+		const result = await editOrder(newData, newData.id)
 		if (result?.success) {
 			Toast.fire({ icon: 'success', title: `${result.message}` })
 		} else {

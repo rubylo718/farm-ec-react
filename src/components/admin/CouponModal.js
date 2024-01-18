@@ -26,16 +26,16 @@ const CouponModal = ({ handleHideModal, getCouponList, modalData }) => {
 			handleHideModal()
 			return
 		}
-		data = {
+		const newData = {
 			...data,
 			is_enabled: +data.is_enabled,
 			due_date: dateStringToUnix(data.due_date),
 		}
 		let result
-		if (data.action === 'create') {
-			result = await postCoupon(data)
-		} else if (data.action === 'edit') {
-			result = await editCoupon(data, data.id)
+		if (newData.action === 'create') {
+			result = await postCoupon(newData)
+		} else if (newData.action === 'edit') {
+			result = await editCoupon(newData, newData.id)
 		}
 		if (result?.success) {
 			Toast.fire({ icon: 'success', title: `${result.message}` })
@@ -99,7 +99,7 @@ const CouponModal = ({ handleHideModal, getCouponList, modalData }) => {
 										rules={{
 											valueAsNumber: true,
 											min: { value: 1, message: '折扣不得為零' },
-											max: { value: 99, message: '折扣不大於99' },
+											max: { value: 100, message: '折扣不大於100' },
 										}}
 									/>
 								</div>

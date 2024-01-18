@@ -31,12 +31,12 @@ const ProductModal = ({
 			handleHideProductModal()
 			return
 		}
-		data = { ...data, is_enabled: +data.is_enabled }
+		const newData = { ...data, is_enabled: +data.is_enabled }
 		let result
-		if (data.action === 'create') {
-			result = await postProduct(data)
-		} else if (data.action === 'edit') {
-			result = await editProduct(data, data.id)
+		if (newData.action === 'create') {
+			result = await postProduct(newData)
+		} else if (newData.action === 'edit') {
+			result = await editProduct(newData, newData.id)
 		}
 		if (result.success) {
 			Toast.fire({ icon: 'success', title: `${result.message}` })
