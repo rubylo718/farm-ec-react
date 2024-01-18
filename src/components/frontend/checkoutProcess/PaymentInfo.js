@@ -4,30 +4,9 @@ import { useForm } from 'react-hook-form'
 import { postPay } from '../../../api/front'
 import { Toast } from '../../../utils/toast-helper'
 import Spinner from '../../Spinner'
+import Radio from '../../form/Radio'
 import { faGooglePay, faApplePay } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-
-const Radio = ({ register, name, id, labelText, value, defaultChecked }) => {
-	return (
-		<div className="form-check">
-			<input
-				className="form-check-input"
-				type="radio"
-				name={name}
-				id={id}
-				value={value}
-				defaultChecked={defaultChecked}
-				{...register(name)}
-			/>
-			<label
-				className="form-check-label input-h40"
-				htmlFor={id}
-			>
-				{labelText}
-			</label>
-		</div>
-	)
-}
 
 const Paid = () => {
 	const navigation = useNavigate()
@@ -76,7 +55,7 @@ const PayForm = ({ orderData }) => {
 	}
 
 	return (
-		<div className='mb-4'>
+		<div className="mb-4">
 			<Spinner isLoading={isLoading} />
 			<h4 className="fw-semibold mb-3">付款方式</h4>
 			<form onSubmit={handleSubmit(onSubmit)}>
