@@ -93,6 +93,8 @@ const Cart = () => {
 				})
 			}
 			setIsLoading(false)
+		} else if (item.qty === 1) {
+			handleDeleteItem(item.id)
 		}
 	}
 
