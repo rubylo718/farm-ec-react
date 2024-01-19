@@ -35,7 +35,7 @@ const CheckoutSuccess = () => {
 					<OrderInfo orderData={orderData} />
 					<button
 						type="button"
-						className="btn btn-primary text-white"
+						className="btn btn-primary text-white mt-4"
 						onClick={() => navigation('/')}
 					>
 						回到首頁

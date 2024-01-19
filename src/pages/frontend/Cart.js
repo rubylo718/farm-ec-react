@@ -203,7 +203,7 @@ const Cart = () => {
 														</p>
 													</Link>
 												</div>
-												<div className="my-1">${item.product.price}</div>
+												<div className="my-1">NT$ {item.product.price}</div>
 												<div className="row">
 													<AmountInput
 														qty={item.qty}
@@ -213,7 +213,7 @@ const Cart = () => {
 												</div>
 											</div>
 											<div className="col-2 text-center p-0">
-												<div>${item.total}</div>
+												<div>NT$ {item.total}</div>
 											</div>
 										</div>
 										<div className="position-absolute top-0 end-0 me-1">
@@ -301,7 +301,7 @@ const Cart = () => {
 											訂單小計
 										</th>
 										<td className="text-end border-0 px-0 pt-4">
-											${cartData.total}
+											NT$ {cartData.total}
 										</td>
 									</tr>
 									{cartData.total - cartData.final_total > 0 && (
@@ -314,7 +314,8 @@ const Cart = () => {
 													優惠折抵
 												</th>
 												<td className="text-end border-0 px-0 pt-0 pb-2">
-													-${cartData.total - Math.round(cartData.final_total)}
+													-NT${' '}
+													{cartData.total - Math.round(cartData.final_total)}
 												</td>
 											</tr>
 											<tr>

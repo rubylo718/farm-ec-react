@@ -85,11 +85,11 @@ const Detail = () => {
 						/>
 					</div>
 					<div className="col-md-5">
-						<h2 className="fw-bold mb-2">{product?.title}</h2>
-						<p className="h4 fw-bold text-end">NT$ {product?.price}</p>
-						<p className="mb-0 text-muted text-end">
-							<del>NT$ {product?.origin_price}</del>
-						</p>
+						<h2 className="fw-bold mb-3">{product?.title}</h2>
+						<div className="align-text-bottom">
+							<p className="fs-4 fw-bold d-inline me-2">NT$ {product?.price}</p>
+							<small className="text-decoration-line-through text-secondary d-inline">NT$ {product?.origin_price}</small>
+						</div>
 						<div className="row align-items-center">
 							<div className="col-6">
 								<AmountInput
@@ -129,13 +129,10 @@ const Detail = () => {
 						<Instruction />
 					</div>
 				</div>
-				<hr className='my-4'/>
-				<h4 className='pb-3'>
+				<hr className="my-4" />
+				<h4 className="pb-3">
 					同類商品推薦
-					<Link
-						className="btn float-end"
-						to={`/products/${categoryId}`}
-					>
+					<Link className="btn float-end" to={`/products/${categoryId}`}>
 						查看更多
 					</Link>
 				</h4>

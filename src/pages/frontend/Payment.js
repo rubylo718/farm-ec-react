@@ -5,6 +5,7 @@ import CheckoutProgress from '../../components/frontend/checkoutProcess/Checkout
 import OrderInfo from '../../components/frontend/checkoutProcess/OrderInfo'
 import PaymentInfo from '../../components/frontend/checkoutProcess/PaymentInfo'
 import DeliveryInfo from '../../components/frontend/checkoutProcess/DeliveryInfo'
+import PaymentInfoButton from '../../components/frontend/checkoutProcess/PaymentInfoButton'
 
 const Payment = () => {
 	const { orderId } = useParams()
@@ -24,12 +25,15 @@ const Payment = () => {
 		<div className="container my-5">
 			<CheckoutProgress step={3} />
 			<div className="row">
-				<div className="col-lg-6">
+				<div className="col-lg-6 mb-2">
 					<PaymentInfo orderData={orderData} />
 				</div>
-				<div className="col-lg-6">
+				<div className="col-lg-6 mb-4">
 					<DeliveryInfo deliveryData={orderData.user} />
 					<OrderInfo orderData={orderData} />
+				</div>
+				<div className="d-lg-none">
+					<PaymentInfoButton isPaid={orderData.is_paid} />
 				</div>
 			</div>
 		</div>

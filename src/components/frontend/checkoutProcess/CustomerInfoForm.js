@@ -7,6 +7,7 @@ import { Toast, InputConfirmation } from '../../../utils/toast-helper'
 import Spinner from '../../Spinner'
 import Input from '../../form/Input'
 import Selection from '../../form/Selection'
+import CustomerInfoFormButtons from './CustomerInfoFormButtons'
 
 const CustomerInfoForm = () => {
 	const navigation = useNavigate()
@@ -68,7 +69,11 @@ const CustomerInfoForm = () => {
 	return (
 		<>
 			<Spinner isLoading={isLoading} />
-			<form className="row" onSubmit={handleSubmit(onSubmit)}>
+			<form
+				className="row"
+				onSubmit={handleSubmit(onSubmit)}
+				id="customerInfoForm"
+			>
 				<h4 className="fw-semibold">填寫收件資訊</h4>
 				<div className="mb-2">
 					<Input
@@ -185,17 +190,8 @@ const CustomerInfoForm = () => {
 						placeholder="有什麼想告訴我們嗎？"
 					/>
 				</div>
-				<div className="d-flex justify-content-end mt-4">
-					<button
-						type="button"
-						className="btn btn-light"
-						onClick={() => navigation(-1)}
-					>
-						回上一頁
-					</button>
-					<button type="submit" className="btn btn-primary ms-4 text-white">
-						下一步
-					</button>
+				<div className="d-none d-lg-block mt-4">
+					<CustomerInfoFormButtons />
 				</div>
 			</form>
 		</>

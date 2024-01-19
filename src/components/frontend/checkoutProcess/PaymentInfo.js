@@ -5,24 +5,20 @@ import { postPay } from '../../../api/front'
 import { Toast } from '../../../utils/toast-helper'
 import Spinner from '../../Spinner'
 import Radio from '../../form/Radio'
+import PaymentInfoButton from './PaymentInfoButton'
 import { faGooglePay, faApplePay } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const Paid = () => {
-	const navigation = useNavigate()
 	return (
 		<>
 			<p className="mb-1">此筆訂單已付款完成了，感謝惠顧！</p>
 			<p>
 				您的商品會在付款日後 3-5 個工作天送達，若有問題請洽安心小農Line客服。
 			</p>
-			<button
-				type="button"
-				className="btn btn-primary text-white"
-				onClick={() => navigation('/')}
-			>
-				回到首頁
-			</button>
+			<div className="d-none d-lg-block">
+				<PaymentInfoButton isPaid={true} />
+			</div>
 		</>
 	)
 }
@@ -58,7 +54,7 @@ const PayForm = ({ orderData }) => {
 		<div className="mb-4">
 			<Spinner isLoading={isLoading} />
 			<h4 className="fw-semibold mb-3">付款方式</h4>
-			<form onSubmit={handleSubmit(onSubmit)}>
+			<form onSubmit={handleSubmit(onSubmit)} id="paymentInfoForm">
 				<Radio
 					register={register}
 					name="paymentMethod"
@@ -91,9 +87,9 @@ const PayForm = ({ orderData }) => {
 					labelText={<FontAwesomeIcon icon={faApplePay} size="2xl" />}
 					defaultChecked={false}
 				/>
-				<button type="submit" className="btn btn-primary text-white">
-					確認結帳
-				</button>
+				<div className="d-none d-lg-block">
+					<PaymentInfoButton isPaid={false} />
+				</div>
 			</form>
 		</div>
 	)

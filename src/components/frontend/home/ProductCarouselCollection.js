@@ -16,7 +16,7 @@ const ProductCarouselCollection = ({ allData }) => {
 								>
 									{data?.products[0]?.category}
 								</Link>
-								<Link className="btn float-end" to={`/products/${data.id}`}>
+								<Link className="btn float-end el-hover" to={`/products/${data.id}`}>
 									查看更多
 								</Link>
 							</h4>

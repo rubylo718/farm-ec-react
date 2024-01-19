@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const OrderInfo = ({ orderData }) => {
 	return (
-		<div className="border rounded-2 p-4 mb-4">
+		<div className="border rounded-2 p-4">
 			<h4 className="fw-bold mb-4">訂單資訊</h4>
 			<p className="mb-1">訂單編號：{orderData?.id}</p>
 			<p className="mb-1">訂單日期：{unixToDateString(orderData?.create_at)}</p>
