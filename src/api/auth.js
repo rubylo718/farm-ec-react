@@ -4,11 +4,12 @@ const baseURL = process.env.REACT_APP_BASE_URL
 
 const axiosInstance = axios.create({ baseURL })
 
-axios.interceptors.response.use(
+axiosInstance.interceptors.response.use(
 	(res) => {
 		return res
 	},
 	(error) => {
+		// do something to record the error
 		return Promise.reject(error)
 	}
 )

@@ -46,19 +46,20 @@ const CustomerInfoForm = () => {
 		})
 		if (isConfirmed) {
 			setIsLoading(true)
-			const result = await postOrder(user, data.message)
-			if (result?.success) {
-				const orderId = result.orderId
+			try {
+				const res = await postOrder(user, data.message)
+				const orderId = res.data.orderId
 				Toast.fire({ icon: 'success', title: '訂單成立' })
 				getCurrentCart()
 				navigation(`/payment/${orderId}`)
-			} else {
+			} catch (error) {
 				Toast.fire({
 					icon: 'error',
 					title: '發生錯誤，訂單成立失敗，請重新整理再試一次',
 				})
+			} finally {
+				setIsLoading(false)
 			}
-			setIsLoading(false)
 		}
 	}
 

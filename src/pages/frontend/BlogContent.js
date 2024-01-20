@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useParams, useOutletContext, useNavigate } from 'react-router-dom'
 import { faHandPointer } from '@fortawesome/free-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -6,6 +6,7 @@ import Spinner from '../../components/Spinner'
 import BlogCard from '../../components/frontend/blog/BlogCard'
 import { getStoryFront } from '../../api/front'
 import { unixToDateString } from '../../utils/dayjs-helper'
+import { Toast } from '../../utils/toast-helper'
 
 const BlogContent = () => {
 	const [story, setStory] = useState({})
@@ -14,16 +15,28 @@ const BlogContent = () => {
 	const { id } = useParams()
 	const navigate = useNavigate()
 
-	const getStory = async (id) => {
-		setIsLoading(true)
-		const result = await getStoryFront(id)
-		setStory(result.article)
-		setIsLoading(false)
-	}
+	const getStory = useCallback(
+		async (id) => {
+			setIsLoading(true)
+			try {
+				const res = await getStoryFront(id)
+				setStory(res.data.article)
+			} catch {
+				setStory({})
+				Toast.fire({ icon: 'error', title: '取得資料發生錯誤，將返回文章列表' })
+				setTimeout(() => {
+					navigate('/blog')
+				}, 1500)
+			} finally {
+				setIsLoading(false)
+			}
+		},
+		[navigate]
+	)
 
 	useEffect(() => {
 		getStory(id)
-	}, [id])
+	}, [getStory, id])
 
 	return (
 		<div className="container mt-5">

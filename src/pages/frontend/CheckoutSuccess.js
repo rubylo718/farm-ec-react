@@ -4,6 +4,7 @@ import { getOrder } from '../../api/front'
 import OrderInfo from '../../components/frontend/checkoutProcess/OrderInfo'
 import DeliveryInfo from '../../components/frontend/checkoutProcess/DeliveryInfo'
 import CheckoutProgress from '../../components/frontend/checkoutProcess/CheckoutProgress'
+import { Toast } from '../../utils/toast-helper'
 
 const CheckoutSuccess = () => {
 	const { orderId } = useParams()
@@ -12,9 +13,12 @@ const CheckoutSuccess = () => {
 
 	useEffect(() => {
 		const getOrderData = async (orderId) => {
-			const result = await getOrder(orderId)
-			if (result.success) {
-				setOrderData(result.order)
+			try {
+				const result = await getOrder(orderId)
+				setOrderData(result.data.order)
+			} catch (error) {
+				setOrderData({})
+				Toast.fire({ icon: 'error', title: '取得資料發生錯誤' })
 			}
 		}
 		getOrderData(orderId)
@@ -31,7 +35,7 @@ const CheckoutSuccess = () => {
 						您的商品會在付款日後 3-5
 						個工作天送達，若有問題請洽安心小農Line客服。
 					</p>
-					<DeliveryInfo deliveryData={orderData.user}/>
+					<DeliveryInfo deliveryData={orderData.user} />
 					<OrderInfo orderData={orderData} />
 					<button
 						type="button"

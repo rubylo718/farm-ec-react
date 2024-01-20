@@ -32,22 +32,18 @@ const ProductModal = ({
 			return
 		}
 		const newData = { ...data, is_enabled: +data.is_enabled }
-		let result
-		if (newData.action === 'create') {
-			result = await postProduct(newData)
-		} else if (newData.action === 'edit') {
-			result = await editProduct(newData, newData.id)
+		try {
+			if (newData.action === 'create') {
+				await postProduct(newData)
+			} else if (newData.action === 'edit') {
+				await editProduct(newData, newData.id)
+			}
+			Toast.fire({ icon: 'success', title: '操作成功' })
+			getProductList()
+			handleHideProductModal()
+		} catch (error) {
+			Toast.fire({ icon: 'error', title: '發生錯誤，請重新操作' })
 		}
-		if (result.success) {
-			Toast.fire({ icon: 'success', title: `${result.message}` })
-		} else {
-			Toast.fire({
-				icon: 'error',
-				title: `${result.message || `錯誤，請重新操作`}`,
-			})
-		}
-		getProductList()
-		handleHideProductModal()
 	}
 
 	const handleCancel = () => {

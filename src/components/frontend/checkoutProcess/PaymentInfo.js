@@ -36,18 +36,19 @@ const PayForm = ({ orderData }) => {
 			setIsLoading(false)
 			return
 		}
-		const result = await postPay(orderId)
-		if (result.success) {
+		try {
+			await postPay(orderId)
 			Toast.fire({
 				icon: 'success',
 				title: `使用 ${data.paymentMethod} 付款成功！`,
 			})
 			getCurrentCart()
 			navigation(`/success/${orderId}`)
-		} else {
+		} catch (error) {
 			Toast.fire({ icon: 'error', title: '發生錯誤，付款失敗，請洽客服' })
+		} finally {
+			setIsLoading(false)
 		}
-		setIsLoading(false)
 	}
 
 	return (

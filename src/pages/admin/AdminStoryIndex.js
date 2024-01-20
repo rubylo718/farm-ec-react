@@ -18,35 +18,44 @@ const AdminStoriesIndex = () => {
 
 	const getStroyList = async (page = 1) => {
 		setIsLoading(true)
-		const data = await getStories(page)
-		setStories(data?.articles)
-		setPagination(data?.pagination)
-		setIsLoading(false)
+		try {
+			const res = await getStories(page)
+			setStories(res.data?.articles)
+			setPagination(res.data?.pagination)
+		} catch (error) {
+			setStories([])
+			setPagination({})
+			Toast.fire({ icon: 'error', title: '取得資料發生錯誤' })
+		} finally {
+			setIsLoading(false)
+		}
 	}
 
 	const handleSubmitStory = async (data) => {
-		let result
-		if (data.id === 'create') {
-			result = await postStory(data)
-		} else {
-			result = await editStory(data, data.id)
-		}
-		if (result?.success) {
-			Toast.fire({ icon: 'success', title: result.message })
+		try {
+			if (data.id === 'create') {
+				await postStory(data)
+			} else {
+				await editStory(data, data.id)
+			}
+			Toast.fire({ icon: 'success', title: '操作成功' })
 			getStroyList()
 			navigate('')
-		} else {
-			Toast.fire({ icon: 'error', title: result.message || '錯誤，請重新操作' })
+		} catch (error) {
+			Toast.fire({ icon: 'error', title: '發生錯誤，請重新操作' })
 		}
 	}
 
 	const handleDeleteStory = async (id) => {
 		const { isConfirmed } = await DeleteConfirmation.fire()
 		if (isConfirmed) {
-			const result = await deleteStory(id)
-			if (result?.success) {
+			try {
+				await deleteStory(id)
 				Confirmation.fire({ title: '已刪除文章' })
 				getStroyList()
+				navigate('')
+			} catch (error) {
+				Toast.fire({ icon: 'error', title: '發生錯誤，請重新操作' })
 			}
 		}
 	}

@@ -4,7 +4,11 @@ import { getProducts, deleteProduct } from '../../api/admin'
 import ProductModal from '../../components/admin/ProductModal'
 import Pagination from '../../components/Pagination'
 import Spinner from '../../components/Spinner'
-import { DeleteConfirmation, Confirmation } from '../../utils/toast-helper'
+import {
+	Toast,
+	DeleteConfirmation,
+	Confirmation,
+} from '../../utils/toast-helper'
 import { useAuth } from '../../context/AuthContext'
 
 const AdminProducts = () => {
@@ -18,15 +22,20 @@ const AdminProducts = () => {
 	const getProductList = useCallback(
 		async (page = 1) => {
 			setIsLoading(true)
-			const data = await getProducts(page)
-			if (data?.success) {
-				setProducts(data?.products)
-				setPagination(data?.pagination)
+			try {
+				const res = await getProducts(page)
+				setProducts(res.data.products)
+				setPagination(res.data.pagination)
+			} catch (error) {
+				if (error.response.status === 401) {
+					// api path unauthorized
+					Toast.fire({ icon: 'error', title: '請重新登入' })
+					logout()
+				} else {
+					Toast.fire({ icon: 'error', title: '取得資料發生錯誤' })
+				}
+			} finally {
 				setIsLoading(false)
-			} else if (data?.status === 401) {
-				// api path unauthorized
-				setIsLoading(false)
-				logout()
 			}
 		},
 		[logout]
@@ -44,10 +53,12 @@ const AdminProducts = () => {
 	const handleDeleteProduct = async (id) => {
 		const { isConfirmed } = await DeleteConfirmation.fire()
 		if (isConfirmed) {
-			const result = await deleteProduct(id)
-			if (result?.success) {
+			try {
+				await deleteProduct(id)
 				Confirmation.fire({ title: '資料已刪除' })
 				getProductList()
+			} catch (error) {
+				Toast.fire({ icon: 'error', title: '資料刪除發生錯誤' })
 			}
 		}
 	}

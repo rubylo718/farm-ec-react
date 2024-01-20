@@ -38,18 +38,14 @@ const OrderModal = ({ handleHideModal, getOrderList, modalData }) => {
 		} else {
 			newData = { ...data, paid_date: dateStringToUnix(data.paid_date) }
 		}
-
-		const result = await editOrder(newData, newData.id)
-		if (result?.success) {
-			Toast.fire({ icon: 'success', title: `${result.message}` })
-		} else {
-			Toast.fire({
-				icon: 'error',
-				title: `${result.message || `錯誤，請重新操作`}`,
-			})
+		try {
+			await editOrder(newData, newData.id)
+			Toast.fire({ icon: 'success', title: '更新成功' })
+			getOrderList()
+			handleHideModal()
+		} catch (error) {
+			Toast.fire({ icon: 'error', title: '發生錯誤，請重新操作' })
 		}
-		getOrderList()
-		handleHideModal()
 	}
 
 	const handleCancel = () => {

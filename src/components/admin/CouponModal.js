@@ -31,22 +31,18 @@ const CouponModal = ({ handleHideModal, getCouponList, modalData }) => {
 			is_enabled: +data.is_enabled,
 			due_date: dateStringToUnix(data.due_date),
 		}
-		let result
-		if (newData.action === 'create') {
-			result = await postCoupon(newData)
-		} else if (newData.action === 'edit') {
-			result = await editCoupon(newData, newData.id)
+		try {
+			if (newData.action === 'create') {
+				await postCoupon(newData)
+			} else if (newData.action === 'edit') {
+				await editCoupon(newData, newData.id)
+			}
+			Toast.fire({ icon: 'success', title: '操作成功' })
+			getCouponList()
+			handleHideModal()
+		} catch (error) {
+			Toast.fire({ icon: 'error', title: '發生錯誤，請重新操作' })
 		}
-		if (result?.success) {
-			Toast.fire({ icon: 'success', title: `${result.message}` })
-		} else {
-			Toast.fire({
-				icon: 'error',
-				title: `${result.message || `錯誤，請重新操作`}`,
-			})
-		}
-		getCouponList()
-		handleHideModal()
 	}
 
 	const handleCancel = () => {

@@ -29,17 +29,15 @@ const Cart = () => {
 		})
 		if (isConfirmed) {
 			setIsLoading(true)
-			const result = await deleteCartItem(id)
-			if (result.success) {
-				Toast.fire({ icon: 'success', title: result.message })
+			try {
+				await deleteCartItem(id)
+				Toast.fire({ icon: 'success', title: '已刪除商品' })
 				getCurrentCart()
-			} else {
-				Toast.fire({
-					icon: 'error',
-					title: result.message || '發生錯誤，無法刪除，請重新整理再試一次',
-				})
+			} catch (error) {
+				Toast.fire({ icon: 'error', title: '發生錯誤，請重新整理後再試一次' })
+			} finally {
+				setIsLoading(false)
 			}
-			setIsLoading(false)
 		}
 	}
 
@@ -51,48 +49,43 @@ const Cart = () => {
 		})
 		if (isConfirmed) {
 			setIsLoading(true)
-			const result = await deleteCartAll()
-			if (result?.success) {
+			try {
+				await deleteCartAll()
+				Toast.fire({ icon: 'success', title: '已刪除所有商品' })
 				getCurrentCart()
-			} else {
-				Toast.fire({
-					icon: 'error',
-					title: result.message || '發生錯誤，無法刪除，請重新整理再試一次',
-				})
+			} catch (error) {
+				Toast.fire({ icon: 'error', title: '發生錯誤，請重新整理後再試一次' })
+			} finally {
+				setIsLoading(false)
 			}
-			setIsLoading(false)
 		}
 	}
 
 	const handleAddQty = async (item) => {
 		const newQty = item.qty + 1
 		setIsLoading(true)
-		const result = await editCartItem(item, newQty)
-		if (result.success) {
+		try {
+			await editCartItem(item, newQty)
 			getCurrentCart()
-		} else {
-			Toast.fire({
-				icon: 'error',
-				title: result.message || '發生錯誤，請重新整理再試一次',
-			})
+		} catch (error) {
+			Toast.fire({ icon: 'error', title: '發生錯誤，請重新整理後再試一次' })
+		} finally {
+			setIsLoading(false)
 		}
-		setIsLoading(false)
 	}
 
 	const handleMinusQty = async (item) => {
 		if (item.qty > 1) {
 			setIsLoading(true)
-			const newQty = item.qty - 1
-			const result = await editCartItem(item, newQty)
-			if (result.success) {
+			try {
+				const newQty = item.qty - 1
+				await editCartItem(item, newQty)
 				getCurrentCart()
-			} else {
-				Toast.fire({
-					icon: 'error',
-					title: result.message || '發生錯誤，請重新整理再試一次',
-				})
+			} catch (error) {
+				Toast.fire({ icon: 'error', title: '發生錯誤，請重新整理再試一次' })
+			} finally {
+				setIsLoading(false)
 			}
-			setIsLoading(false)
 		} else if (item.qty === 1) {
 			handleDeleteItem(item.id)
 		}
@@ -102,29 +95,29 @@ const Cart = () => {
 		if (e.key === 'Enter' || e.target.id === 'setCoupon') {
 			if (!couponCode.length) return
 			setIsLoading(true)
-			const res = await postCouponFront(couponCode)
-			if (res?.success) {
-				Toast.fire({ icon: 'success', title: res.message })
+			try {
+				await postCouponFront(couponCode)
+				Toast.fire({ icon: 'success', title: '已套用優惠券' })
 				getCurrentCart()
-			} else {
-				Toast.fire({ icon: 'error', title: res.message })
+			} catch (error) {
+				Toast.fire({ icon: 'error', title: '優惠券已過期或不存在' })
 				setCouponCode('')
+			} finally {
+				setIsLoading(false)
 			}
-			setIsLoading(false)
 		} else if (
 			e.target.id === 'reset' &&
 			cartData.total !== cartData.final_total
 		) {
-			const res = await postCouponFront('reset')
-			if (res?.success) {
+			try {
+				await postCouponFront('reset')
 				Toast.fire({ icon: 'warning', title: '已取消使用優惠' })
 				setCouponCode('')
 				getCurrentCart()
-			} else {
-				Toast.fire({
-					icon: 'error',
-					title: res.message || '發生錯誤，請重新整理再試一次',
-				})
+			} catch (error) {
+				Toast.fire({ icon: 'error', title: '發生錯誤，請重新整理再試一次' })
+			} finally {
+				setIsLoading(false)
 			}
 		}
 	}
@@ -132,18 +125,15 @@ const Cart = () => {
 	const handleSelectCoupon = async (code) => {
 		setCouponCode(code)
 		setIsLoading(true)
-		const res = await postCouponFront(code)
-		if (res?.success) {
-			Toast.fire({ icon: 'success', title: res.message })
+		try {
+			await postCouponFront(code)
+			Toast.fire({ icon: 'success', title: '已套用優惠券' })
 			getCurrentCart()
-		} else {
-			Toast.fire({
-				icon: 'error',
-				title: res.message || '發生錯誤，請重新整理再試一次',
-			})
-			setCouponCode('')
+		} catch (error) {
+			Toast.fire({ icon: 'error', title: '發生錯誤，請重新整理再試一次' })
+		} finally {
+			setIsLoading(false)
 		}
-		setIsLoading(false)
 	}
 
 	return (

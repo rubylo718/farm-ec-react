@@ -6,6 +6,7 @@ import Pagination from '../../components/Pagination'
 import Side from '../../components/frontend/products/Side'
 import ProductCard from '../../components/frontend/ProductCard'
 import Spinner from '../../components/Spinner'
+import { Toast } from '../../utils/toast-helper'
 
 const Products = () => {
 	const { categoryId } = useParams()
@@ -16,13 +17,18 @@ const Products = () => {
 	const getDataList = useCallback(
 		async (page) => {
 			setIsLoading(true)
-			const categoryTitle = productData.productCategories.find(
-				(item) => item.id === Number(categoryId)
-			)?.title
-			const res = await getProductsCat(page, categoryTitle)
-			setProducts(res.products)
-			setPagination(res.pagination)
-			setIsLoading(false)
+			try {
+				const categoryTitle = productData.productCategories.find(
+					(item) => item.id === Number(categoryId)
+				)?.title
+				const res = await getProductsCat(page, categoryTitle)
+				setProducts(res.data?.products)
+				setPagination(res.data?.pagination)
+			} catch (error) {
+				Toast.fire({ icon: 'error', title: '取得資料發生錯誤' })
+			} finally {
+				setIsLoading(false)
+			}
 		},
 		[categoryId]
 	)
@@ -30,10 +36,6 @@ const Products = () => {
 	useEffect(() => {
 		getDataList()
 	}, [categoryId, getDataList])
-
-	useEffect(() => {
-		window.scrollTo(0, 0)
-	}, [products])
 
 	return (
 		<>

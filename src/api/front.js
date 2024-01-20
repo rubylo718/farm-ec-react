@@ -7,163 +7,78 @@ const axiosInstance = axios.create({
 	baseURL: `${baseURL}/v2/api/${apiPath}/`,
 })
 
-axios.interceptors.response.use(
+axiosInstance.interceptors.response.use(
 	(res) => {
 		return res
 	},
 	(error) => {
+		// do something to record the error
 		return Promise.reject(error)
 	}
 )
 
-const getProductsCat = async (page, category) => {
-	try {
-		const res = await axiosInstance.get(
-			`/products?page=${page}&category=${category}`
-		)
-		return res.data
-	} catch (err) {
-		return err.response.data
-	}
+// products
+export const getProductsCat = async (page, category) => {
+	return await axiosInstance.get(`/products?page=${page}&category=${category}`)
 }
 
-const getProductDetail = async (id) => {
-	try {
-		const res = await axiosInstance.get(`/product/${id}`)
-		return res.data
-	} catch (err) {
-		return err.response.data
-	}
+export const getProductDetail = async (id) => {
+	return await axiosInstance.get(`/product/${id}`)
 }
 
-const postCart = async (data) => {
-	try {
-		const res = await axiosInstance.post(`cart`, data)
-		return res.data
-	} catch (err) {
-		return err.response.data
-	}
+export const getAllProducts = async () => {
+	return await axiosInstance.get(`products/all`)
 }
 
-const getCart = async () => {
-	try {
-		const res = await axiosInstance.get(`cart`)
-		return res.data.data
-	} catch (err) {
-		return err.response.data
-	}
+// carts
+export const postCart = async (data) => {
+	return await axiosInstance.post(`cart`, data)
 }
 
-const deleteCartItem = async (id) => {
-	try {
-		const res = await axiosInstance.delete(`cart/${id}`)
-		return res.data
-	} catch (err) {
-		return err.response.data
-	}
+export const getCart = async () => {
+	return await axiosInstance.get(`cart`)
 }
 
-const deleteCartAll = async () => {
-	try {
-		const res = await axiosInstance.delete('carts')
-		return res.data
-	} catch (err) {
-		return err.response.data
-	}
+export const deleteCartItem = async (id) => {
+	return await axiosInstance.delete(`cart/${id}`)
 }
 
-const editCartItem = async (item, newQty) => {
-	try {
-		const res = await axiosInstance.put(`cart/${item.id}`, {
-			data: {
-				product_id: item.product_id,
-				qty: newQty,
-			},
-		})
-		return res.data
-	} catch (err) {
-		return err.response.data
-	}
+export const deleteCartAll = async () => {
+	return await axiosInstance.delete('carts')
 }
 
-const postOrder = async (user, message) => {
-	try {
-		const res = await axiosInstance.post(`order`, { data: { user, message } })
-		return res.data
-	} catch (err) {
-		return err.response.data
-	}
+export const editCartItem = async (item, newQty) => {
+	return await axiosInstance.put(`cart/${item.id}`, {
+		data: {
+			product_id: item.product_id,
+			qty: newQty,
+		},
+	})
 }
 
-const postPay = async (id) => {
-	try {
-		const res = await axiosInstance.post(`pay/${id}`)
-		return res.data
-	} catch (err) {
-		return err.response.data
-	}
+// order and payment
+export const postOrder = async (user, message) => {
+	return await axiosInstance.post(`order`, { data: { user, message } })
 }
 
-const getOrder = async (id) => {
-	try {
-		const res = await axiosInstance.get(`order/${id}`)
-		return res.data
-	} catch (err) {
-		return err.response.data
-	}
+export const postPay = async (id) => {
+	return await axiosInstance.post(`pay/${id}`)
 }
 
-const getAllProducts = async () => {
-	try {
-		const res = await axiosInstance.get(`products/all`)
-		return res.data
-	} catch (err) {
-		return err.response.data
-	}
+export const getOrder = async (id) => {
+	return await axiosInstance.get(`order/${id}`)
 }
 
 //coupon
-const postCouponFront = async (code) => {
-	try {
-		const res = await axiosInstance.post('coupon', { data: { code } })
-		return res.data
-	} catch (err) {
-		return err.response.data
-	}
+export const postCouponFront = async (code) => {
+	return await axiosInstance.post('coupon', { data: { code } })
 }
 
 //story
-const getStoriesFront = async (page) => {
-	try {
-		const res = await axiosInstance.get(`articles?page=${page}`)
-		return res.data
-	} catch (err) {
-		return err.response.data
-	}
+export const getStoriesFront = async (page) => {
+	return await axiosInstance.get(`articles?page=${page}`)
 }
 
-const getStoryFront = async (id) => {
-	try {
-		const res = await axiosInstance.get(`article/${id}`)
-		return res.data
-	} catch (err) {
-		return err.response.data
-	}
-}
-
-export {
-	getProductsCat,
-	getProductDetail,
-	postCart,
-	getCart,
-	deleteCartItem,
-	deleteCartAll,
-	editCartItem,
-	postOrder,
-	postPay,
-	getOrder,
-	getAllProducts,
-	postCouponFront,
-	getStoriesFront,
-	getStoryFront,
+export const getStoryFront = async (id) => {
+	return await axiosInstance.get(`article/${id}`)
 }

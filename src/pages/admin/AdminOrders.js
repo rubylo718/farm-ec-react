@@ -5,7 +5,11 @@ import OrderModal from '../../components/admin/OrderModal'
 import Pagination from '../../components/Pagination'
 import Spinner from '../../components/Spinner'
 import { unixToDateString } from '../../utils/dayjs-helper'
-import { DeleteConfirmation, Confirmation } from '../../utils/toast-helper'
+import {
+	Toast,
+	DeleteConfirmation,
+	Confirmation,
+} from '../../utils/toast-helper'
 
 const AdminOrders = () => {
 	const [orders, setOrders] = useState([])
@@ -16,11 +20,19 @@ const AdminOrders = () => {
 
 	const getOrderList = async (page = 1) => {
 		setIsLoading(true)
-		const data = await getOrders(page)
-		setOrders(data?.orders)
-		setPagination(data?.pagination)
-		setIsLoading(false)
+		try {
+			const res = await getOrders(page)
+			setOrders(res.data?.orders)
+			setPagination(res.data?.pagination)
+		} catch (error) {
+			setOrders([])
+			setPagination({})
+			Toast.fire({ icon: 'error', title: '取得資料發生錯誤' })
+		} finally {
+			setIsLoading(false)
+		}
 	}
+
 	const handleShowModal = (modalData) => {
 		setModalData(modalData)
 		orderModal.current.show()
@@ -32,10 +44,12 @@ const AdminOrders = () => {
 	const handleDeleteOrder = async (id) => {
 		const { isConfirmed } = await DeleteConfirmation.fire()
 		if (isConfirmed) {
-			const result = await deleteOrder(id)
-			if (result?.success) {
+			try {
+				await deleteOrder(id)
 				Confirmation.fire({ title: '資料已刪除' })
 				getOrderList()
+			} catch (error) {
+				Toast.fire({ icon: 'error', title: '發生錯誤，請再試一次' })
 			}
 		}
 	}

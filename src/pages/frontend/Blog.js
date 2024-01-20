@@ -1,28 +1,39 @@
-import { useState, useEffect } from 'react'
-import { Outlet } from 'react-router-dom'
+import { useState, useEffect, useCallback } from 'react'
+import { Outlet, useNavigate } from 'react-router-dom'
 import { getStoriesFront } from '../../api/front'
 import Spinner from '../../components/Spinner'
+import { Toast } from '../../utils/toast-helper'
 
 const Blog = () => {
 	const [stories, setStories] = useState([])
 	const [pagination, setPagination] = useState({})
 	const [isLoading, setIsLoading] = useState(false)
+	const navigation = useNavigate()
 
-	const getData = async (page = 1) => {
-		setIsLoading(true)
-		const result = await getStoriesFront(page)
-		setStories(result.articles)
-		setPagination(result.pagination)
-		setIsLoading(false)
-	}
+	const getData = useCallback(
+		async (page = 1) => {
+			setIsLoading(true)
+			try {
+				const res = await getStoriesFront(page)
+				setStories(res.data.articles)
+				setPagination(res.data.pagination)
+			} catch (error) {
+				setStories([])
+				setPagination({})
+				Toast.fire({ icon: 'error', title: '取得資料錯誤，將返回首頁' })
+				setTimeout(() => {
+					navigation('/')
+				}, 1500)
+			} finally {
+				setIsLoading(false)
+			}
+		},
+		[navigation]
+	)
 
 	useEffect(() => {
 		getData()
-	}, [])
-
-	useEffect(() => {
-		window.scrollTo(0, 0)
-	}, [stories])
+	}, [getData])
 
 	return (
 		<div className="container my-5">

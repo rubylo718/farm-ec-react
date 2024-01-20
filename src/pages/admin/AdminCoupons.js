@@ -6,6 +6,7 @@ import Pagination from '../../components/Pagination'
 import Spinner from '../../components/Spinner'
 import { DeleteConfirmation, Confirmation } from '../../utils/toast-helper'
 import { todayUnix, unixToDateString } from '../../utils/dayjs-helper'
+import { Toast } from '../../utils/toast-helper'
 
 const AdminCoupons = () => {
 	const [coupons, setCoupons] = useState([])
@@ -16,10 +17,17 @@ const AdminCoupons = () => {
 
 	const getCouponList = async (page = 1) => {
 		setIsLoading(true)
-		const data = await getCoupons(page)
-		setCoupons(data?.coupons)
-		setPagination(data?.pagination)
-		setIsLoading(false)
+		try {
+			const res = await getCoupons(page)
+			setCoupons(res.data?.coupons)
+			setPagination(res.data?.pagination)
+		} catch (error) {
+			setCoupons([])
+			setPagination({})
+			Toast.fire({ icon: 'error', title: '取得資料發生錯誤' })
+		} finally {
+			setIsLoading(false)
+		}
 	}
 
 	const handleShowModal = (modalData) => {
@@ -33,10 +41,12 @@ const AdminCoupons = () => {
 	const handleDelete = async (id) => {
 		const { isConfirmed } = await DeleteConfirmation.fire()
 		if (isConfirmed) {
-			const result = await deleteCoupon(id)
-			if (result?.success) {
+			try {
+				await deleteCoupon(id)
 				Confirmation.fire({ title: '資料已刪除' })
 				getCouponList()
+			} catch (error) {
+				Toast.fire({ icon: 'error', title: '資料刪除發生錯誤' })
 			}
 		}
 	}

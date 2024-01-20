@@ -6,6 +6,7 @@ import OrderInfo from '../../components/frontend/checkoutProcess/OrderInfo'
 import PaymentInfo from '../../components/frontend/checkoutProcess/PaymentInfo'
 import DeliveryInfo from '../../components/frontend/checkoutProcess/DeliveryInfo'
 import PaymentInfoButton from '../../components/frontend/checkoutProcess/PaymentInfoButton'
+import { Toast } from '../../utils/toast-helper'
 
 const Payment = () => {
 	const { orderId } = useParams()
@@ -13,9 +14,12 @@ const Payment = () => {
 
 	useEffect(() => {
 		const getOrderData = async (orderId) => {
-			const result = await getOrder(orderId)
-			if (result.success) {
-				setOrderData(result.order)
+			try {
+				const result = await getOrder(orderId)
+				setOrderData(result.data?.order)
+			} catch (error) {
+				setOrderData({})
+				Toast.fire({ icon: 'error', title: '發生錯誤，請重新整理再試一次' })
 			}
 		}
 		getOrderData(orderId)

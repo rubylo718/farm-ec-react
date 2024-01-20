@@ -1,5 +1,10 @@
-import { useEffect, useState } from 'react'
-import { Link, useParams, useOutletContext } from 'react-router-dom'
+import { useEffect, useState, useCallback } from 'react'
+import {
+	Link,
+	useParams,
+	useOutletContext,
+	useNavigate,
+} from 'react-router-dom'
 import { faBasketShopping } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import ProductCarousel from '../../components/frontend/home/ProductCarousel'
@@ -19,29 +24,48 @@ const Detail = () => {
 	const [isLoading, setIsLoading] = useState(false)
 	const { id } = useParams()
 	const { getCurrentCart } = useOutletContext()
+	const navigate = useNavigate()
 
-	const getData = async (id) => {
-		setIsLoading(true)
-		const data = await getProductDetail(id)
-		const dataList = await getProductsCat(1, data.product.category)
-		setProduct(data.product)
-		setProductList(dataList.products)
-		setCategoryId(
-			productData.productCategories.find(
-				(item) => item.title === data.product.category
-			).id
-		)
-		setIsLoading(false)
-	}
+	const getData = useCallback(
+		async (id) => {
+			setIsLoading(true)
+			try {
+				const productRes = await getProductDetail(id)
+				const categoryRes = await getProductsCat(
+					1,
+					productRes.data.product.category
+				)
+				setProduct(productRes.data.product)
+				setProductList(categoryRes.data.products)
+				setCategoryId(
+					productData.productCategories.find(
+						(item) => item.title === productRes.data.product.category
+					).id
+				)
+				setQty(1)
+			} catch {
+				Toast.fire({ icon: 'error', title: '取得資料發生錯誤，將返回前一頁' })
+				setTimeout(() => {
+					navigate(-1)
+				}, 1500)
+			} finally {
+				setIsLoading(false)
+			}
+		},
+		[navigate]
+	)
 
 	const handleAddCart = async () => {
 		setIsLoading(true)
-		const res = await postCart({ data: { product_id: id, qty } })
-		if (res.success) {
-			Toast.fire({ icon: 'success', title: res.message })
+		try {
+			await postCart({ data: { product_id: id, qty } })
+			Toast.fire({ icon: 'success', title: '成功加入購物車' })
+			getCurrentCart()
+		} catch (error) {
+			Toast.fire({ icon: 'error', title: '操作失敗，請重新整理再試一次' })
+		} finally {
+			setIsLoading(false)
 		}
-		getCurrentCart()
-		setIsLoading(false)
 	}
 
 	const handleAdd = () => {
@@ -51,9 +75,10 @@ const Detail = () => {
 	const handleMinus = () => {
 		qty > 1 && setQty(qty - 1)
 	}
+
 	useEffect(() => {
 		getData(id)
-	}, [id])
+	}, [getData, id])
 
 	return (
 		<>
@@ -88,7 +113,9 @@ const Detail = () => {
 						<h2 className="fw-bold mb-3">{product?.title}</h2>
 						<div className="align-text-bottom">
 							<p className="fs-4 fw-bold d-inline me-2">NT$ {product?.price}</p>
-							<small className="text-decoration-line-through text-secondary d-inline">NT$ {product?.origin_price}</small>
+							<small className="text-decoration-line-through text-secondary d-inline">
+								NT$ {product?.origin_price}
+							</small>
 						</div>
 						<div className="row align-items-center">
 							<div className="col-6">
