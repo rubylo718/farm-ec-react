@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/farm-ec-react/static/css/main.7fc714ca.css",
-    "main.js": "/farm-ec-react/static/js/main.dec4f991.js",
+    "main.js": "/farm-ec-react/static/js/main.c9ba8e00.js",
     "static/media/slick.svg": "/farm-ec-react/static/media/slick.2630a3e3eab21c607e21.svg",
     "static/media/slick.eot": "/farm-ec-react/static/media/slick.a4e97f5a2a64f0ab1323.eot",
     "static/media/slick.ttf": "/farm-ec-react/static/media/slick.c94f7671dcc99dce43e2.ttf",
@@ -10,10 +10,10 @@
     "static/media/chevron-right-solid.svg": "/farm-ec-react/static/media/chevron-right-solid.3cc1ef4677a1e93f72e5.svg",
     "static/media/chevron-left-solid.svg": "/farm-ec-react/static/media/chevron-left-solid.55d3cbe5f7161b3319fc.svg",
     "main.7fc714ca.css.map": "/farm-ec-react/static/css/main.7fc714ca.css.map",
-    "main.dec4f991.js.map": "/farm-ec-react/static/js/main.dec4f991.js.map"
+    "main.c9ba8e00.js.map": "/farm-ec-react/static/js/main.c9ba8e00.js.map"
   },
   "entrypoints": [
     "static/css/main.7fc714ca.css",
-    "static/js/main.dec4f991.js"
+    "static/js/main.c9ba8e00.js"
   ]
 }
