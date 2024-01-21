@@ -1,7 +1,7 @@
 import { useEffect, useState, createContext, useContext } from 'react'
 import { useLocation } from 'react-router-dom'
 import * as jwt from 'jsonwebtoken-esm'
-import { login, checkPermission } from '../api/auth'
+import { loginApi, checkPermissionApi } from '../api/auth'
 
 const defaultAuthContext = {
 	isAuthenticated: false,
@@ -28,14 +28,15 @@ export const AuthProvider = ({ children }) => {
 				setCurrentUser(null)
 				return
 			}
-			const result = await checkPermission(token)
-			if (result.success) {
+			try {
+				await checkPermissionApi(token)
 				setIsAuthenticated(true)
 				const tempPayload = jwt.decode(token)
 				setCurrentUser({ id: tempPayload.user_id, email: tempPayload.email })
-			} else {
+			} catch (error) {
 				setIsAuthenticated(false)
 				setCurrentUser(null)
+				return error.response.data
 			}
 		}
 		if (pathname.startsWith('/admin') || pathname.startsWith('/login')) {
@@ -49,22 +50,35 @@ export const AuthProvider = ({ children }) => {
 				isAuthenticated,
 				currentUser,
 				login: async (data) => {
-					const { success, token } = await login({
-						username: data.username,
-						password: data.password,
-					})
-					const tempPayload = jwt.decode(token)
-					if (tempPayload) {
-						setCurrentUser({
-							id: tempPayload.user_id,
-							email: tempPayload.email,
+					try {
+						const res = await loginApi({
+							username: data.username,
+							password: data.password,
 						})
-						setIsAuthenticated(true)
-					} else {
+						const { token, expired } = res.data
+						if (token) {
+							document.cookie = `authToken=${token}; expires=${new Date(
+								expired
+							)}`
+						} else {
+							throw new Error('Token does not exist.')
+						}
+						const tempPayload = jwt.decode(token)
+						if (tempPayload) {
+							setCurrentUser({
+								id: tempPayload.user_id,
+								email: tempPayload.email,
+							})
+							setIsAuthenticated(true)
+						} else {
+							throw new Error('Token is invalid.')
+						}
+						return { success: true }
+					} catch (error) {
 						setCurrentUser(null)
 						setIsAuthenticated(false)
+						return { success: false }
 					}
-					return success
 				},
 				logout: () => {
 					document.cookie = 'authToken=; expires=Thu, 01 Jan 1970 00:00:00 GMT'

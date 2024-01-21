@@ -24,14 +24,15 @@ const AdminProducts = () => {
 			setIsLoading(true)
 			try {
 				const res = await getProducts(page)
-				setProducts(res.data.products)
-				setPagination(res.data.pagination)
+				setProducts(res.data?.products)
+				setPagination(res.data?.pagination)
 			} catch (error) {
 				if (error.response.status === 401) {
 					// api path unauthorized
-					Toast.fire({ icon: 'error', title: '請重新登入' })
 					logout()
 				} else {
+					setProducts([])
+					setPagination({})
 					Toast.fire({ icon: 'error', title: '取得資料發生錯誤' })
 				}
 			} finally {

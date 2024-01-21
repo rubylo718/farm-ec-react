@@ -8,13 +8,13 @@ const Admin = () => {
 	const { isAuthenticated, currentUser, logout } = useAuth()
 	useEffect(() => {
 		if (!isAuthenticated) {
-			Toast.fire({ icon: 'error', title: '請確認正確帳號密碼後，重新登入' })
+			Toast.fire({ icon: 'warning', title: '請重新登入' })
 			navigate('/login')
 		}
 	}, [navigate, isAuthenticated])
 
-	const handleLogout = () => {
-		logout()
+	const handleLogout = async () => {
+		await logout()
 		Toast.fire({ icon: 'success', title: '登出成功' })
 		navigate('/login')
 	}

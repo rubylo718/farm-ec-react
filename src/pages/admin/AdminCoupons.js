@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState, useRef, useCallback } from 'react'
 import { Modal } from 'bootstrap'
 import { getCoupons, deleteCoupon } from '../../api/admin'
 import CouponModal from '../../components/admin/CouponModal'
@@ -7,6 +7,7 @@ import Spinner from '../../components/Spinner'
 import { DeleteConfirmation, Confirmation } from '../../utils/toast-helper'
 import { todayUnix, unixToDateString } from '../../utils/dayjs-helper'
 import { Toast } from '../../utils/toast-helper'
+import { useAuth } from '../../context/AuthContext'
 
 const AdminCoupons = () => {
 	const [coupons, setCoupons] = useState([])
@@ -14,21 +15,30 @@ const AdminCoupons = () => {
 	const [modalData, setModalData] = useState({})
 	const [isLoading, setIsLoading] = useState(false)
 	const couponModal = useRef(null)
+	const { logout } = useAuth()
 
-	const getCouponList = async (page = 1) => {
-		setIsLoading(true)
-		try {
-			const res = await getCoupons(page)
-			setCoupons(res.data?.coupons)
-			setPagination(res.data?.pagination)
-		} catch (error) {
-			setCoupons([])
-			setPagination({})
-			Toast.fire({ icon: 'error', title: '取得資料發生錯誤' })
-		} finally {
-			setIsLoading(false)
-		}
-	}
+	const getCouponList = useCallback(
+		async (page = 1) => {
+			setIsLoading(true)
+			try {
+				const res = await getCoupons(page)
+				setCoupons(res.data?.coupons)
+				setPagination(res.data?.pagination)
+			} catch (error) {
+				if (error.response.status === 401) {
+					// api path unauthorized
+					logout()
+				} else {
+					setCoupons([])
+					setPagination({})
+					Toast.fire({ icon: 'error', title: '取得資料發生錯誤' })
+				}
+			} finally {
+				setIsLoading(false)
+			}
+		},
+		[logout]
+	)
 
 	const handleShowModal = (modalData) => {
 		setModalData(modalData)
@@ -57,7 +67,7 @@ const AdminCoupons = () => {
 			keyboard: false,
 		})
 		getCouponList()
-	}, [])
+	}, [getCouponList])
 
 	return (
 		<div className="p-3">

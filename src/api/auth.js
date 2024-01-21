@@ -14,32 +14,11 @@ axiosInstance.interceptors.response.use(
 	}
 )
 
-const login = async ({ username, password }) => {
-	try {
-		const { data } = await axiosInstance.post(`/v2/admin/signin`, {
-			username,
-			password,
-		})
-		const { token, expired } = data
-		if (token) {
-			document.cookie = `authToken=${token}; expires=${new Date(expired)}`
-			return { success: true, ...data }
-		} else {
-			return data
-		}
-	} catch (err) {
-		return { success: false, ...err.response.data }
-	}
+export const loginApi = async ({ username, password }) => {
+	return await axiosInstance.post(`/v2/admin/signin`, { username, password })
 }
 
-const checkPermission = async (token) => {
-	try {
-		axiosInstance.defaults.headers.common['Authorization'] = token
-		const res = await axiosInstance.post('/v2/api/user/check')
-		return res.data
-	} catch (err) {
-		return err.response.data
-	}
+export const checkPermissionApi = async (token) => {
+	axiosInstance.defaults.headers.common['Authorization'] = token
+	return await axiosInstance.post('/v2/api/user/check')
 }
-
-export { login, checkPermission }

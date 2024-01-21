@@ -16,7 +16,7 @@ const AdminStoryContent = () => {
 		id: 'create',
 		image: '',
 		isPublic: false,
-		tag: [""],
+		tag: [''],
 		title: '',
 		isEditMode: false,
 	})
@@ -27,7 +27,9 @@ const AdminStoryContent = () => {
 			const res = await getStory(id)
 			setStory({ ...res.data?.article, isEditMode: false })
 		} catch (error) {
-			Toast.fire({ icon: 'error', title: '取得資料發生錯誤' })
+			if (error.response.status !== 401) {
+				Toast.fire({ icon: 'error', title: '取得資料發生錯誤' })
+			}
 		} finally {
 			setIsLoading(false)
 		}
@@ -45,7 +47,7 @@ const AdminStoryContent = () => {
 				id: 'create',
 				image: '',
 				isPublic: false,
-				tag: [""],
+				tag: [''],
 				title: '',
 				isEditMode: true,
 			})

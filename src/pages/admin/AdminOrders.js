@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState, useRef, useCallback } from 'react'
 import { Modal } from 'bootstrap'
 import { getOrders, deleteOrder } from '../../api/admin'
 import OrderModal from '../../components/admin/OrderModal'
@@ -10,6 +10,7 @@ import {
 	DeleteConfirmation,
 	Confirmation,
 } from '../../utils/toast-helper'
+import { useAuth } from '../../context/AuthContext'
 
 const AdminOrders = () => {
 	const [orders, setOrders] = useState([])
@@ -17,21 +18,30 @@ const AdminOrders = () => {
 	const [modalData, setModalData] = useState({})
 	const [isLoading, setIsLoading] = useState(false)
 	const orderModal = useRef(null)
+	const { logout } = useAuth()
 
-	const getOrderList = async (page = 1) => {
-		setIsLoading(true)
-		try {
-			const res = await getOrders(page)
-			setOrders(res.data?.orders)
-			setPagination(res.data?.pagination)
-		} catch (error) {
-			setOrders([])
-			setPagination({})
-			Toast.fire({ icon: 'error', title: '取得資料發生錯誤' })
-		} finally {
-			setIsLoading(false)
-		}
-	}
+	const getOrderList = useCallback(
+		async (page = 1) => {
+			setIsLoading(true)
+			try {
+				const res = await getOrders(page)
+				setOrders(res.data?.orders)
+				setPagination(res.data?.pagination)
+			} catch (error) {
+				if (error.response.status === 401) {
+					// api path unauthorized
+					logout()
+				} else {
+					setOrders([])
+					setPagination({})
+					Toast.fire({ icon: 'error', title: '取得資料發生錯誤' })
+				}
+			} finally {
+				setIsLoading(false)
+			}
+		},
+		[logout]
+	)
 
 	const handleShowModal = (modalData) => {
 		setModalData(modalData)
@@ -60,7 +70,7 @@ const AdminOrders = () => {
 			keyboard: false,
 		})
 		getOrderList()
-	}, [])
+	}, [getOrderList])
 
 	return (
 		<div className="p-3">

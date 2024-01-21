@@ -19,7 +19,7 @@ const Login = () => {
 
 	const onSubmit = async (data) => {
 		setIsLoading(true)
-		const success = await login({
+		const { success } = await login({
 			username: data.email,
 			password: data.password,
 		})
@@ -27,11 +27,12 @@ const Login = () => {
 		if (success) {
 			Toast.fire({ icon: 'success', title: '登入成功' })
 		} else {
-			Toast.fire({ icon: 'error', title: '登入失敗，請重新輸入' })
+			Toast.fire({ icon: 'error', title: '登入失敗，請重新登入' })
 			reset()
 		}
 		return
 	}
+
 	useEffect(() => {
 		if (isAuthenticated) {
 			navigate('/admin/products')
